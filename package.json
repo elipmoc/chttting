@@ -13,6 +13,6 @@
   "dependencies": {
     "express": "3.3.4",
     "ejs": "*",
-    "mongodb": "*" //←使用するモジュールを追加しておく
+    "mongodb": "*"
   }
 }
