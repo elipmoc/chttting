@@ -9,7 +9,8 @@ function doRequest(req,res){
   fs.readFile('index.html','utf-8',doReard);
 
   function doReard(err,data){
-    res.writeHead(200,{'Content-Type':'text/html'})
+    res.writeHead(200,{'Content-Type':'text/html'});
+    res.write("unko");
     res.write(data);
     res.end();
   }
