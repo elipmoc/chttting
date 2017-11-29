@@ -29,12 +29,12 @@
 
         .form_t {
             border-bottom: 1px solid #000000;
-            margin-bottom:10px;
+            margin-bottom: 10px;
         }
 
         input[type="text"] {
-            border: 1px solid #000000;
-            border-radius: 5px;
+            border: 0px;
+            border-bottom: 1px solid #000000;
             zoom: 110%;
             font-size: 110%;
         }
@@ -45,17 +45,17 @@
     <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 <center>
-    <div class="titlec">
-        810 chat</div>
+    <div class="titlec">Agile chat</div>
 </center>
 <div class="form_t">
     <font size="4">Chat Forms</font>
     <form id="com_form" name="myf">
-        name-text : <input type="text" placeholder="name" id="name" name="name"> <br>
-        chat-text : <input type="text" placeholder="comment" id="com" name="com"><br>
-        <input type="submit"><b>Command[931,810,1919]</b>
+        name-text : <input type="text" placeholder="name" id="name" name="name"><br>
+        chat-text : <input type="text" placeholder="comment" id="com" name="com"><br><br>
+        <span style="display:none;"><input type="submit"></span><big>Command[931,810,1919]</big>
     </form>
 </div>
+[参加者]@conf@
 <center>
     <div class="chat_box">
         <div id="chat_log"></div>
@@ -74,12 +74,12 @@
     });
     socket.on('msg', function(data) {
         switch (true) {
-            case /931/.test(data) :
-                var d = data.replace( /931/g , "" ) ;
+            case / > 931/.test(data):
+                var d = data.replace(/931/g, "");
                 data = $('<div/>').text(data).html();
-                $('#chat_log').prepend(d+'<img src="https://pbs.twimg.com/profile_images/510615322307461120/o-vKGUzY_400x400.jpeg" width="100" height="100"><br><hr>');
+                $('#chat_log').prepend(d + '<img src="https://pbs.twimg.com/profile_images/510615322307461120/o-vKGUzY_400x400.jpeg" width="100" height="100"><br><hr>');
                 break;
-            case "":
+            case /810/.test(data):
                 break;
 
             default:
