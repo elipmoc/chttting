@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "socketio-express",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "ejs": "*",
-    "express": "3.3.4",
+    "express": "^3.3.4",
     "mongodb": "*",
+    "socket.io": "^2.0.4",
     "websocket": "^1.0.25",
     "ws": "^3.3.2"
   }
