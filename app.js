@@ -6,7 +6,7 @@ var fs = require( 'fs' ); // ファイル入出力モジュール読み込み
 var server = http.createServer( function( req, res ) {
     res.writeHead(200, { 'Content-Type' : 'text/html' }); // ヘッダ出力
     res.end( fs.readFileSync('./index.html', 'utf-8') );  // index.htmlの内容を出力
-}).listen(process.env.PORT || 8080);
+}).listen(process.env.PORT || 3000);
 
 // サーバーをソケットに紐付ける
 var io = socketio.listen( server );
