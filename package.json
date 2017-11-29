@@ -1,9 +1,9 @@
 {
-  "name": "socketio-express-ws-websocket",
+  "name": "socketio-express-ws-websocket-postgres",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node pgs.js"
   },
   "engine": {
     "node": "v0.10.x",
