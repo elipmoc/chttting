@@ -1,28 +1,28 @@
-var http = require( 'http' ); // HTTPモジュール読み込み
-var socketio = require( 'socket.io' ); // Socket.IOモジュール読み込み
-var fs = require( 'fs' ); // ファイル入出力モジュール読み込み
+var WebSocketServer = require("ws").Server
+var http = require("http")
+var express = require("express")
+var app = express()
+var port = process.env.PORT || 5000
 
-// 3000番ポートでHTTPサーバーを立てる
-var server = http.createServer( function( req, res ) {
-    res.writeHead(200, { 'Content-Type' : 'text/html' }); // ヘッダ出力
-    res.end( fs.readFileSync('./index.html', 'utf-8') );  // index.htmlの内容を出力
-}).listen(process.env.PORT || 3000);
+app.use(express.static(__dirname + "/"))
 
-// サーバーをソケットに紐付ける
-var io = socketio.listen( server );
+var server = http.createServer(app)
+server.listen(port)
 
-// 接続確立後の通信処理部分を定義
-io.sockets.on( 'connection', function( socket ) {
+console.log("http server listening on %d", port)
 
-    // クライアントからサーバーへ メッセージ送信ハンドラ（自分を含む全員宛に送る）
-    socket.on( 'c2s_message', function( data ) {
-        // サーバーからクライアントへ メッセージを送り返し
-        io.sockets.emit( 's2c_message', { value : data.value } );
-    });
+var wss = new WebSocketServer({server: server})
+console.log("websocket server created")
 
-    // クライアントからサーバーへ メッセージ送信ハンドラ（自分以外の全員宛に送る）
-    socket.on( 'c2s_broadcast', function( data ) {
-        // サーバーからクライアントへ メッセージを送り返し
-        socket.broadcast.emit( 's2c_message', { value : data.value } );
-    });
-});
+wss.on("connection", function(ws) {
+  var id = setInterval(function() {
+    ws.send(JSON.stringify(new Date()), function() {  })
+  }, 1000)
+
+  console.log("websocket connection open")
+
+  ws.on("close", function() {
+    console.log("websocket connection close")
+    clearInterval(id)
+  })
+})
