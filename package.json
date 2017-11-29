@@ -13,6 +13,7 @@
     "ejs": "*",
     "express": "3.3.4",
     "mongodb": "*",
-    "websocket": "^1.0.25"
+    "websocket": "^1.0.25",
+    "ws": "^3.3.2"
   }
 }
