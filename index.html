@@ -1,9 +1,71 @@
+<!DOCTYPE html>
 <html>
 <head>
-<script>
-</script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+    #messageForm {
+        margin-top: 15px;
+    }
+    </style>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-<h1><mark><center>Big character</center></mark></h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="messageForm">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" id="sendMessageBtn">自分を含む全員に送信</button>
+                        <button type="button" class="btn btn-primary" id="sendMessageBroadcastBtn">自分以外の全員に送信</button>
+                    </div>
+                </form>
+                <div id="messageView"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    var ioSocket = io.connect( "http://localhost:3000" ); // チャットサーバーに接続
+
+    // サーバーからのデータ受け取り処理
+    ioSocket.on( "connect", function() {} ); // 接続
+    ioSocket.on( "disconnect", function() {} ); // 切断
+
+    // サーバーからクライアントへの送り返し
+    ioSocket.on( "s2c_message", function( data ) { appendMessage( data.value ) });
+
+    // 画面にメッセージを追記
+    function appendMessage( text ) {
+        $("#messageView").append( "<div>" + text + "</div>" );
+    }
+
+    // 自分を含む全員宛にメッセージを送信
+    $("#sendMessageBtn").click( function() {
+
+        // メッセージの内容を取得し、その後フォームをクリア
+        var message = $("#messageForm").val();
+        $("#messageForm").val("");
+
+        // クライアントからサーバーへ送信
+        ioSocket.emit( "c2s_message", { value : message } );
+    });
+
+    // 自分以外の全員宛にメッセージを送信
+    $("#sendMessageBroadcastBtn").click( function() {
+
+        // メッセージの内容を取得し、その後フォームをクリア
+        var message = $("#messageForm").val();
+        $("#messageForm").val("");
+
+        // クライアントからサーバーへ送信
+        ioSocket.emit( "c2s_broadcast", { value : message } );
+    });
+    </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 {
-  "name": "socketio-express",
+  "name": "socketio-express-ws-websocket",
   "version": "0.0.1",
   "private": true,
   "scripts": {
