@@ -13,7 +13,14 @@ io.on(
         socket.on(
             'msg',
             function (data) {
+              if(data == "810")
+              {
+                var yj = '<img src="http://810.jpg">'
+                io.emit('msg',yj);
+              }else {
                 io.emit('msg', data);
+              }
+
             }
         );
     }

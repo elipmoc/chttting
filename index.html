@@ -1,8 +1,12 @@
 <!doctype html>
+<html>
+<head>
 <meta charset="utf-8">
-<title>chat</title>
+<title>810 chat</title>
 <script src="/socket.io/socket.io.js"></script>
 <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+</head>
+<h3>Command : 931</h3>
 <form><input></form><div></div>
 <script>
  var socket = io();
@@ -12,7 +16,13 @@
    return false;
  });
  socket.on('msg', function (data) {
+   if(data == "931")
+   {
+    data = $('<div/>').text(data).html();
+    $('div').prepend('<img src="https://pbs.twimg.com/profile_images/510615322307461120/o-vKGUzY_400x400.jpeg" width="200" height="200"><br>');
+   }else{
    data = $('<div/>').text(data).html();
    $('div').prepend(data + '<br>');
+ }
  });
 </script>
