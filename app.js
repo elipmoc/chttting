@@ -1,5 +1,6 @@
 var sys = require('sys');
 var http = require('http');
+var socketio = require('socket.io');
 var fs = require('fs');
 
 var server = http.createServer();
@@ -16,4 +17,15 @@ function doRequest(req,res){
   }
 }
 server.listen(process.env.PORT || 3000);
+
+var io = socketio.listen(server);
+
+io.sockets.on('connection',function(socket){
+  socket.on('c2s_message',{value:data.value});
+});
+
+socket.on('c2s_broadcast',function(data){
+  socket.broadcast.emit('s2c_message',{value:data.value});
+});
+
 sys.log('Server running at http://0.0.0.0:3000/');
