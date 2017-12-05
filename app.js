@@ -1,9 +1,18 @@
 var html = require('fs').readFileSync('index.html');
+var logging =require('fs').readFileSync('logging.js');
+
 var http = require('http').createServer(
     function (req, res) {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(html);
-});
+      var url = req.url;
+        if ('/' == url) {
+          res.writeHead(200, {'Content-Type': 'text/html'});
+          res.end(html);
+        } else if ('/logging.js' == url) {
+          res.writeHead(200, {'Content-Type': 'text/plain'});
+          res.end(logging);
+        }          
+    }
+);
 var io = require('socket.io')(http);
 var webPort = process.env.PORT || 3000;
 http.listen(webPort);
