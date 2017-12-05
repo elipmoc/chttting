@@ -1,0 +1,3 @@
+function alr(){
+alert("aiueo");
+}

@@ -4,8 +4,9 @@ var http = require('http').createServer(
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.end(html);
 });
+
 var io = require('socket.io')(http);
-var webPort = process.env.PORT || 3000;
+var webPort = process.env.PORT || 3001;
 http.listen(webPort);
 io.on(
     'connection',
