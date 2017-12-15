@@ -22,7 +22,7 @@ var http = require('http').createServer(
 const io = require('socket.io')(http);
 const adminNamespace = io.of('/admin');
 
-var webPort = process.env.PORT || 3001;
+var webPort = process.env.PORT || 3000;
 
 http.listen(webPort);
 adminNamespace.on(

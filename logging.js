@@ -1,4 +1,4 @@
-var socket= io("ws://localhost:3001/admin");
+var socket= io("/admin");
 
 $('form').submit(function() {
     var ms = document.myf.com.value;
