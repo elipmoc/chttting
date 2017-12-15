@@ -1,13 +1,15 @@
-var socket = io();
+var socket= io("ws://localhost:3001/admin");
+
 $('form').submit(function() {
     var ms = document.myf.com.value;
     var nm = document.myf.name.value;
     if (ms != "" && nm != "") {
-        socket.emit('msg', nm + " > " + ms);
+      socket.emit('msg',nm+ " > " + ms)
     } else {}
     document.myf.com.value = "";
     return false;
 });
+
 socket.on('msg', function(data) {
     switch (true) {
         case / > 931/.test(data):
