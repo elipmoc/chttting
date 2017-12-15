@@ -1,5 +1,5 @@
 {
-  "name": "socketio-express-ws-websocket-postgres",
+  "name": "socketio-express-ws-websocket-postgres-pg-io",
   "version": "0.0.1",
   "private": true,
   "scripts": {
