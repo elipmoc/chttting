@@ -24,7 +24,7 @@ const adminNamespace = io.of('/admin');
 
 var webPort = process.env.PORT || 3000;
 
-http.listen(webPort);
+http.listen(webPort,"0.0.0.0");
 adminNamespace.on(
     'connection',
     function (socket) {
