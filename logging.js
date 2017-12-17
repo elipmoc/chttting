@@ -1,15 +1,26 @@
+<<<<<<< HEAD
 var socket= io("/admin");
 
+=======
+var socket = io();
+>>>>>>> af051038ad84c45c7081d2512fb66f090db5d70e
 $('form').submit(function() {
     var ms = document.myf.com.value;
     var nm = document.myf.name.value;
     if (ms != "" && nm != "") {
+<<<<<<< HEAD
       socket.emit('msg',nm+ " > " + ms)
+=======
+        socket.emit('msg', nm + " > " + ms);
+>>>>>>> af051038ad84c45c7081d2512fb66f090db5d70e
     } else {}
     document.myf.com.value = "";
     return false;
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> af051038ad84c45c7081d2512fb66f090db5d70e
 socket.on('msg', function(data) {
     switch (true) {
         case / > 931/.test(data):
@@ -25,4 +36,8 @@ socket.on('msg', function(data) {
             $('#chat_log').prepend(data + '<br><hr>');
             break;
     }
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> af051038ad84c45c7081d2512fb66f090db5d70e
