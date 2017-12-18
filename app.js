@@ -13,9 +13,6 @@ client.connect(function(err) {
         if(err) {
             return console.error('error running query', err);
         }
-        console.log(result.rows[0].name);
-        console.log(result.rows[1].name);
-        resultName = result.rows[0].name;
         client.end();
 
     });
