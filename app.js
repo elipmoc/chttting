@@ -1,13 +1,13 @@
 var html = require('fs').readFileSync('index.html');
 var logging = require('fs').readFileSync('logging.js');
 var {Pool,Client} = require('pg');
-const postring = "postgres://cnoqoxqavuubfy:b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c@ec2-54-83-194-208.compute-1.amazonaws.com:5432/dc8lm58eis0g00"
+const postring = "postgres://cnoqoxqavuubfy:b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c@ec2-54-83-194-208.compute-1.amazonaws.com:5432/dc8lm58eis0g00";
 
 const pool = new Pool ({
   postring:postring,
 });
 
-pool.query('insert into juse values("884");',(err,res)=>{
+pool.query('SELECT NOW()',(err,res)=>{
   console.log(err, res)
 pool.end();
 });
@@ -17,7 +17,7 @@ const client = new Client({
 });
 
 client.connect();
-client.query('insert into juse values("884");', (err, res) => {
+client.query('SELECT NOW()', (err, res) => {
   console.log(err, res)
   client.end()
 });
