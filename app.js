@@ -3,9 +3,12 @@ var logging = require('fs').readFileSync('logging.js');
 var {Client} = require('pg');
 var client = new Client();
 
+function que_send() {
 client.connect();
 client.query('insert into juse values("884");');
 client.end();
+}
+que_send();
 
 var http = require('http').createServer(
     function (req, res) {
