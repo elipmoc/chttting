@@ -3,7 +3,7 @@ var logging = require('fs').readFileSync('logging.js');
 var pg = require('pg');
 
 const postring = "postgres://cnoqoxqavuubfy:b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c@ec2-54-83-194-208.compute-1.amazonaws.com:5432/dc8lm58eis0g00";
-var client = new pg.Client(postring);
+/*var client = new pg.Client(postring);
 var resultName = "";
 
 client.connect(function(err) {
@@ -19,7 +19,7 @@ client.connect(function(err) {
     });
 });
 
-
+*/
 var http = require('http').createServer(
     function (req, res) {
       var url = req.url;
