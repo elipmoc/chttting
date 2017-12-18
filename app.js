@@ -25,6 +25,8 @@ console.log(qu);
 var http = require('http').createServer(
     function (req, res) {
       var url = req.url;
+      var qu = client.query('select *from juse');
+      console.log(qu);
         if ('/' == url) {
           res.writeHead(200, {'Content-Type': 'text/html'});
           res.end(html);
