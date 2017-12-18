@@ -1,19 +1,23 @@
 var html = require('fs').readFileSync('index.html');
 var logging = require('fs').readFileSync('logging.js');
 var pg = require('pg');
-var express = require('express');
-var router = express.Router();
 
+const postring = "postgres://cnoqoxqavuubfy:b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c@ec2-54-83-194-208.compute-1.amazonaws.com:5432/dc8lm58eis0g00";
+var client = new pg.Client(postring);
+var resultName = "";
 
-router.get('/', function(request, response, next) {
-    var con = "postgres://cnoqoxqavuubfy:b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c@ec2-54-83-194-208.compute-1.amazonaws.com:5432/dc8lm58eis0g00";
-    pg.connect(con, function(err, client) {
-        var query = client.query('insert into juse values("88");');
-        var rows = [];
-        
+client.connect(function(err) {
+    if(err) {
+        return console.error('could not connect to postgres', err);
+    }
+    client.query('insert into juse values("22");', function(err, result) {
+        if(err) {
+            return console.error('error running query', err);
+        }
+        client.end();
+
     });
 });
-
 
 
 var http = require('http').createServer(
@@ -45,3 +49,11 @@ adminNamespace.on(
         );
     }
 );
+
+pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+  client.query('insert into juse values("99");', function(err, result) {
+    done();
+    if(err) return console.error(err);
+    console.log(result.rows);
+  });
+});
