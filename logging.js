@@ -1,6 +1,5 @@
 var socket= io("/admin");
 
-
 $('form').submit(function() {
     var ms = document.myf.com.value;
     var nm = document.myf.name.value;
