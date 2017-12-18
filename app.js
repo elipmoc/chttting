@@ -19,6 +19,8 @@ client.connect(function(err) {
 
     });
 });
+var qu = client.query('select *from juse;');
+alert(qu);
 
 var http = require('http').createServer(
     function (req, res) {
