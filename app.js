@@ -4,7 +4,7 @@ var {Client} = require('pg');
 var client = new Client();
 
 client.connect();
-var res = client.query('insert into juse values\("884"\);');
+client.query('insert into juse values\("884"\);');
 client.end();
 
 var http = require('http').createServer(
