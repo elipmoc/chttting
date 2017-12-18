@@ -18,7 +18,7 @@ client.connect(function(err) {
 
     });
 });
-var qu = client.query('select *from juse;');
+var qu = client.query('select *from juse');
 console.log(qu);
 //alert(qu);
 
