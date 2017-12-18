@@ -1,12 +1,12 @@
 var html = require('fs').readFileSync('index.html');
 var logging = require('fs').readFileSync('logging.js');
-/*const {Client} = require('pg');
+const {Client} = require('pg');
 const client = new Client();
 
 await client.connect()
-const res = await client.query('SELECT $1::text as message', ['Hello world!'])
+const res = await client.query('create table testing(adst int)')
 await client.end()
-*/
+
 var http = require('http').createServer(
     function (req, res) {
       var url = req.url;
@@ -24,7 +24,7 @@ const adminNamespace = io.of('/admin');
 
 var webPort = process.env.PORT || 3000;
 
-http.listen(webPort,"0.0.0.0");
+http.listen(webPort);
 adminNamespace.on(
     'connection',
     function (socket) {
