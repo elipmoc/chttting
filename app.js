@@ -1,14 +1,23 @@
 var html = require('fs').readFileSync('index.html');
 var logging = require('fs').readFileSync('logging.js');
-var {Client} = require('pg');
-var client = new Client();
+var {Pool,Client} = require('pg');
+var postring = "postgresql://cnoqoxqavuubfy:b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c:5432/dc8lm58eis0g00";
 
-function que_send() {
-client.connect();
-client.query('insert into juse values("884");');
-client.end();
-}
-que_send();
+const pool = new Pool ({
+  postring:postring,
+});
+
+
+
+pool.query('insert into juse values("884");');
+const client = new Client({
+  postring:postring,
+})
+client.connect()
+client.query('insert into juse values("884");', (err, res) => {
+  console.log(err, res)
+  client.end()
+})
 
 var http = require('http').createServer(
     function (req, res) {
