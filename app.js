@@ -1,4 +1,3 @@
-var express = require("express");
 var html = require('fs').readFileSync('index.html');
 var logging = require('fs').readFileSync('logging.js');
 var pg = require('pg');
@@ -20,7 +19,8 @@ client.connect(function(err) {
     });
 });
 var qu = client.query('select *from juse;');
-alert(qu);
+console.log(qu);
+//alert(qu);
 
 var http = require('http').createServer(
     function (req, res) {
