@@ -1,11 +1,11 @@
 var html = require('fs').readFileSync('index.html');
 var logging = require('fs').readFileSync('logging.js');
-const {Client} = require('pg');
-const client = new Client();
+var {Client} = require('pg');
+var client = new Client();
 
-await client.connect()
-const res = await client.query('create table testing(adst int)')
-await client.end()
+client.connect();
+var res = client.query('insert into juse values\("884"\);');
+client.end();
 
 var http = require('http').createServer(
     function (req, res) {
