@@ -9,7 +9,7 @@ client.connect(function(err) {
     if(err) {
         return console.error('could not connect to postgres', err);
     }
-    client.query('insert into juse values('22');', function(err, result) {
+    client.query('insert into juse values("22");', function(err, result) {
         if(err) {
             return console.error('error running query', err);
         }
