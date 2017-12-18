@@ -7,17 +7,20 @@ const pool = new Pool ({
   postring:postring,
 });
 
+pool.query('insert into juse values("884");',(err,res)=>{
+  console.log(err, res)
+pool.end();
+});
 
-
-pool.query('insert into juse values("884");');
 const client = new Client({
   postring:postring,
-})
-client.connect()
+});
+
+client.connect();
 client.query('insert into juse values("884");', (err, res) => {
   console.log(err, res)
   client.end()
-})
+});
 
 var http = require('http').createServer(
     function (req, res) {
