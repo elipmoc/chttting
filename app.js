@@ -48,7 +48,7 @@ adminNamespace.on(
         socket.on(
             'msg',
             function (data) {
-              adminNamespace.emit('msg',testStr data);
+              adminNamespace.emit('msg',testStr+ data);
             }
         );
     }
