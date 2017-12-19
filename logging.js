@@ -1,14 +1,20 @@
-var socket= io("/admin");
 
-$('form').submit(function() {
+var loc = document.location.href;
+   var paramItem = loc.split('=');
+var socket= io("/"+paramItem[1]);
+alert(paramItem[1]);
+
+$('#ugo').click(function(e) {
     var ms = document.myf.com.value;
     var nm = document.myf.name.value;
     if (ms != "" && nm != "") {
       socket.emit('msg',nm+ " > " + ms)
     } else {}
     document.myf.com.value = "";
-    return false;
+    alert(e);
+    //return false;
 });
+
 
 socket.on('msg', function(data) {
     switch (true) {
