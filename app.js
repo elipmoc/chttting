@@ -13,13 +13,13 @@ const client = new Client({
 
 client.connect();
 
-client.query('select rn from ten;',(err,res)=>(
-  if (err) throw err;
+client.query('select rn from ten;',(err,res)=>{
+    if (err) throw err;
   for(let row of res.rows){
     testStr += JSON.stringify(row);
   }
   client.end();
-));
+});
 
 
 var http = require('http').createServer(
