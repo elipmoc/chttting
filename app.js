@@ -2,27 +2,25 @@ var html = require('fs').readFileSync('index.html');
 var logging = require('fs').readFileSync('logging.js');
 var pg = require('pg');
 
-const postring = "postgres://cnoqoxqavuubfy:b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c@ec2-54-83-194-208.compute-1.amazonaws.com:5432/dc8lm58eis0g00";
-var client = new pg.Client(postring);
-var resultName = "";
 
-client.connect(function(err) {
-    if(err) {
-        return console.error('could not connect to postgres', err);
-    }
-    client.query('insert into juse values("22");', function(err, result) {
-        if(err) {
-            return console.error('error running query', err);
-        }
-        client.end();
+const {Client} =  require('pg');
 
-    });
+var testStr = "";
+const client = new Client({
+  connectionString:process.env.DATABASE_URL,
+  ssl:true,
 });
 
+client.connect();
 
-var qu = client.query('select * from juse');
-console.log(qu);
-//alert(qu);
+client.query('select ten from rn;',(err,res)=>(
+  if (err) throw err;
+  for(let row of res.rows){
+    testStr += JSON.stringify(row);
+  }
+  client.end();
+));
+
 
 var http = require('http').createServer(
     function (req, res) {
