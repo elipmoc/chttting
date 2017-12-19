@@ -31,7 +31,7 @@ var http = require('http').createServer(
 
         var url = req.url;
         if (req.method == 'GET') {
-          var url_parts = new URL("http://localhost:3000" + url);
+          var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
           //console.log(url_parts);
           //url_parts = "http://google.com/?name=a";
           url = url_parts.pathname;
