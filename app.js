@@ -1,4 +1,5 @@
 var html = require('fs').readFileSync('index.html');
+var main = require('fs').readFileSync('main.html');
 var logging = require('fs').readFileSync('logging.js');
 var sys = require('util');
 const { URL } = require('url');
@@ -48,6 +49,11 @@ var http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(logging);
+        }else if("/main.html" == url) {
+          res.writeHead(200,{
+            'Content-Type': 'text/html'
+          });
+          res.end(main);
         }
     }
 );
