@@ -13,7 +13,7 @@ const client = new Client({
 
 client.connect();
 
-client.query('select ten from rn;',(err,res)=>(
+client.query('select rn from ten;',(err,res)=>(
   if (err) throw err;
   for(let row of res.rows){
     testStr += JSON.stringify(row);
