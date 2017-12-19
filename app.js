@@ -49,7 +49,7 @@ var http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(logging);
-        }else if("/main.html" == url) {
+        }else if("/main" == url) {
           res.writeHead(200,{
             'Content-Type': 'text/html'
           });
