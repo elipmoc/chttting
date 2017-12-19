@@ -1,7 +1,7 @@
 var html = require('fs').readFileSync('index.html');
 var logging = require('fs').readFileSync('logging.js');
 var pg = require('pg');
-/*
+
 const postring = "postgres://cnoqoxqavuubfy:b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c@ec2-54-83-194-208.compute-1.amazonaws.com:5432/dc8lm58eis0g00";
 var client = new pg.Client(postring);
 var resultName = "";
@@ -17,32 +17,7 @@ client.connect(function(err) {
         client.end();
 
     });
-});*/
-const { Pool, Client } = require('pg')
-const pool = new Pool({
-  user: 'cnoqoxqavuubfy',
-  host: 'ec2-54-83-194-208.compute-1.amazonaws.com',
-  database: 'dc8lm58eis0g00',
-  password: 'b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c',
-  port: 5432,
 });
-pool.query('insert into juse values("80");', (err, res) => {
-  console.log(err, res)
-  pool.end()
-});
-
-const client = new Client({
-  user: 'cnoqoxqavuubfy',
-  host: 'ec2-54-83-194-208.compute-1.amazonaws.com',
-  database: 'dc8lm58eis0g00',
-  password: 'b831a9f787f1f394987277635cdcb73abf68cb73daeccc0b50cdadf95f83575c',
-  port: 5432,
-});
-client.connect();
-client.query('inser into juse values("80")', (err, res) => {
-  console.log(err, res)
-  client.end()
-})
 
 
 var qu = client.query('select * from juse');
