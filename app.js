@@ -11,7 +11,7 @@ const {Client} =  require('pg');
 
 var room_name_list = new Array();
 var testStr = "";
-var count;
+var count = 0;
 const client = new Client({
   connectionString:process.env.DATABASE_URL,
   ssl:true,
