@@ -58,7 +58,7 @@ var http = require('http').createServer(
     }
 );
 const io = require('socket.io')(http);
-let roomNameList = ["c++", "haskell", "D#"];
+let roomNameList = ["c++", "haskell", "cs"];
 //名前空間のリスト。いまはまだ使いみちがない
 let namespaceList = new Array();
 
