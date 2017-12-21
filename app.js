@@ -25,9 +25,6 @@ client.query("select *from room;",(err,res)=>{
   client.end();
 });
 
-for(var unk of testStr){
-  alert(unk);
-}
 
 var http = require('http').createServer(
     function(req, res) {
@@ -100,7 +97,7 @@ adminNamespace.on(
 
                 switch (url_parts.query) {
                     case "room_admin":
-                        adminNamespace.emit('msg', data + String(url_parts.query));
+                        adminNamespace.emit('msg', data + String(url_parts.query)+testStr);
                         break;
                 }
 
