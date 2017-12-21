@@ -10,8 +10,7 @@ var pg = require('pg');
 const {Client} =  require('pg');
 
 var room_name_list = new Array();
-var testStr = "";
-var count = 0;
+var testStr = "tintin";
 const client = new Client({
   connectionString:process.env.DATABASE_URL,
   ssl:true,
@@ -22,11 +21,10 @@ client.connect();
 client.query("select room_name from room;",(err,res)=>{
     if (err) throw err;
   for(let row of res.rows){
-    count = count + 1;
-    room_name_list[count] = row["room_name"];
+    room_name_list.push(row["room_name"]);
   }
-
-  client.end();
+makenamespace();
+client.end();
 });
 
 
@@ -75,18 +73,20 @@ function socketOn(namespace) {
           var yj = '<img src="http://810.jpg">'
           namespace.emit('msg', yj);
         } else
-          namespace.emit('msg', data + testStr);
+          namespace.emit('msg', data);
       }
     );
   }
 }
 
 //roomNameListから各種ソケットの名前空間リストを生成
+function makenamespace() {
 room_name_list.forEach(function (x) {
   let namespace = io.of("/" + x);
   namespace.on('connection',socketOn(namespace));
   namespaceList[x] = namespace;
 });
+}
 
 var webPort = process.env.PORT || 3000;
   var adminNamespace = io.of("/admin");
