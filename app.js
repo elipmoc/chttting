@@ -9,6 +9,7 @@ var pg = require('pg');
 
 const {Client} =  require('pg');
 
+var room_name_list = new Array();
 var testStr = "";
 const client = new Client({
   connectionString:process.env.DATABASE_URL,
@@ -20,7 +21,7 @@ client.connect();
 client.query("select room_name from room;",(err,res)=>{
     if (err) throw err;
   for(let row of res.rows){
-    testStr += row["room_name"]+".";
+    room_name_list.push(row["room_name"]);
   }
 
   client.end();
@@ -58,7 +59,7 @@ var http = require('http').createServer(
     }
 );
 const io = require('socket.io')(http);
-let roomNameList = ["c++", "haskell", "cs"];
+
 //名前空間のリスト。いまはまだ使いみちがない
 let namespaceList = new Array();
 
@@ -79,7 +80,7 @@ function socketOn(namespace) {
 }
 
 //roomNameListから各種ソケットの名前空間リストを生成
-roomNameList.forEach(function (x) {
+room_name_list.forEach(function (x) {
   let namespace = io.of("/" + x);
   namespace.on('connection',socketOn(namespace));
   namespaceList[x] = namespace;
