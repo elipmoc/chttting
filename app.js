@@ -7,7 +7,7 @@ var qs = require('querystring');
 var pg = require('pg');
 
 
-/*const {Client} =  require('pg');
+const {Client} =  require('pg');
 
 var testStr = "";
 const client = new Client({
@@ -17,15 +17,17 @@ const client = new Client({
 
 client.connect();
 
-client.query("insert into ten values('55');",(err,res)=>{
+client.query("select *from room;",(err,res)=>{
     if (err) throw err;
   for(let row of res.rows){
-    testStr += JSON.stringify(row);
+    testStr += row["room_name"];
   }
   client.end();
 });
 
-*/
+for(var unk of testStr){
+  alert(unk);
+}
 
 var http = require('http').createServer(
     function(req, res) {
