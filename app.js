@@ -20,8 +20,9 @@ client.connect();
 client.query("select * from room;",(err,res)=>{
     if (err) throw err;
   for(let row of res.rows){
-    testStr += row["room_name"];
+    testStr += row["room_name"]+".";
   }
+  
   client.end();
 });
 
