@@ -11,6 +11,7 @@ const {Client} =  require('pg');
 
 var room_name_list = new Array();
 var testStr = "";
+var count;
 const client = new Client({
   connectionString:process.env.DATABASE_URL,
   ssl:true,
@@ -21,7 +22,8 @@ client.connect();
 client.query("select room_name from room;",(err,res)=>{
     if (err) throw err;
   for(let row of res.rows){
-    room_name_list.push(row["room_name"]);
+    count = count + 1;
+    room_name_list[count] = row["room_name"];
   }
 
   client.end();
