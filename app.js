@@ -17,12 +17,12 @@ const client = new Client({
 
 client.connect();
 
-client.query("select * from room;",(err,res)=>{
+client.query("select room_name from room;",(err,res)=>{
     if (err) throw err;
   for(let row of res.rows){
     testStr += row["room_name"]+".";
   }
-  
+
   client.end();
 });
 
