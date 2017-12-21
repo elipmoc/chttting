@@ -97,7 +97,7 @@ adminNamespace.on(
 
                 switch (url_parts.query) {
                     case "room_admin":
-                        adminNamespace.emit('msg', data + String(url_parts.query)+testStr);
+                        adminNamespace.emit('msg', data + String(url_parts.query)+testStr[0]);
                         break;
                 }
 
