@@ -17,10 +17,10 @@ const client = new Client({
 
 client.connect();
 
-client.query("select room_name as unko from room;",(err,res)=>{
+client.query("select *from room;",(err,res)=>{
     if (err) throw err;
   for(let row of res.rows){
-    testStr += row.unko;
+    testStr += row["room_name"];
   }
   client.end();
 });
@@ -71,7 +71,7 @@ function socketOn(namespace) {
           var yj = '<img src="http://810.jpg">'
           namespace.emit('msg', yj);
         } else
-          namespace.emit('msg', data);
+          namespace.emit('msg', data + testStr);
       }
     );
   }
@@ -97,7 +97,7 @@ adminNamespace.on(
 
                 switch (url_parts.query) {
                     case "room_admin":
-                        adminNamespace.emit('msg', data + String(url_parts.query)+testStr);
+                        adminNamespace.emit('msg', data + String(url_parts.query));
                         break;
                 }
 
