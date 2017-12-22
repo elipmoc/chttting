@@ -55,11 +55,15 @@ var http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(logging);
-        } else if ("/main" == url) {
+        } else if ("/main.html" == url) {
             res.writeHead(200, {
                 'Content-Type': 'text/html'
             });
             res.end(main);
+        }else if ("/dip.html" == url) {
+          res.writeHead(200,{
+            'Content-Type' : 'text/html'
+          });
         }
     }
 );
