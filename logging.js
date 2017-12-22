@@ -29,6 +29,8 @@ socket.on('msg', function(data) {
         default:
             data = $('<div/>').text(data).html();
             $('#chat_log').prepend(data + '<br><hr>');
+            data = $('<div/>').text(data).html();
+            $('#chat_log2').prepend(data + '<br><hr>');
             break;
     }
 });
