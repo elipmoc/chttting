@@ -1,8 +1,8 @@
-&('#left').click(function(){
+$('#left').click(function(e){
   document.location.href="https://serene-fjord-98327.herokuapp.com/dip.html?name=dip1";
 });
 
-$('#right').click(function(){
+$('#right').click(function(e){
   document.location.href="https://serene-fjord-98327.herokuapp.com/dip.html?name=dip2";
 });
 
