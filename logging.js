@@ -2,9 +2,10 @@
   document.location.href="https://serene-fjord-98327.herokuapp.com/dip.html?name=dip1";
 });
 
-$('#right').click(function(s){
+$('#right').click(function(){
   document.location.href="https://serene-fjord-98327.herokuapp.com/dip.html?name=dip2";
 });
+
 
 var loc = document.location.href;
    var paramItem = loc.split('=');
