@@ -71,96 +71,6 @@
          perspective: 400;
         }
 
-        .cube {
-         height: 100px;
-         width: 100px;
-         position: relative;
-         margin:0 auto;
-         -webkit-transform-style: preserve-3d;
-         -ms-transform-style: preserve-3d;
-         -o-transform-style: preserve-3d;
-         transform-style: preserve-3d;
-         -webkit-transition:all 1s;
-         -o-transition:all 1s;
-         transition:all 1s;
-        }
-
-        /* side_topからside_leftのCSSは同上 */
-
-        .tile:hover .cube{
-         -webkit-transform: rotateX(-360deg);
-         -ms-transform: rotateX(-360deg);
-         -o-transform: rotateX(-360deg);
-         transform: rotateX(-360deg);
-        }
-        .cube div {
- height: 100px;
- width: 100px;
- position: absolute;
- color: #fff;
- text-align: center;
- line-height: 100px;
-}
-
-.side_top {
- background: rgba(0,0,0,0.7);
- top: -50px;
- left: 0px;
- -webkit-transform: rotateX(90deg);
- -ms-transform: rotateX(90deg);
- -o-transform: rotateX(90deg);
- transform: rotateX(90deg);
-}
-
-.side_bottom {
- background: rgba(0,0,0,0.7);
- bottom: -50px;
- left: 0px;
- -webkit-transform: rotateX(-90deg);
- -ms-transform: rotateX(-90deg);
- -o-transform: rotateX(-90deg);
- transform: rotateX(-90deg);
-}
-
-.side_front {
- background: rgba(215,0,81,0.7);
- top: 0px;
- left: 0px;
- -webkit-transform: translateZ(50px);
- -ms-transform: translateZ(50px);
- -o-transform: translateZ(50px);
- transform: translateZ(50px);
-}
-
-.side_back {
- background: rgba(215,0,81,0.7);
- top: 0px;
- left: 0px;
- -webkit-transform: translateZ(-50px);
- -ms-transform: translateZ(-50px);
- -o-transform: translateZ(-50px);
- transform: translateZ(-50px);
-}
-
-.side_right {
- background: rgba(0,160,233,0.7);
- top: 0px;
- right: -50px;
- -webkit-transform: rotateY(90deg);
- -ms-transform: rotateY(90deg);
- -o-transform: rotateY(90deg);
- transform: rotateY(90deg);
-}
-
-.side_left {
- background: rgba(0,160,233,0.7);
- top: 0px;
- left: -50px;
- -webkit-transform: rotateY(-90deg);
- -ms-transform: rotateY(-90deg);
- -o-transform: rotateY(-90deg);
- transform: rotateY(-90deg);
-}
 
         a{
           color:#ffffff;
@@ -181,14 +91,8 @@
 </div>
 <div class="tilebox">
     <div class="tile">
-            <div class="cube" style="background-color:#FF6947;">
                 <span class="chara"><a class="side_front" href="https://serene-fjord-98327.herokuapp.com/?name=c++">C++</a></span>
-                <span class="chara"><a class="side_top">aiueo</a></span>
-                <span class="chara"><a class="side_right">aiueo</a></span>
-                <span class="chara"><a class="side_left">aiueo</a></span>
-                <span class="chara"><a class="side_bottom">aiueo</a></span>
-                <span class="chara"><a class="side_back">aiueo</a></span>
-            </div>
+            
           </div>
             <div class="tile" style="background-color:#B3FFFB;">
                   <span class="chara"><a href="https://serene-fjord-98327.herokuapp.com/?name=cs">C#</a></span>

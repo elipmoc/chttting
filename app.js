@@ -1,30 +1,35 @@
 var html = require('fs').readFileSync('index.html');
+var dip = require('fs').readFileSync('dip.html');
 var main = require('fs').readFileSync('main.html');
 var logging = require('fs').readFileSync('logging.js');
 var sys = require('util');
-const { URL } = require('url');
+const {
+    URL
+} = require('url');
 var qs = require('querystring');
 var pg = require('pg');
 
 
-const {Client} =  require('pg');
+const {
+    Client
+} = require('pg');
 
 var room_name_list = new Array();
 var testStr = "tintin";
 const client = new Client({
-  connectionString:process.env.DATABASE_URL,
-  ssl:true,
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
 });
 
 client.connect();
 
-client.query("select room_name from room;",(err,res)=>{
+client.query("select room_name from room;", (err, res) => {
     if (err) throw err;
-  for(let row of res.rows){
-    room_name_list.push(row["room_name"]);
-  }
-makenamespace();
-client.end();
+    for (let row of res.rows) {
+        room_name_list.push(row["room_name"]);
+    }
+    makenamespace();
+    client.end();
 });
 
 
@@ -33,11 +38,11 @@ var http = require('http').createServer(
 
         var url = req.url;
         if (req.method == 'GET') {
-          var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
-          //console.log(url_parts);
-          //url_parts = "http://google.com/?name=a";
-          url = url_parts.pathname;
-          console.log(url_parts.search);
+            var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
+            //console.log(url_parts);
+            //url_parts = "http://google.com/?name=a";
+            url = url_parts.pathname;
+            console.log(url_parts.search);
         }
 
         if ('/' == url) {
@@ -50,11 +55,11 @@ var http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(logging);
-        }else if("/main" == url) {
-          res.writeHead(200,{
-            'Content-Type': 'text/html'
-          });
-          res.end(main);
+        } else if ("/main" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.end(main);
         }
     }
 );
@@ -65,31 +70,31 @@ let namespaceList = new Array();
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {
-  return function (socket) {
-    socket.on(
-      'msg',
-      function (data) {
-        if (data == "810") {
-          var yj = '<img src="http://810.jpg">'
-          namespace.emit('msg', yj);
-        } else
-          namespace.emit('msg', data);
-      }
-    );
-  }
+    return function(socket) {
+        socket.on(
+            'msg',
+            function(data) {
+                if (data == "810") {
+                    var yj = '<img src="http://810.jpg">'
+                    namespace.emit('msg', yj);
+                } else
+                    namespace.emit('msg', data);
+            }
+        );
+    }
 }
 
 //roomNameListから各種ソケットの名前空間リストを生成
 function makenamespace() {
-room_name_list.forEach(function (x) {
-  let namespace = io.of("/" + x);
-  namespace.on('connection',socketOn(namespace));
-  namespaceList[x] = namespace;
-});
+    room_name_list.forEach(function(x) {
+        let namespace = io.of("/" + x);
+        namespace.on('connection', socketOn(namespace));
+        namespaceList[x] = namespace;
+    });
 }
 
 var webPort = process.env.PORT || 3000;
-  var adminNamespace = io.of("/admin");
+var adminNamespace = io.of("/admin");
 http.listen(webPort);
 adminNamespace.on(
     'connection',
@@ -97,14 +102,12 @@ adminNamespace.on(
         socket.on(
             'msg',
             function(data) {
-              adminNamespace.emit('msg', /*testStr*/ data + String(url_parts.query));
-
+                adminNamespace.emit('msg', /*testStr*/ data + String(url_parts.query));
                 switch (url_parts.query) {
                     case "room_admin":
                         adminNamespace.emit('msg', data + String(url_parts.query));
                         break;
                 }
-
             }
         );
     }
