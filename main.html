@@ -55,8 +55,8 @@
 
         .tile {
             margin:0px;
-            width: 200px;
-            height: 200px;
+            width:20%;
+
             background-color: yellow;
             border: 0px;
             fotn-size: 300%;
@@ -154,16 +154,23 @@
 
     Particle.prototype.gradient = function(){
     var col = "150, 150, 150";
-    var g = this.ctx.createRadialGradient( this.x, this.y, 0, this.x, this.y, 10)
+    var g = this.ctx.createRadialGradient( this.x, this.y, 0, this.x, this.y, 60)
     g.addColorStop(0,   "rgba(" + col + ", 1)")
-    g.addColorStop(0.5, "rgba(" + col + ", 0.2)")
-    g.addColorStop(1,   "rgba(" + col + ", 0)")
+    g.addColorStop(0.3, "rgba(" + col + ", 0.2)")
+    g.addColorStop(0.7,   "rgba(" + col + ", 0)")
     return g
     }
 
     // 1.図形を描画
     // 描画サイクルを開始する
     onload = function() {
+      let d = document.all("tile");
+      let wid = d[0].scrollWidth;
+      //alert(d.length);
+      //alert(wid);
+      for(let i = 0; i < d.length; i++){
+      d[i].style.height=wid;
+    }
     render();
     };
     function render() {
@@ -179,6 +186,7 @@
     }
 
 
+
     </script>
 </head>
 
@@ -192,35 +200,35 @@
   Happy new year!!
 </div>
 <div class="tilebox">
-    <div class="tile">
+    <div class="tile" id="tile">
                 <span class="chara"><a class="side_front" href="https://serene-fjord-98327.herokuapp.com/?name=c++">C++</a></span>
 
           </div>
-            <div class="tile" style="background-color:#B3FFFB;">
+            <div class="tile" id="tile" style="background-color:#B3FFFB;">
                   <span class="chara"><a href="https://serene-fjord-98327.herokuapp.com/?name=cs">C#</a></span>
             </div>
-            <div class="tile" style="background-color:#FFDE47;">
+            <div class="tile" id="tile" style="background-color:#FFDE47;">
                   <span class="chara"><a href="https://serene-fjord-98327.herokuapp.com/?name=haskell">haskell</a></span>
             </div>
-            <div class="tile" style="background-color:#004EFF;">
+            <div class="tile" id="tile" style="background-color:#004EFF;">
                 <span class="chara">C++</span>
             </div>
-            <div class="tile" style="background-color:#47FF58;">
+            <div class="tile" id="tile" style="background-color:#47FF58;">
                 <span class="chara"><a href="https://serene-fjord-98327.herokuapp.com/dip.html">DIPE</a></span>
             </div>
-            <div class="tile" style="background-color:#FFF7D1;">
+            <div class="tile" id="tile" style="background-color:#FFF7D1;">
                 <span class="chara">C++</span>
             </div>
-            <div class="tile" style="background-color:#C1FF88;">
+            <div class="tile" id="tile" style="background-color:#C1FF88;">
                 <span class="chara">C++</span>
             </div>
-            <div class="tile" style="background-color:#47FFF6;">
+            <div class="tile" id="tile" style="background-color:#47FFF6;">
                 <span class="chara">C++</span>
             </div>
-            <div class="tile" style="background-color:#FFF3BE;">
+            <div class="tile" id="tile" style="background-color:#FFF3BE;">
                 <span class="chara">C++</span>
             </div>
-            <div class="tile" style="background-color:#FF6947;">
+            <div class="tile" id="tile" style="background-color:#FF6947;">
                 <span class="chara">C++</span>
             </div>
     </center>
