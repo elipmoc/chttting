@@ -35,7 +35,6 @@ client.query("select room_name from room;", (err, res) => {
 
 var http = require('http').createServer(
     function(req, res) {
-
         var url = req.url;
         if (req.method == 'GET') {
             var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
