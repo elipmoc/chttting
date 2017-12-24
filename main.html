@@ -1,22 +1,23 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>POCA CHAT</title>
-  <style>
-  #canvas {
-    position:absolute;
-    top:0px;
-    left:0px;
-    display:block;
-    width:100%;
-    height:100%;
-  }
+    <meta charset="UTF-8">
+    <title>POCA CHAT</title>
+    <style>
+        #canvas {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
         body {
             margin: 0px;
             padding: 0px;
             background-color: #fcfcfc;
-            font-family:fantasy;
+            font-family: fantasy;
         }
 
         .titled {
@@ -26,27 +27,28 @@
         }
 
         .come_box {
-          width:80%;
-          background-color:#F1F1F1;
-          height:200px;
-          font-size:500%;
-          color:#ffffff;
-          margin-top:30px;
+            width: 80%;
+            background-color: #F1F1F1;
+            height: 200px;
+            font-size: 500%;
+            color: #ffffff;
+            margin-top: 30px;
         }
-        .header {
-          background-color:#FF6347;
-          height:60px;
 
-          top:0px;
-          color:#ffffff;
-          font-size:300%;
-          width:100%;
-          margin-top:-10px;
+        .header {
+            background-color: #FF6347;
+            height: 60px;
+            top: 0px;
+            color: #ffffff;
+            font-size: 300%;
+            width: 100%;
+            margin-top: -10px;
         }
+
         .tilebox {
             width: 80%;
-            bottom:0px;
-            left:10%;
+            bottom: 0px;
+            left: 10%;
             position: absolute;
             color: #ffffff;
             border: 1px solid #ffffff;
@@ -54,9 +56,8 @@
         }
 
         .tile {
-            margin:0px;
-            width:20%;
-
+            margin: 0px;
+            width: 20%;
             background-color: yellow;
             border: 0px;
             fotn-size: 300%;
@@ -64,151 +65,152 @@
         }
 
         .chara {
-          position:relative;
-          top:80px;
-          text-align:center;
-          font-size:400%;
-          font-family:fantasy;
+            position: relative;
+            top: 80px;
+            text-align: center;
+            font-size: 400%;
+            font-family: fantasy;
         }
 
-        .tile{
-         -webkit-perspective: 400;
-         -ms-perspective: 400;
-         -o-perspective: 400;
-         -moz-perspective: 400px;
-         perspective: 400;
+        .tile {
+            -webkit-perspective: 400;
+            -ms-perspective: 400;
+            -o-perspective: 400;
+            -moz-perspective: 400px;
+            perspective: 400;
         }
 
-
-        a{
-          color:#ffffff;
-          text-decoration:none;
+        a {
+            color: #ffffff;
+            text-decoration: none;
         }
     </style>
     <canvas id="canvas"></canvas>
     <script>
+        window.requestAnimationFrame =
+            window.requestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function(cb) {
+                setTimeout(cb, 17);
+            };
 
-    window.requestAnimationFrame =
-    window.requestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    function(cb) {setTimeout(cb, 17);};
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d"); //ctxはContextの略語
+        var NUM = 580;
+        var particles = [];
 
-    var canvas = document.getElementById( "canvas" );
-    var ctx = canvas.getContext( "2d" );//ctxはContextの略語
-    var NUM = 1380;
-    var particles = [];
+        canvas.width = canvas.height = window.innerHeight;
 
-    canvas.width = canvas.height = window.innerHeight;
+        for (var i = 0; i < NUM; i++) {
+            var positionx = Math.random() * window.innerWidth; // x座標を0-500の間でランダム設定
+            var positiony = -10; // y座標を-10に設定
+            particle = new Particle(ctx, positionx, positiony); //新しいオブジェクトを作成
+            particles.push(particle); //Particlesの最後にParticleを追加
+        }
 
-    for(var i = 0; i < NUM; i++) {
-    var positionx =  Math.random()*window.innerWidth; // x座標を0-500の間でランダム設定
-    var positiony =  -10; // y座標を-10に設定
-    particle = new Particle(ctx, positionx, positiony);//新しいオブジェクトを作成
-    particles.push( particle );//Particlesの最後にParticleを追加
-    }
+        function Particle(ctx, x, y) {
+            this.ctx = ctx;
+            this.x = x;
+            this.y = y;
+            this.radius = 150;
+            // 速度のオブジェクトv
+            this.v = {
+                x: Math.random() * 20, // x方向の速度
+                y: Math.random() * 20 // y方向の速度
+            };
+        }
 
-    function Particle(ctx, x, y) {
-    this.ctx = ctx;
-    this.x = x ;
-    this.y = y ;
-    this.radius = 250;
-    // 速度のオブジェクトv
-    this.v = {
-      x: Math.random()*1.5, // x方向の速度
-      y: Math.random()*30 // y方向の速度
-    };
-    }
-
-    Particle.prototype.render = function(){
-    this.updatePosition();
-    this.wrapPosition(); // 範囲外に消えた点を範囲内に戻す
-    this.draw();
-    }
-
-    Particle.prototype.draw = function(){
-    // 描画
-
-    ctx = this.ctx;
-    ctx.beginPath();
-    ctx.fillStyle = this.gradient();
-    ctx.arc( this.x, this.y, 49, 0, Math.PI * 2, false ); // 位置指定
-    ctx.fill();
-    ctx.closePath();
-
-
-    }
-
-    Particle.prototype.updatePosition = function() {
-    // 3. 位置をずらす
-    this.x += this.v.x;
-    this.y += this.v.y;
-    }
-
-    Particle.prototype.wrapPosition = function(){
-    if(this.x < 0 ) this.x = window.innerWidth;
-    if(this.x > window.innerWidth ) this.x = 0;
-    if(this.y > window.innerHeight ) this.y = 0;
-    }
-
-    Particle.prototype.gradient = function(){
-    var col = "150, 150, 150";
-    var g = this.ctx.createRadialGradient( this.x, this.y, 0, this.x, this.y, 60)
-    g.addColorStop(0,   "rgba(" + col + ", 1)")
-    g.addColorStop(0.5, "rgba(" + col + ", 0.2)")
-    g.addColorStop(1,   "rgba(" + col + ", 0)")
-    return g
-    }
-
-    // 1.図形を描画
-    // 描画サイクルを開始する
-    onload = function() {
-      let d = document.all("tile");
-      let wid = d[0].scrollWidth;
-      //alert(d.length);
-      //alert(wid);
-      for(let i = 0; i < d.length; i++){
-      d[i].style.height=wid;
-    }
-    render();
-    };
-    function render() {
-    // 2.一度消去
-    ctx.clearRect(0,0,canvas.width,canvas.height); // 前回までの描画を消去
-
-    particles.forEach(function(e){ e.render(); });
-    // 描画モードを比較明に
-    ctx.globalCompositeOperation = "lighter";
-    // 5.一定間隔をおく
-    // requestanimationframeをつかって、ブラウザの更新のタイミングに実行する
-    requestAnimationFrame( render );
-    }
+        Particle.prototype.render = function() {
+            this.updatePosition();
+            this.wrapPosition(); // 範囲外に消えた点を範囲内に戻す
+            this.draw();
+        }
 
 
 
+        Particle.prototype.draw = function() {
+            // 描画
+            var size_X = Math.floor(Math.random ()*50)+1;
+            var size_Y = Math.floor(Math.random ()*50)+1;
+            ctx = this.ctx;
+            ctx.beginPath();
+            ctx.fillStyle = this.gradient();
+            ctx.arc(this.x, this.y, size_X, 50, Math.PI * 20, false); // 位置指定
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        Particle.prototype.updatePosition = function() {
+            // 3. 位置をずらす
+            this.x += this.v.x;
+            this.y += this.v.y;
+        }
+
+        Particle.prototype.wrapPosition = function() {
+            if (this.x < 0) this.x = window.innerWidth;
+            if (this.x > window.innerWidth) this.x = 0;
+            if (this.y > window.innerHeight) this.y = 0;
+        }
+
+        Particle.prototype.gradient = function() {
+            var col = "150, 150, 150";
+            var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, 60)
+            g.addColorStop(0, "rgba(" + col + ", 1)")
+            g.addColorStop(0.5, "rgba(" + col + ", 0.2)")
+            g.addColorStop(1, "rgba(" + col + ", 0)")
+            return g
+        }
+
+        // 1.図形を描画
+        // 描画サイクルを開始する
+        onload = function() {
+            let d = document.all("tile");
+            let wid = d[0].scrollWidth;
+            //alert(d.length);
+            //alert(wid);
+            for (let i = 0; i < d.length; i++) {
+                d[i].style.height = wid;
+            }
+            render();
+        };
+
+        function render() {
+            // 2.一度消去
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // 前回までの描画を消去
+
+            particles.forEach(function(e) {
+                e.render();
+            });
+            // 描画モードを比較明に
+            ctx.globalCompositeOperation = "lighter";
+            // 5.一定間隔をおく
+            // requestanimationframeをつかって、ブラウザの更新のタイミングに実行する
+            requestAnimationFrame(render);
+        }
     </script>
 </head>
 
 <body>
 
     <center>
-<div class="header">
-  Merry Poca Chat!
-</div>
-<div class="come_box">
-  Happy new year!!
-</div>
-<div class="tilebox">
-    <div class="tile" id="tile">
+        <div class="header">
+            Merry Poca Chat!
+        </div>
+        <div class="come_box">
+            Happy new year!!
+        </div>
+        <div class="tilebox">
+            <div class="tile" id="tile">
                 <span class="chara"><a class="side_front" href="https://serene-fjord-98327.herokuapp.com/?name=c++">C++</a></span>
 
-          </div>
+            </div>
             <div class="tile" id="tile" style="background-color:#B3FFFB;">
-                  <span class="chara"><a href="https://serene-fjord-98327.herokuapp.com/?name=cs">C#</a></span>
+                <span class="chara"><a href="https://serene-fjord-98327.herokuapp.com/?name=cs">C#</a></span>
             </div>
             <div class="tile" id="tile" style="background-color:#FFDE47;">
-                  <span class="chara"><a href="https://serene-fjord-98327.herokuapp.com/?name=haskell">haskell</a></span>
+                <span class="chara"><a href="https://serene-fjord-98327.herokuapp.com/?name=haskell">haskell</a></span>
             </div>
             <div class="tile" id="tile" style="background-color:#004EFF;">
                 <span class="chara">C++</span>
