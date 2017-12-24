@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>POCA CHAT</title>
   <style>
+  #canvas {
+    display:block;
+  }
         body {
             margin: 0px;
             padding: 0px;
@@ -78,10 +81,103 @@
         }
     </style>
     <script>
+
+    window.requestAnimationFrame =
+    window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function(cb) {setTimeout(cb, 17);};
+
+    var canvas = document.getElementById( "canvas" );
+    var ctx = canvas.getContext( "2d" );//ctxはContextの略語
+    var NUM = 20;
+    var particles = [];
+
+    canvas.width = canvas.height = 500
+
+    for(var i = 0; i < NUM; i++) {
+    var positionx =  Math.random()*500; // x座標を0-500の間でランダム設定
+    var positiony =  -10; // y座標を-10に設定
+    particle = new Particle(ctx, positionx, positiony);//新しいオブジェクトを作成
+    particles.push( particle );//Particlesの最後にParticleを追加
+    }
+
+    function Particle(ctx, x, y) {
+    this.ctx = ctx;
+    this.x = x ;
+    this.y = y ;
+    this.radius = 150;
+    // 速度のオブジェクトv
+    this.v = {
+      x: Math.random()*0.5, // x方向の速度
+      y: Math.random()*1 // y方向の速度
+    };
+    }
+
+    Particle.prototype.render = function(){
+    this.updatePosition();
+    this.wrapPosition(); // 範囲外に消えた点を範囲内に戻す
+    this.draw();
+    }
+
+    Particle.prototype.draw = function(){
+    // 描画
+
+    ctx = this.ctx;
+    ctx.beginPath();
+    ctx.fillStyle = this.gradient();
+    ctx.arc( this.x, this.y, 4, 0, Math.PI * 2, false ); // 位置指定
+    ctx.fill();
+    ctx.closePath();
+
+
+    }
+
+    Particle.prototype.updatePosition = function() {
+    // 3. 位置をずらす
+    this.x += this.v.x;
+    this.y += this.v.y;
+    }
+
+    Particle.prototype.wrapPosition = function(){
+    if(this.x < 0 ) this.x = 500;
+    if(this.x > 500 ) this.x = 0;
+    if(this.y > 500 ) this.y = 0;
+    }
+
+    Particle.prototype.gradient = function(){
+    var col = "255, 255, 255";
+    var g = this.ctx.createRadialGradient( this.x, this.y, 0, this.x, this.y, 10)
+    g.addColorStop(0,   "rgba(" + col + ", 1)")
+    g.addColorStop(0.5, "rgba(" + col + ", 0.2)")
+    g.addColorStop(1,   "rgba(" + col + ", 0)")
+    return g
+    }
+
+    // 1.図形を描画
+    // 描画サイクルを開始する
+    onload = function() {
+    render();
+    };
+    function render() {
+    // 2.一度消去
+    ctx.clearRect(0,0,canvas.width,canvas.height); // 前回までの描画を消去
+
+    particles.forEach(function(e){ e.render(); });
+    // 描画モードを比較明に
+    ctx.globalCompositeOperation = "lighter";
+    // 5.一定間隔をおく
+    // requestanimationframeをつかって、ブラウザの更新のタイミングに実行する
+    requestAnimationFrame( render );
+    }
+
+
     </script>
 </head>
 
 <body>
+  <canvas id="canvas"></canvas>
     <center>
 <div class="header">
   Poca Chat
