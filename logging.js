@@ -36,11 +36,11 @@ socket.on('msg', function(data) {
             break;
 
         default:
-        if(param[1] == "dipe")
+        if(paramItem[1] == "dipe")
         {
             data = $('<div/>').text(data).html();
             $('#chat_log').prepend(data + '<br><hr>');
-          }else if(param[1] == "dipe2"){
+          }else if(paramItem[1] == "dipe2"){
             data = $('<div/>').text(data).html();
             $('#chat_log2').prepend(data + '<br><hr>');
           }
