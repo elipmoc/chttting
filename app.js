@@ -1,6 +1,6 @@
-var html = require('fs').readFileSync('index.html');
+var html = require('fs').readFileSync('main.html');
 var dip = require('fs').readFileSync('dip.html');
-var main = require('fs').readFileSync('main.html');
+var main = require('fs').readFileSync('index.html');
 var logging = require('fs').readFileSync('logging.js');
 var sys = require('util');
 const {
