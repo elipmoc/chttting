@@ -5,6 +5,9 @@
   <title>POCA CHAT</title>
   <style>
   #canvas {
+    position:absolute;
+    top:0px;
+    left:0px;
     display:block;
   }
         body {
@@ -94,10 +97,10 @@
     var NUM = 20;
     var particles = [];
 
-    canvas.width = canvas.height = 500
+    canvas.width = canvas.height = window.innerHeight;
 
     for(var i = 0; i < NUM; i++) {
-    var positionx =  Math.random()*500; // x座標を0-500の間でランダム設定
+    var positionx =  Math.random()*window.innerWidth; // x座標を0-500の間でランダム設定
     var positiony =  -10; // y座標を-10に設定
     particle = new Particle(ctx, positionx, positiony);//新しいオブジェクトを作成
     particles.push( particle );//Particlesの最後にParticleを追加
@@ -141,9 +144,9 @@
     }
 
     Particle.prototype.wrapPosition = function(){
-    if(this.x < 0 ) this.x = 500;
-    if(this.x > 500 ) this.x = 0;
-    if(this.y > 500 ) this.y = 0;
+    if(this.x < 0 ) this.x = window.innerWidth;
+    if(this.x > window.innerWidth ) this.x = 0;
+    if(this.y > window.innerHeight ) this.y = 0;
     }
 
     Particle.prototype.gradient = function(){
