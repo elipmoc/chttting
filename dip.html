@@ -1,10 +1,12 @@
 <html>
+
 <head>
-  <title>
-    POCA CHAT
-  </title>
-  <meta charset="UTF-8">
+    <title>
+        POCA CHAT
+    </title>
+    <meta charset="UTF-8">
     <style>
+
         body {
             padding: 0px;
             margin: 0px;
@@ -18,21 +20,35 @@
             border: 1px;
             width: 100%;
             left: calc(100%-5%);
-            background: #D35400;
+            background-color: #FF6347;
             color: #ffffff;
-            /*box-shadow:0px 1px 5px #000000;*/
+
             height: 40px;
             padding-bottom: 5px;
             padding-top: 5px;
             margin-bottom: 10px;
         }
 
-        .chat_box {
+        .left_box {
+          position:absolute;
             padding-left: 5px;
             box-shadow: 0px 0px 1px #000000;
-            text-align: left;
             margin-top: 10px;
             padding: 10px;
+            width: 48%;
+            border: 1px;
+            left:0px;
+        }
+
+        .right_box {
+          position:absolute;
+          padding-left: 5px;
+          box-shadow: 0px 0px 1px #000000;
+          margin-top: 10px;
+          padding: 10px;
+          width: 48%;
+          border: 1px;
+          right:0px;
         }
 
         .form_t {
@@ -53,24 +69,28 @@
     <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 <center>
-    <div class="titlec">Agile chat</div>
+    <div class="titlec">Poca Chat</div>
 </center>
 <div class="form_t">
     <form id="com_form" name="myf">
-        name- <input type="text" placeholder="name" id="name" name="name"> chat- <input type="text" placeholder="comment" id="com" name="com"><br><br>
-        <span style=""><input type="button" value="aiueo" id="ugo"></span><big>Command[931,810,1919]</big>
-
+        name- <input type="text" placeholder="name" id="name" name="name"> chat- <input type="text" placeholder="comment" id="com" name="com">
+        <input type="button" id="left" value="左側"><input type="button" id="right" value="右側"><input type="button" id="word>"<br><br>
+        <span style=""><input type="button" value="aiueo" id="ugo"><input type="button" id="odai"></span><big>Command[931,810,1919]</big>
     </form>
 </div>
 [参加者]@conf@
-<center>
-    <div class="chat_box">
-        <div id="chat_log"></div>
-    </div>
-</center>
+
+
+    <div class="left_box"><div id="chat_log"></div></div>
+
+
+    <div class="right_box"><div id="chat_log2"></div></div>
+
+
 <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
 <script src="./logging.js">
 </script>
 <script>
 </script>
+
 </html>
