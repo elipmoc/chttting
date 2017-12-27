@@ -52,10 +52,14 @@
             white-space: nowrap;
             position: absolute;
             top: 0;
-            left: 1300px;
+            left: 100%;
             color: #D35400;
             font-size: xx-large;
-            animation: move 6s linear 0s;
+            /*animation: move 6s linear 0s;*/
+        }
+
+        #ruler {
+            font-size: xx-large;
         }
 
         #videoArea {
@@ -63,18 +67,20 @@
             width: 100%;
         }
 
-        @keyframes move {
+        /* @keyframes move {
             0% {
-                left: 1300px;
+                left: 100%;
             }
             100% {
                 left: -1000px;
             }
         }
+
+        */
     </style>
     <title>810 chat</title>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="jquery-3.2.1.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 <center>
     <div class="titlec">Agile chat</div>
@@ -102,6 +108,8 @@
 
     </form>
 </div>
+
+<span id="ruler" style="visibility:hidden;position:absolute;white-space:nowrap;"></span>
 
 <script src="commandFilter.js"></script>
 <script src="commentArrow.js"></script>

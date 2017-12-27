@@ -18,3 +18,8 @@ function commandFilter(data) {
             return data;
     }
 }
+
+
+function url_filter(data) {
+
+}

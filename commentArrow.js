@@ -1,17 +1,39 @@
 
+function strWidth(str) {
+    var e = $("#ruler");
+    var width = e.text(str).get(0).offsetWidth;
+    e.empty();
+    return width;
+}
+
 class CommentArrow {
 
     constructor() {
         this._y = 0;
+        this._yArray = new Array();
+    }
+
+    reset() {
+        this._y = this._yArray[0];
+        this._yArray.shift();
     }
 
     create(msg) {
         let div = $("<div class = \"commentMove\">" + msg + "</div>");
         div.css("top", this._y);
+        this._yArray.push(this._y);
         $("#videoArea").append(div);
-        div.on('webkitAnimationEnd', function () {
-            $(this).remove();
-        });
+        let commentArrow = this;
+        div.animate({
+            'left': -strWidth(msg) + "px"
+        }, {
+                'duration': 3000,
+                'complete': function () {
+                    $(this).remove();
+                    commentArrow.reset();
+                },
+                'easing': "linear"
+            });
         this._y = (this._y + 40) % 460;
     }
 }
@@ -38,3 +60,7 @@ $('#ugo').click(function (e) {
 socket.on('msg', function (data) {
     msgConvert(data);
 });*/
+
+setInterval(() => {
+    commentArrow.create("野獣先輩");
+}, 0.000000000001);
