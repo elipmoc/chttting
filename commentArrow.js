@@ -63,4 +63,4 @@ socket.on('msg', function (data) {
 
 setInterval(() => {
     commentArrow.create("野獣先輩");
-}, 0.000000000001);
+}, 1);
