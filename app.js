@@ -1,4 +1,7 @@
 var html = require('fs').readFileSync('main.html');
+var arrow = require('fs').readFileSync('commentArrow.js');
+var filter = require('fs').readFileSync('commandFilter.js');
+var syamu = require('fs').readFileSync('syamu.html');
 var dip = require('fs').readFileSync('dip.html');
 var main = require('fs').readFileSync('main.html');
 var logging = require('fs').readFileSync('logging.js');
@@ -59,11 +62,26 @@ var http = require('http').createServer(
                 'Content-Type': 'text/html'
             });
             res.end(main);
-        }else if ("/dip.html" == url) {
+        } else if ("/dip.html" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.end(dip);
+        }else if("/syamu.html" == url){
           res.writeHead(200,{
-            'Content-Type' : 'text/html'
+            'Content-Type':'text/html'
           });
-          res.end(dip);
+          res.end(syamu);
+        }else if("/commentArrow.js" == url){
+          res.writeHead(200,{
+            'Content-Type':'text/html'
+          });
+          res.end(arrow);
+        }else if("/commandFilter.js" == url){
+          res.writeHead(200,{
+            'Content-Type':'text/html'
+          });
+          res.end(filter);
         }
     }
 );
@@ -87,6 +105,9 @@ function socketOn(namespace) {
         );
     }
 }
+
+
+
 
 //roomNameListから各種ソケットの名前空間リストを生成
 function makenamespace() {
