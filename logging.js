@@ -23,13 +23,14 @@ $('#ugo').click(function(e) {
     alert(e);
 });
 
+/*
 $('#odai').click(function(e) {
     let odai = document.myf.odai.value;
     if (odai != "") {
         socket.emit('dai', odai);
     }
     document.myf.word.value = "";
-});
+});*/
 
 
 socket.on('msg', function(data) {
