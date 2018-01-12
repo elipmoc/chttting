@@ -93,6 +93,9 @@ let namespaceList = new Array();
 //クライアントソケットの応答処理
 function socketOn(namespace) {
     return function(socket) {
+      socket.on(
+
+      );
         socket.on(
             'msg',
             function(data) {
@@ -105,8 +108,6 @@ function socketOn(namespace) {
         );
     }
 }
-
-
 
 
 //roomNameListから各種ソケットの名前空間リストを生成

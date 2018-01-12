@@ -1,15 +1,15 @@
-$('#left').click(function(e){
-  document.location.href="https://serene-fjord-98327.herokuapp.com/dip.html?name=dipe";
+$('#left').click(function(e) {
+    document.location.href = "https://serene-fjord-98327.herokuapp.com/dip.html?name=dipe";
 });
 
-$('#right').click(function(e){
-  document.location.href="https://serene-fjord-98327.herokuapp.com/dip.html?name=dipe2";
+$('#right').click(function(e) {
+    document.location.href = "https://serene-fjord-98327.herokuapp.com/dip.html?name=dipe2";
 });
 
 
 var loc = document.location.href;
-   var paramItem = loc.split('=');
-var socket= io("/"+paramItem[1]);
+var paramItem = loc.split('=');
+var socket = io("/" + paramItem[1]);
 alert(paramItem[1]);
 
 $('#ugo').click(function(e) {
@@ -17,19 +17,18 @@ $('#ugo').click(function(e) {
     let nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
-      socket.emit('msg',nm+ " > " + ms);
+        socket.emit('msg', nm + " > " + ms);
     }
     document.myf.com.value = "";
     alert(e);
-    //return false;
 });
 
-$('#odai').click(function(e){
-  let odai = document.myf.odai.value;
-  if(odai != ""){
-    socket.emit('dai',odai);
-  }
-  document.myf.word.value = "";
+$('#odai').click(function(e) {
+    let odai = document.myf.odai.value;
+    if (odai != "") {
+        socket.emit('dai', odai);
+    }
+    document.myf.word.value = "";
 });
 
 
@@ -44,14 +43,18 @@ socket.on('msg', function(data) {
             break;
 
         default:
-        if(paramItem[1] == "dipe")
-        {
-            data = $('<div/>').text(data).html();
-            $('#chat_log').prepend(data + '<br><hr>');
-          }else if(paramItem[1] == "dipe2"){
-            data = $('<div/>').text(data).html();
-            $('#chat_log2').prepend(data + '<br><hr>');
-          }
+            if (paramItem[1] == "dipe") {
+                data = $('<div/>').text(data).html();
+                $('#chat_log').prepend(data + '<br><hr>');
+            } else if (paramItem[1] == "dipe2") {
+                data = $('<div/>').text(data).html();
+                $('#chat_log2').prepend(data + '<br><hr>');
+            }
             break;
     }
 });
+
+socket.on('dai',
+    function(data) {
+        $('#titlec').prepend(data);
+    });
