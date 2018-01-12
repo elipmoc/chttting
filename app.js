@@ -96,12 +96,7 @@ function socketOn(namespace) {
         socket.on(
             'msg',
             function (data) {
-                console.log(data);
-                if (data == "810") {
-                    var yj = '<img src="http://810.jpg">'
-                    namespace.emit('msg', yj);
-                } else
-                    namespace.emit('msg', data);
+                namespace.emit('msg', data);
             }
         );
     }
