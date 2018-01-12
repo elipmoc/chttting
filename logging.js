@@ -21,7 +21,6 @@ $('#ugo').click(function(e) {
     }
     document.myf.com.value = "";
     alert(e);
-    //return false;
 });
 
 $('#odai').click(function(e) {
@@ -56,6 +55,6 @@ socket.on('msg', function(data) {
 });
 
 socket.on('dai',
-function(data){
-  $('#titlec').prepend(data);
-});
+    function(data) {
+        $('#titlec').prepend(data);
+    });
