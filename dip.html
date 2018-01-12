@@ -6,7 +6,6 @@
     </title>
     <meta charset="UTF-8">
     <style>
-
         body {
             padding: 0px;
             margin: 0px;
@@ -30,25 +29,25 @@
         }
 
         .left_box {
-          position:absolute;
+            position: absolute;
             padding-left: 5px;
             box-shadow: 0px 0px 1px #000000;
             margin-top: 10px;
             padding: 10px;
             width: 48%;
             border: 1px;
-            left:0px;
+            left: 0px;
         }
 
         .right_box {
-          position:absolute;
-          padding-left: 5px;
-          box-shadow: 0px 0px 1px #000000;
-          margin-top: 10px;
-          padding: 10px;
-          width: 48%;
-          border: 1px;
-          right:0px;
+            position: absolute;
+            padding-left: 5px;
+            box-shadow: 0px 0px 1px #000000;
+            margin-top: 10px;
+            padding: 10px;
+            width: 48%;
+            border: 1px;
+            right: 0px;
         }
 
         .form_t {
@@ -73,21 +72,36 @@
 </center>
 <div class="form_t">
     <form id="com_form" name="myf">
-        name- <input type="text" placeholder="name" id="name" name="name"> chat- <input type="text" placeholder="comment" id="com" name="com">
-        <input type="button" id="left" value="左側"><input type="button" id="right" value="右側"><input type="text" id="word"><br><br>
-        <span style=""><input type="button" value="aiueo" id="ugo"><input type="button" id="odai"></span><big>Command[931,810,1919]</big>
+        name-
+        <input type="text" placeholder="name" id="name" name="name"> chat-
+        <input type="text" placeholder="comment" id="com" name="com">
+        <input type="button" id="left" value="左側">
+        <input type="button" id="right" value="右側">
+        <input type="text" id="word">
+        <br>
+        <br>
+        <span style="">
+            <input type="button" value="aiueo" id="ugo">
+            <input type="button" id="odai">
+        </span>
+        <big>Command[931,810,1919]</big>
     </form>
 </div>
 [参加者]@conf@
 
 
-    <div class="left_box"><div id="chat_log"></div></div>
+<div class="left_box">
+    <div id="chat_log"></div>
+</div>
 
 
-    <div class="right_box"><div id="chat_log2"></div></div>
+<div class="right_box">
+    <div id="chat_log2"></div>
+</div>
 
 
 <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
+<script src="commandFilter.js"></script>
 <script src="./logging.js">
 </script>
 <script>
