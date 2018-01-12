@@ -17,12 +17,12 @@ exports.logPush = (room_name, msg) => {
         }
         logList += msg;
     }
-    let file = fs.writeFileSync(room_name + ".txt", logList);
+    let file = fs.writeFileSync("chatLog/" + room_name + ".txt", logList);
 }
 
 exports.logRead = (room_name) => {
-    if (fs.existsSync(room_name + ".txt") == false)
+    if (fs.existsSync("chatLog/" + room_name + ".txt") == false)
         return undefined;
-    let file = fs.readFileSync(room_name + ".txt");
+    let file = fs.readFileSync("chatLog/" + room_name + ".txt");
     return file.toString().split('\n');
 }
