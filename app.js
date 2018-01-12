@@ -78,11 +78,7 @@ var http = require('http').createServer(
             res.end(arrow);
         } else if ("/commandFilter.js" == url) {
             res.writeHead(200, {
-<<<<<<< HEAD
                 'Content-Type': 'text/plain'
-=======
-                'Content-Type': 'text/html'
->>>>>>> eb69f8c2062531af279544e79eccd79af07ae08e
             });
             res.end(filter);
         }
@@ -100,6 +96,7 @@ function socketOn(namespace) {
         socket.on(
             'msg',
             function (data) {
+                console.log(data);
                 if (data == "810") {
                     var yj = '<img src="http://810.jpg">'
                     namespace.emit('msg', yj);
