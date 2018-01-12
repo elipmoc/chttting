@@ -5,7 +5,9 @@ var syamu = require('fs').readFileSync('syamu.html');
 var dip = require('fs').readFileSync('dip.html');
 var main = require('fs').readFileSync('main.html');
 var logging = require('fs').readFileSync('logging.js');
+var logDB = require('./logDB.js');
 var sys = require('util');
+
 const {
     URL
 } = require('url');
