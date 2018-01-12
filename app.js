@@ -12,7 +12,6 @@ const {
 var qs = require('querystring');
 var pg = require('pg');
 
-
 const {
     Client
 } = require('pg');
@@ -79,7 +78,11 @@ var http = require('http').createServer(
             res.end(arrow);
         } else if ("/commandFilter.js" == url) {
             res.writeHead(200, {
+<<<<<<< HEAD
                 'Content-Type': 'text/plain'
+=======
+                'Content-Type': 'text/html'
+>>>>>>> eb69f8c2062531af279544e79eccd79af07ae08e
             });
             res.end(filter);
         }
@@ -92,10 +95,8 @@ let namespaceList = new Array();
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {
-    return function (socket) {
-        socket.on(
 
-        );
+    return function (socket) {
         socket.on(
             'msg',
             function (data) {
