@@ -1,0 +1,2 @@
+exports.logPush = () => { }
+exports.logRead = () => { }

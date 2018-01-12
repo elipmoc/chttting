@@ -37,7 +37,7 @@ client.query("select room_name from room;", (err, res) => {
 
 
 var http = require('http').createServer(
-    function(req, res) {
+    function (req, res) {
         var url = req.url;
         if (req.method == 'GET') {
             var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
@@ -67,21 +67,21 @@ var http = require('http').createServer(
                 'Content-Type': 'text/html'
             });
             res.end(dip);
-        }else if("/syamu.html" == url){
-          res.writeHead(200,{
-            'Content-Type':'text/html'
-          });
-          res.end(syamu);
-        }else if("/commentArrow.js" == url){
-          res.writeHead(200,{
-            'Content-Type':'text/html'
-          });
-          res.end(arrow);
-        }else if("/commandFilter.js" == url){
-          res.writeHead(200,{
-            'Content-Type':'text/html'
-          });
-          res.end(filter);
+        } else if ("/syamu.html" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.end(syamu);
+        } else if ("/commentArrow.js" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.end(arrow);
+        } else if ("/commandFilter.js" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/plain'
+            });
+            res.end(filter);
         }
     }
 );
@@ -92,13 +92,13 @@ let namespaceList = new Array();
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {
-    return function(socket) {
-      socket.on(
+    return function (socket) {
+        socket.on(
 
-      );
+        );
         socket.on(
             'msg',
-            function(data) {
+            function (data) {
                 if (data == "810") {
                     var yj = '<img src="http://810.jpg">'
                     namespace.emit('msg', yj);
@@ -112,7 +112,7 @@ function socketOn(namespace) {
 
 //roomNameListから各種ソケットの名前空間リストを生成
 function makenamespace() {
-    room_name_list.forEach(function(x) {
+    room_name_list.forEach(function (x) {
         let namespace = io.of("/" + x);
         namespace.on('connection', socketOn(namespace));
         namespaceList[x] = namespace;
@@ -124,10 +124,10 @@ var adminNamespace = io.of("/admin");
 http.listen(webPort);
 adminNamespace.on(
     'connection',
-    function(socket) {
+    function (socket) {
         socket.on(
             'msg',
-            function(data) {
+            function (data) {
                 adminNamespace.emit('msg', /*testStr*/ data + String(url_parts.query));
                 switch (url_parts.query) {
                     case "room_admin":
