@@ -2,6 +2,9 @@ let fs = require('fs');
 
 exports.logPush = (room_name, msg) => {
     let logList = "";
+    if (fs.existsSync("/tmp") == false) {
+        fs.mkdirSync("/tmp");
+    }
     let readFile = exports.logRead(room_name);
     if (readFile == undefined) {
         logList = msg;
