@@ -20,7 +20,14 @@ $('#ugo').click(function (e) {
     let nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
-        socket.emit('msg', nm + " > " + ms);
+        socket.emit('msg',
+            JSON.stringify(
+                {
+                    "msg": nm + " > " + ms,
+                    "dipeType": paramItem[1]
+                }
+            )
+        );
     }
     document.myf.com.value = "";
     alert(e);
@@ -37,10 +44,11 @@ $('#odai').click(function(e) {
 
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
-    data = commandFilter(data) + '<br><hr>';
-    if (paramItem[1] == "dipe") {
+    data = JSON.parse(data);
+    data = commandFilter(data["msg"]) + '<br><hr>';
+    if (data["dipeType"] == "dipe") {
         $('#chat_log').prepend(data);
-    } else if (paramItem[1] == "dipe2") {
+    } else if (data["dipeType"] == "dipe2") {
         $('#chat_log2').prepend(data);
     }
 }
