@@ -104,7 +104,7 @@ function socketOn(namespace) {
         socket.on(
             'initMsg',
             function (data) {
-                socket.emit('initMsg', "初期化しました");
+                socket.emit('initMsg', JSON.stringify(["初期化しました"]));
             }
         );
     }
