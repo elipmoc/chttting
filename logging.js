@@ -46,11 +46,11 @@ $('#odai').click(function(e) {
 function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
-    data = commandFilter(data["msg"]) + '<br><hr>';
+    let msg = commandFilter(data["msg"]) + '<br><hr>';
     if (data["dipeType"] == "dipe") {
-        $('#chat_log').prepend(data);
+        $('#chat_log').prepend(msg);
     } else if (data["dipeType"] == "dipe2") {
-        $('#chat_log2').prepend(data);
+        $('#chat_log2').prepend(msg);
     }
 }
 
