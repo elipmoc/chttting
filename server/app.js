@@ -98,13 +98,17 @@ function socketOn(namespace) {
         socket.on(
             'msg',
             function (data) {
+                logDB.logPush(namespace.name, data);
                 namespace.emit('msg', data);
             }
         );
         socket.on(
             'initMsg',
             function (data) {
-                socket.emit('initMsg', JSON.stringify(["初期化しました"]));
+                socket.emit(
+                    'initMsg',
+                    JSON.stringify(logDB.logRead(namespace.name))
+                );
             }
         );
     }
