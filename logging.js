@@ -45,6 +45,7 @@ $('#odai').click(function(e) {
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
     data = JSON.parse(data);
+    console.log(data);
     data = commandFilter(data["msg"]) + '<br><hr>';
     if (data["dipeType"] == "dipe") {
         $('#chat_log').prepend(data);
