@@ -33,14 +33,16 @@ $('#odai').click(function(e) {
 });*/
 
 
-socket.on('msg', function (data) {
+function msgDataAdd(data) {
     data = commandFilter(data) + '<br><hr>';
     if (paramItem[1] == "dipe") {
         $('#chat_log').prepend(data);
     } else if (paramItem[1] == "dipe2") {
         $('#chat_log2').prepend(data);
     }
-});
+}
+
+socket.on('msg', msgDataAdd);
 
 socket.on('dai',
     function (data) {
