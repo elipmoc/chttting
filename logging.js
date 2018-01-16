@@ -9,7 +9,7 @@ $('#right').click(function (e) {
 
 var loc = document.location.href;
 var paramItem = loc.split('=');
-chatConnection = new ChatConnection("dipe", msgDataAdd);
+var chatConnection = new ChatConnection("dipe", msgDataAdd);
 
 $('#ugo').click(function (e) {
     let ms = document.myf.com.value;
