@@ -101,6 +101,12 @@ function socketOn(namespace) {
                 namespace.emit('msg', data);
             }
         );
+        socket.on(
+            'initMsg',
+            function (data) {
+                socket.emit('initMsg', "初期化しました");
+            }
+        );
     }
 }
 

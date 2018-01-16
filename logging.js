@@ -12,6 +12,9 @@ var paramItem = loc.split('=');
 var socket = io("/" + paramItem[1]);
 alert(paramItem[1]);
 
+//ログをサーバーに要求
+socket.emit('initMsg', "");
+
 $('#ugo').click(function (e) {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
@@ -32,7 +35,7 @@ $('#odai').click(function(e) {
     document.myf.word.value = "";
 });*/
 
-
+//データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
     data = commandFilter(data) + '<br><hr>';
     if (paramItem[1] == "dipe") {
@@ -41,6 +44,10 @@ function msgDataAdd(data) {
         $('#chat_log2').prepend(data);
     }
 }
+
+socket.on('initMsg', (dataListJson) => {
+    JSON.parse(dataListJson).forEach(msgDataAdd(data));
+});
 
 socket.on('msg', msgDataAdd);
 
