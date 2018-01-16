@@ -46,7 +46,7 @@ function msgDataAdd(data) {
 }
 
 socket.on('initMsg', (dataListJson) => {
-    JSON.parse(dataListJson).forEach(msgDataAdd(data));
+    JSON.parse(dataListJson).forEach(msgDataAdd);
 });
 
 socket.on('msg', msgDataAdd);
