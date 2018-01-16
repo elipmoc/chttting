@@ -105,8 +105,8 @@ function socketOn(namespace) {
             'msg',
             function (data) {
                 console.log("msg:" + data);
-                logDB.logPush(namespace.name, data);
                 namespace.emit('msg', data);
+                logDB.logPush(namespace.name, data);
             }
         );
         socket.on(
