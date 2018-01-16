@@ -10,7 +10,6 @@ $('#right').click(function (e) {
 var loc = document.location.href;
 var paramItem = loc.split('=');
 var socket = io("/" + paramItem[1]);
-alert(paramItem[1]);
 
 //ログをサーバーに要求
 socket.emit('initMsg', "");
@@ -30,7 +29,6 @@ $('#ugo').click(function (e) {
         );
     }
     document.myf.com.value = "";
-    alert(e);
 });
 
 /*
