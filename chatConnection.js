@@ -1,7 +1,8 @@
 
 class ChatConnection {
     constructor(namespace, msgReceiveCallBack) {
-        this._socket = io(namespace);
+        this._socket = io("/" + namespace);
+        alert(namespace);
         this._msgReceiveCallBack = msgReceiveCallBack;
 
         this._socket.on('initMsg', (dataListJson) => {
