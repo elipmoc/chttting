@@ -9,17 +9,14 @@ $('#right').click(function (e) {
 
 var loc = document.location.href;
 var paramItem = loc.split('=');
-var socket = io("/" + paramItem[1]);
-
-//ログをサーバーに要求
-socket.emit('initMsg', "");
+chatConnection = new ChatConnection("dipe", msgDataAdd);
 
 $('#ugo').click(function (e) {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
-        socket.emit('msg',
+        chatConnection.sendData(
             JSON.stringify(
                 {
                     "msg": nm + " > " + ms,
@@ -51,14 +48,9 @@ function msgDataAdd(data) {
         $('#chat_log2').prepend(msg);
     }
 }
-
-socket.on('initMsg', (dataListJson) => {
-    JSON.parse(dataListJson).forEach(msgDataAdd);
-});
-
-socket.on('msg', msgDataAdd);
-
+/*
 socket.on('dai',
     function (data) {
         $('#titlec').prepend(data);
     });
+*/

@@ -5,6 +5,7 @@ var syamu = require('fs').readFileSync('syamu.html');
 var dip = require('fs').readFileSync('dip.html');
 var main = require('fs').readFileSync('main.html');
 var logging = require('fs').readFileSync('logging.js');
+var chatConnection = require('fs').readFileSync('chatConnection.js');
 var logDB = require('./logDB.js');
 var sys = require('util');
 
@@ -83,6 +84,11 @@ var http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(filter);
+        } else if ("/chatConnection.js" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/plain'
+            });
+            res.end(chatConnection);
         }
     }
 );

@@ -10,10 +10,10 @@ class ChatConnection {
 
         this._socket.on('msg', this._msgReceiveCallBack);
         //ログをサーバーに要求
-        socket.emit('initMsg', "");
+        this._socket.emit('initMsg', "");
     }
     sendData(data) {
-        socket.emit('msg', data);
+        this._socket.emit('msg', data);
     }
 
 }
