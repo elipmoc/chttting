@@ -4,6 +4,7 @@ exports.logPush = (room_name, msg) => {
     let logList = "";
     if (fs.existsSync("/tmp") == false) {
         fs.mkdirSync("/tmp");
+        console.log("tmpフォルダを作成しました")
     }
     let readFile = exports.logRead(room_name);
     if (readFile == undefined) {
@@ -24,6 +25,10 @@ exports.logPush = (room_name, msg) => {
 }
 
 exports.logRead = (room_name) => {
+    if (fs.existsSync("/tmp") == false) {
+        fs.mkdirSync("/tmp");
+        console.log("tmpフォルダを作成しました")
+    }
     if (fs.existsSync("/tmp/" + room_name + ".txt") == false)
         return undefined;
     let file = fs.readFileSync("/tmp/" + room_name + ".txt");
