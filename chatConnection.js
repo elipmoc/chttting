@@ -2,14 +2,11 @@
 class ChatConnection {
     constructor(namespace, msgReceiveCallBack) {
         this._socket = io("/" + namespace);
-        alert(namespace);
-        this._msgReceiveCallBack = msgReceiveCallBack;
-
         this._socket.on('initMsg', (dataListJson) => {
-            JSON.parse(dataListJson).forEach(this._msgReceiveCallBack);
+            JSON.parse(dataListJson).forEach(msgReceiveCallBack);
         });
 
-        this._socket.on('msg', this._msgReceiveCallBack);
+        this._socket.on('msg', msgReceiveCallBack);
         //ログをサーバーに要求
         this._socket.emit('initMsg', "");
     }
