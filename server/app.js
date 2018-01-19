@@ -109,7 +109,7 @@ function loadRoomSocket() {
         function(data) {
             namespace.emit('loadRoom', JSON.stringify(room_name_list));
         }
-    )
+    );
 }
 loadRoomSocket();
 
