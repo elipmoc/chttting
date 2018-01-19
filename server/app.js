@@ -127,6 +127,14 @@ function socketOn(namespace) {
         );
 
         socket.on(
+          'debate_title',
+          function(odai)
+          {
+            socket.emit('debate_title',odai);
+          }
+        );
+
+        socket.on(
             'initMsg',
             function(data) {
                 console.log("initmsg:" + data);
