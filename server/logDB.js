@@ -40,7 +40,7 @@ exports.logRead_div = (roomNameSpace, func) => {
         let id = res.rows[0]["room_id"];
         client.query("select msg_data from msg where room_id=$1;", [Number(id)], (err, res) => {
             if (err) throw err;
-            func(res.rows.map(row["msg_data"]));
+            func(res.rows.map(row => row["msg_data"]));
             client.end();
         });
     });
