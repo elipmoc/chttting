@@ -33,7 +33,7 @@ client.query("select room_name from room;", (err, res) => {
     for (let row of res.rows) {
         room_name_list.push(row["room_name"]);
     }
-    makenamespace();
+    makeNameSpace();
     client.query("insert into msg (msg_data), values ('114514');", (err, res) => {
         console.log(res.rows["msg_id"]);
         client.end();
