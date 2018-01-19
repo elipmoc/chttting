@@ -101,19 +101,22 @@ const io = require('socket.io')(http);
 
 //名前空間のリスト。いまはまだ使いみちがない
 let namespaceList = new Array();
-/*
+
 function loadRoomSocket() {
     let namespace = io.of("/loadRoomStream");
-    socket.on(
-        'loadRoom',
-        function(data) {
-            namespace.emit('loadRoom', JSON.stringify(room_name_list));
-        }
-    );
+
+    function(socket) {
+        socket.on(
+            'loadRoom',
+            function(data) {
+                namespace.emit('loadRoom', JSON.stringify(room_name_list));
+            });
+    }
 }
 loadRoomSocket();
 
-*/
+
+
 //クライアントソケットの応答処理
 function socketOn(namespace) {
     return function(socket) {
