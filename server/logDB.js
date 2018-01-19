@@ -45,7 +45,7 @@ exports.logRead_div = (roomNameSpace, func) => {
         });
     });
 }
-
+/*
 exports.logPush = (room_name, msg) => {
     let logList = "";
     let readFile = exports.logRead(room_name);
@@ -71,4 +71,4 @@ exports.logRead = (room_name) => {
         return undefined;
     let file = fs.readFileSync("/tmp/" + room_name + ".txt");
     return file.toString().split('\n');
-}
+}*/
