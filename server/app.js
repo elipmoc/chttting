@@ -126,7 +126,7 @@ function debateSocket() {
             function(odai) {
                 socket.emit('debate_title', JSON.stringify(odai));
             })
-    })
+    });
 }
 debateSocket();
 
