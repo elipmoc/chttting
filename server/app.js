@@ -147,7 +147,7 @@ function socketOn(namespace) {
                 console.log("initmsg:" + data);
                 socket.emit(
                     'initMsg',
-                    JSON.stringify(logDB.logRead(namespace.name)); logDB.logRead_div(namespace.name, msgList =>
+                    logDB.logRead_div(namespace.name, msgList =>
                         socket.emit(
                             'initMsg',
                             JSON.stringify(msgList)
