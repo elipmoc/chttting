@@ -6,6 +6,11 @@ const fs = require('fs');
 
 
 exports.logPush_div = (room_name, msg) => {
+    if (room_name[0] != '/') {
+        throw "room_nameに/がついていません";
+    }
+    room_name = room_name.slice(1);
+
     const client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: true,
