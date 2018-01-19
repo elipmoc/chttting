@@ -37,9 +37,13 @@ client.query("select room_name from room;", (err, res) => {
     client.end();
 });
 
+client.query("insert into msg (msg_data), values ('114514');", (err, res) => {
+    console.log(res.rows["msg_id"]);
+});
+
 
 var http = require('http').createServer(
-    function(req, res) {
+    function (req, res) {
         var url = req.url;
         if (req.method == 'GET') {
             var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
@@ -106,7 +110,7 @@ function loadRoomSocket() {
     let namespace = io.of("/loadRoomStream");
     socket.on(
         'loadRoom',
-        function(data) {
+        function (data) {
             namespace.emit('loadRoom', JSON.stringify(room_name_list));
         }
     )
@@ -114,10 +118,10 @@ function loadRoomSocket() {
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {
-    return function(socket) {
+    return function (socket) {
         socket.on(
             'msg',
-            function(data) {
+            function (data) {
                 console.log("msg:" + data);
                 namespace.emit('msg', data);
                 logDB.logPush(namespace.name, data);
@@ -126,7 +130,7 @@ function socketOn(namespace) {
 
         socket.on(
             'initMsg',
-            function(data) {
+            function (data) {
                 console.log("initmsg:" + data);
                 socket.emit(
                     'initMsg',
@@ -139,7 +143,7 @@ function socketOn(namespace) {
 
 //roomNameListから各種ソケットの名前空間リストを生成
 function makeNameSpace() {
-    room_name_list.forEach(function(x) {
+    room_name_list.forEach(function (x) {
         let namespace = io.of("/" + x);
         namespace.on('connection', socketOn(namespace));
         namespaceList[x] = namespace;
@@ -151,10 +155,10 @@ var adminNamespace = io.of("/admin");
 http.listen(webPort);
 adminNamespace.on(
     'connection',
-    function(socket) {
+    function (socket) {
         socket.on(
             'msg',
-            function(data) {
+            function (data) {
                 adminNamespace.emit('msg', /*testStr*/ data + String(url_parts.query));
                 switch (url_parts.query) {
                     case "room_admin":

@@ -11,12 +11,10 @@ exports.logPush_div = (room_name, msg) => {
         ssl: true,
     });
 
-    client.query("select * from room where room_name =" + room_name + ";", (err, res) => {
+    client.query("select * from room where room_name ='" + room_name + "';", (err, res) => {
         if (err) throw err;
-        for (let row of res.rows) {
-            room_name_list.push(row["room_name"]);
-        }
-        makenamespace();
+        if (res.rows.length != 1) throw "room名が重複しています";
+        let id = res.rows["room_id"];
         client.end();
     });
 }
