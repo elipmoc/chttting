@@ -6,7 +6,7 @@ $('#right').click(function(e) {
     document.location.href = "dip.html?name=dipe2";
 });
 
-
+var debate_socket = io("/debateStream");
 var loc = document.location.href;
 var paramItem = loc.split('=');
 var chatConnection = new ChatConnection("dipe", msgDataAdd);

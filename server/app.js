@@ -40,7 +40,7 @@ client.query("select room_name from room;", (err, res) => {
 
 
 var http = require('http').createServer(
-    function (req, res) {
+    function(req, res) {
         var url = req.url;
         if (req.method == 'GET') {
             var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
@@ -108,7 +108,7 @@ function loadRoomSocket() {
     namespace.on('connection', socket => {
         socket.on(
             'loadRoom',
-            function (data) {
+            function(data) {
                 socket.emit('loadRoom', JSON.stringify(room_name_list));
             });
     });
@@ -118,66 +118,70 @@ loadRoomSocket();
 
 
 
+function debateSocket() {
+    let namespace = io.of("/debateStream");
+    namespace.on('debate_title', socket => {
+        socket.on(
+            'debate_title',
+            function(odai) {
+                socket.emit('debate_title', JSON.stringify(odai));
+            });
+    });
+}
+debateSocket();
+
 //クライアントソケットの応答処理
 function socketOn(namespace) {
-    return function (socket) {
+    return function(socket) {
         socket.on(
             'msg',
-            function (data) {
+            function(data) {
                 console.log("msg:" + data);
                 namespace.emit('msg', data);
                 logDB.logPush_div(namespace.name, data);
             });
 
         socket.on(
-          'debate_title',
-          function(odai)
-          {
-            namespace.emit('debate_title',JSON.stringify(odai));
-          });
-
-        socket.on(
             'initMsg',
-            function (data) {
+            function(data) {
                 console.log("initmsg:" + data);
                 socket.emit(
                     'initMsg',
-                    JSON.stringify(logDB.logRead(namespace.name));
-                logDB.logRead_div(namespace.name, msgList =>
-                    socket.emit(
-                        'initMsg',
-                        JSON.stringify(msgList)
-                    )
-                );
-            });
+                    JSON.stringify(logDB.logRead(namespace.name)); logDB.logRead_div(namespace.name, msgList =>
+                        socket.emit(
+                            'initMsg',
+                            JSON.stringify(msgList)
+                        );
+                    );
+                });
+        }
     }
-}
 
-//roomNameListから各種ソケットの名前空間リストを生成
-function makeNameSpace() {
-    room_name_list.forEach(function (x) {
-        let namespace = io.of("/" + x);
-        namespace.on('connection', socketOn(namespace));
-        namespaceList[x] = namespace;
-    });
-}
+    //roomNameListから各種ソケットの名前空間リストを生成
+    function makeNameSpace() {
+        room_name_list.forEach(function(x) {
+            let namespace = io.of("/" + x);
+            namespace.on('connection', socketOn(namespace));
+            namespaceList[x] = namespace;
+        });
+    }
 
-var webPort = process.env.PORT || 3000;
-var adminNamespace = io.of("/admin");
-http.listen(webPort);
-adminNamespace.on(
-    'connection',
-    function (socket) {
-        socket.on(
-            'msg',
-            function (data) {
-                adminNamespace.emit('msg', /*testStr*/ data + String(url_parts.query));
-                switch (url_parts.query) {
-                    case "room_admin":
-                        adminNamespace.emit('msg', data + String(url_parts.query));
-                        break;
+    var webPort = process.env.PORT || 3000;
+    var adminNamespace = io.of("/admin");
+    http.listen(webPort);
+    adminNamespace.on(
+        'connection',
+        function(socket) {
+            socket.on(
+                'msg',
+                function(data) {
+                    adminNamespace.emit('msg', /*testStr*/ data + String(url_parts.query));
+                    switch (url_parts.query) {
+                        case "room_admin":
+                            adminNamespace.emit('msg', data + String(url_parts.query));
+                            break;
+                    }
                 }
-            }
-        );
-    }
-);
+            );
+        }
+    );
