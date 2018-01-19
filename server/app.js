@@ -130,9 +130,11 @@ function socketOn(namespace) {
             'initMsg',
             function (data) {
                 console.log("initmsg:" + data);
-                socket.emit(
-                    'initMsg',
-                    JSON.stringify(logDB.logRead(namespace.name))
+                logDB.logRead(namespace.name, msgList =>
+                    socket.emit(
+                        'initMsg',
+                        JSON.stringify(msgList)
+                    )
                 );
             }
         );

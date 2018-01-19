@@ -3,26 +3,44 @@ const {
 } = require('pg');
 const fs = require('fs');
 
-
-
-exports.logPush_div = (room_name, msg) => {
-    if (room_name[0] != '/') {
+exports.logPush_div = (roomNameSpace, msg) => {
+    if (roomNameSpace[0] != '/') {
         throw "room_nameに/がついていません";
     }
-    room_name = room_name.slice(1);
-
+    let roomName = room_name.slice(1);
     const client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: true,
     });
-
     client.connect();
-    client.query("select * from room where room_name ='" + room_name + "';", (err, res) => {
+    client.query("select * from room where room_name ='" + roomName + "';", (err, res) => {
         if (err) throw err;
-        if (res.rows.length != 1) throw "room名" + room_name + "が重複しています:" + res.rows.length;
+        if (res.rows.length != 1) throw "room名" + roomName + "が重複しています:" + res.rows.length;
         let id = res.rows[0]["room_id"];
         client.query("insert into msg (room_id,msg_data) values ($1,$2);", [Number(id), msg], (err, res) => {
             if (err) throw err;
+            client.end();
+        });
+    });
+}
+
+exports.logRead_div = (room_name, func) => {
+    if (roomNameSpace[0] != '/') {
+        throw "room_nameに/がついていません";
+    }
+    let roomName = room_name.slice(1);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+    });
+    client.connect();
+    client.query("select * from room where room_name ='" + roomName + "';", (err, res) => {
+        if (err) throw err;
+        if (res.rows.length != 1) throw "room名" + roomName + "が重複しています:" + res.rows.length;
+        let id = res.rows[0]["room_id"];
+        client.query("select msg_data from msg where room_id=$1;", [Number(id)], (err, res) => {
+            if (err) throw err;
+            func(res.rows.map(row["msg_data"]));
             client.end();
         });
     });
