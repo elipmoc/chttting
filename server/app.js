@@ -36,7 +36,7 @@ client.query("select room_name from room;", (err, res) => {
     makeNameSpace();
     client.query("insert into msg (msg_data) values ('114514');", (err, res) => {
         if (err) throw err;
-        console.log(res.rows["msg_id"]);
+        console.log(res);
         client.end();
     });
     // client.end();
