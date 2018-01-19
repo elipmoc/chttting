@@ -9,18 +9,23 @@ $('#right').click(function (e) {
 
 var loc = document.location.href;
 var paramItem = loc.split('=');
-var socket = io("/" + paramItem[1]);
-alert(paramItem[1]);
+var chatConnection = new ChatConnection("dipe", msgDataAdd);
 
 $('#ugo').click(function (e) {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
-        socket.emit('msg', nm + " > " + ms);
+        chatConnection.sendData(
+            JSON.stringify(
+                {
+                    "msg": nm + " > " + ms,
+                    "dipeType": paramItem[1]
+                }
+            )
+        );
     }
     document.myf.com.value = "";
-    alert(e);
 });
 
 /*
@@ -32,17 +37,20 @@ $('#odai').click(function(e) {
     document.myf.word.value = "";
 });*/
 
-
-socket.on('msg', function (data) {
-    data = commandFilter(data) + '<br><hr>';
-    if (paramItem[1] == "dipe") {
-        $('#chat_log').prepend(data);
-    } else if (paramItem[1] == "dipe2") {
-        $('#chat_log2').prepend(data);
+//データをチャットメッセージとして追加する関数
+function msgDataAdd(data) {
+    data = JSON.parse(data);
+    console.log(data);
+    let msg = commandFilter(data["msg"]) + '<br><hr>';
+    if (data["dipeType"] == "dipe") {
+        $('#chat_log').prepend(msg);
+    } else if (data["dipeType"] == "dipe2") {
+        $('#chat_log2').prepend(msg);
     }
-});
-
+}
+/*
 socket.on('dai',
     function (data) {
         $('#titlec').prepend(data);
     });
+*/
