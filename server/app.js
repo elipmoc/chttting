@@ -111,7 +111,7 @@ function loadRoomSocket() {
         }
     )
 }
-loadRoomSocket()
+loadRoomSocket();
 
 
 //クライアントソケットの応答処理
