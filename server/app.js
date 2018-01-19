@@ -111,6 +111,8 @@ function loadRoomSocket() {
         }
     )
 }
+loadRoomSocket()
+
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {
