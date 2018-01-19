@@ -95,21 +95,21 @@
               function(cb) {
                   setTimeout(cb, 17);
               };
-  
+
           var canvas = document.getElementById("canvas");
           var ctx = canvas.getContext("2d"); //ctxはContextの略語
           var NUM = 580;
           var particles = [];
-  
+
           canvas.width = canvas.height = window.innerHeight;
-  
+
           for (var i = 0; i < NUM; i++) {
               var positionx = Math.random() * window.innerWidth; // x座標を0-500の間でランダム設定
               var positiony = -10; // y座標を-10に設定
               particle = new Particle(ctx, positionx, positiony); //新しいオブジェクトを作成
               particles.push(particle); //Particlesの最後にParticleを追加
           }
-  
+
           function Particle(ctx, x, y) {
               this.ctx = ctx;
               this.x = x;
@@ -121,15 +121,15 @@
                   y: Math.random() * 20 // y方向の速度
               };
           }
-  
+
           Particle.prototype.render = function() {
               this.updatePosition();
               this.wrapPosition(); // 範囲外に消えた点を範囲内に戻す
               this.draw();
           }
-  
-  
-  
+
+
+
           Particle.prototype.draw = function() {
               // 描画
               var size_X = Math.floor(Math.random ()*50)+1;
@@ -141,19 +141,19 @@
               ctx.fill();
               ctx.closePath();
           }
-  
+
           Particle.prototype.updatePosition = function() {
               // 3. 位置をずらす
               this.x += this.v.x;
               this.y += this.v.y;
           }
-  
+
           Particle.prototype.wrapPosition = function() {
               if (this.x < 0) this.x = window.innerWidth;
               if (this.x > window.innerWidth) this.x = 0;
               if (this.y > window.innerHeight) this.y = 0;
           }
-  
+
           Particle.prototype.gradient = function() {
               var col = "150, 150, 150";
               var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, 60)
@@ -220,6 +220,10 @@
                     <a href="https://serene-fjord-98327.herokuapp.com/?name=haskell">haskell</a>
                 </span>
             </div>
+
+            <div id="roomList"></div>
+
+            <!--
             <div class="tile" id="tile" style="background-color:#004EFF;">
                 <span class="chara">C++</span>
             </div>
@@ -244,6 +248,7 @@
                 <span class="chara">C++</span>
             </div>
             </center>
+            !-->
 </body>
 
 </html>
