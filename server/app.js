@@ -101,7 +101,7 @@ const io = require('socket.io')(http);
 
 //名前空間のリスト。いまはまだ使いみちがない
 let namespaceList = new Array();
-
+/*
 function loadRoomSocket() {
     let namespace = io.of("/loadRoomStream");
     socket.on(
@@ -113,7 +113,7 @@ function loadRoomSocket() {
 }
 loadRoomSocket();
 
-
+*/
 //クライアントソケットの応答処理
 function socketOn(namespace) {
     return function(socket) {
