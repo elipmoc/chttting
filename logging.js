@@ -31,8 +31,8 @@ $("#odai").click(function(e) {
     debateTitleSend.sendData(
         JSON.stringify({
             "dai": "<h2>" + document.myf.word.value + "</h2>";
-        })
-    )
+        });
+    );
 });
 
 /*

@@ -140,7 +140,7 @@ function socketOn(namespace) {
                 console.log("initmsg:" + data);
                 socket.emit(
                     'initMsg',
-                    JSON.stringify(logDB.logRead(namespace.name))
+                    JSON.stringify(logDB.logRead(namespace.name));
                 );
             }
         );
