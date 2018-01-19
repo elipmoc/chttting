@@ -7,7 +7,7 @@ exports.logPush_div = (roomNameSpace, msg) => {
     if (roomNameSpace[0] != '/') {
         throw "room_nameに/がついていません";
     }
-    let roomName = room_name.slice(1);
+    let roomName = roomNameSpace.slice(1);
     const client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: true,
@@ -24,11 +24,11 @@ exports.logPush_div = (roomNameSpace, msg) => {
     });
 }
 
-exports.logRead_div = (room_name, func) => {
+exports.logRead_div = (roomNameSpace, func) => {
     if (roomNameSpace[0] != '/') {
         throw "room_nameに/がついていません";
     }
-    let roomName = room_name.slice(1);
+    let roomName = roomNameSpace.slice(1);
     const client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: true,
