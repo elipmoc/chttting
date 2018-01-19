@@ -14,5 +14,4 @@ class ChatConnection {
     sendData(data) {
         this._socket.emit('msg', data);
     }
-
 }

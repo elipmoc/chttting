@@ -38,8 +38,9 @@ client.query("select room_name from room;", (err, res) => {
 });
 
 
+
 var http = require('http').createServer(
-    function(req, res) {
+    function (req, res) {
         var url = req.url;
         if (req.method == 'GET') {
             var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
@@ -106,7 +107,7 @@ function loadRoomSocket() {
     let namespace = io.of("/loadRoomStream");
     namespace.on(
         'loadRoom',
-        function(data) {
+        function (data) {
             namespace.emit('loadRoom', JSON.stringify(room_name_list));
         });
 }
@@ -116,23 +117,25 @@ loadRoomSocket();
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {
-    return function(socket) {
+    return function (socket) {
         socket.on(
             'msg',
-            function(data) {
+            function (data) {
                 console.log("msg:" + data);
                 namespace.emit('msg', data);
-                logDB.logPush(namespace.name, data);
+                logDB.logPush_div(namespace.name, data);
             }
         );
 
         socket.on(
             'initMsg',
-            function(data) {
+            function (data) {
                 console.log("initmsg:" + data);
-                socket.emit(
-                    'initMsg',
-                    JSON.stringify(logDB.logRead(namespace.name))
+                logDB.logRead_div(namespace.name, msgList =>
+                    socket.emit(
+                        'initMsg',
+                        JSON.stringify(msgList)
+                    )
                 );
             }
         );
@@ -141,7 +144,7 @@ function socketOn(namespace) {
 
 //roomNameListから各種ソケットの名前空間リストを生成
 function makeNameSpace() {
-    room_name_list.forEach(function(x) {
+    room_name_list.forEach(function (x) {
         let namespace = io.of("/" + x);
         namespace.on('connection', socketOn(namespace));
         namespaceList[x] = namespace;
@@ -153,10 +156,10 @@ var adminNamespace = io.of("/admin");
 http.listen(webPort);
 adminNamespace.on(
     'connection',
-    function(socket) {
+    function (socket) {
         socket.on(
             'msg',
-            function(data) {
+            function (data) {
                 adminNamespace.emit('msg', /*testStr*/ data + String(url_parts.query));
                 switch (url_parts.query) {
                     case "room_admin":
