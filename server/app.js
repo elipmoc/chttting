@@ -104,14 +104,11 @@ let namespaceList = new Array();
 
 function loadRoomSocket() {
     let namespace = io.of("/loadRoomStream");
-
-    function(socket) {
-        socket.on(
-            'loadRoom',
-            function(data) {
-                namespace.emit('loadRoom', JSON.stringify(room_name_list));
-            });
-    }
+    namespace.on(
+        'loadRoom',
+        function(data) {
+            namespace.emit('loadRoom', JSON.stringify(room_name_list));
+        });
 }
 loadRoomSocket();
 
