@@ -1,5 +1,7 @@
 var socket = io("/loadRoomStream");
+socket.emit('loadRoom', "");
 socket.on('loadRoom', data => {
-      data = "<h1>" + data + "</h1>";
-      $('#roomList').prepend(JSON.parse(data));
+      JSON.parse(data).forEach(
+            name => $('#roomList').prepend("<h1>" + name + "</h1>")
+      );
 });
