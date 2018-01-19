@@ -133,31 +133,28 @@ debateSocket();
 //クライアントソケットの応答処理
 function socketOn(namespace) {
     return function(socket) {
-        socket.on(
-            'msg',
-            function(data) {
-                console.log("msg:" + data);
-                namespace.emit('msg', data);
-                logDB.logPush_div(namespace.name, data);
-            });
-
-        socket.on(
-            'initMsg',
-            function(data) {
-                console.log("initmsg:" + data);
-                socket.emit(
-                    'initMsg',
-                    logDB.logRead_div(namespace.name, msgList =>
-                        socket.emit(
-                            'initMsg',
-                            JSON.stringify(msgList)
-                        )
-                    )
+            socket.on(
+                'msg',
+                function(data) {
+                    console.log("msg:" + data);
+                    namespace.emit('msg', data);
+                    logDB.logPush_div(namespace.name, data);
                 });
-        }
-    }
 
-    //roomNameListから各種ソケットの名前空間リストを生成
+            socket.on(
+                'initMsg',
+                function(data) {
+                    console.log("initmsg:" + data);
+                    socket.emit(
+                        'initMsg',
+                        logDB.logRead_div(namespace.name, msgList =>
+                            socket.emit('initMsg', JSON.stringify(msgList))
+                        )
+                    );
+                });
+            }
+        }
+        //roomNameListから各種ソケットの名前空間リストを生成
     function makeNameSpace() {
         room_name_list.forEach(function(x) {
             let namespace = io.of("/" + x);
