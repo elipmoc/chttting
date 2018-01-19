@@ -1,4 +1,25 @@
-let fs = require('fs');
+const {
+    Client
+} = require('pg');
+const fs = require('fs');
+
+
+
+exports.logPush_div = (room_name, msg) => {
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+    });
+
+    client.query("select * from room where room_name =" + room_name + ";", (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            room_name_list.push(row["room_name"]);
+        }
+        makenamespace();
+        client.end();
+    });
+}
 
 exports.logPush = (room_name, msg) => {
     let logList = "";
