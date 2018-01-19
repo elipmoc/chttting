@@ -125,8 +125,8 @@ function debateSocket() {
             'debate_title',
             function(odai) {
                 socket.emit('debate_title', JSON.stringify(odai));
-            });
-    });
+            })
+    })
 }
 debateSocket();
 
@@ -151,8 +151,8 @@ function socketOn(namespace) {
                         socket.emit(
                             'initMsg',
                             JSON.stringify(msgList)
-                        );
-                    );
+                        )
+                    )
                 });
         }
     }
