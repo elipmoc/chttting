@@ -34,12 +34,13 @@ client.query("select room_name from room;", (err, res) => {
         room_name_list.push(row["room_name"]);
     }
     makenamespace();
-    client.end();
+    client.query("insert into msg (msg_data), values ('114514');", (err, res) => {
+        console.log(res.rows["msg_id"]);
+        client.end();
+    });
+    // client.end();
 });
 
-client.query("insert into msg (msg_data), values ('114514');", (err, res) => {
-    console.log(res.rows["msg_id"]);
-});
 
 
 var http = require('http').createServer(
