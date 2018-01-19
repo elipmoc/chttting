@@ -131,8 +131,7 @@ function socketOn(namespace) {
           function(odai)
           {
             socket.emit('debate_title',JSON.stringify(odai));
-          }
-        );
+          });
 
         socket.on(
             'initMsg',
@@ -142,8 +141,7 @@ function socketOn(namespace) {
                     'initMsg',
                     JSON.stringify(logDB.logRead(namespace.name));
                 );
-            }
-        );
+            });
     }
 }
 
