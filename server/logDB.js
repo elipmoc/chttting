@@ -11,6 +11,7 @@ exports.logPush_div = (room_name, msg) => {
         ssl: true,
     });
 
+    client.connect();
     client.query("select * from room where room_name ='" + room_name + "';", (err, res) => {
         if (err) throw err;
         if (res.rows.length != 1) throw "room名が重複しています";
