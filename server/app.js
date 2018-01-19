@@ -34,11 +34,18 @@ client.query("select room_name from room;", (err, res) => {
         room_name_list.push(row["room_name"]);
     }
     makeNameSpace();
-    client.query("insert into msg (msg_data), values ('114514');", (err, res) => {
-        //console.log(res);
-        client.end();
-    });
-    // client.end();
+    client.end();
+});
+
+const client2 = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+});
+
+client2.connect();
+client2.query("insert into msg (msg_data), values ('114514');", (err, res) => {
+    //console.log(res);
+    client2.end();
 });
 
 
