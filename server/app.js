@@ -120,7 +120,7 @@ loadRoomSocket();
 
 function debateSocket() {
     let namespace = io.of("/debateStream");
-    namespace.on('debate_title', socket => {
+    namespace.on('connection', socket => {
         socket.on(
             'debate_title',
             function(odai) {
