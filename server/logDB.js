@@ -15,7 +15,10 @@ exports.logPush_div = (room_name, msg) => {
         if (err) throw err;
         if (res.rows.length != 1) throw "room名が重複しています";
         let id = res.rows["room_id"];
-        client.end();
+        client.query("insert into msg (room_id,msg_data) values ($1::integer,$2::varchar);", [id, msg], (err, res) => {
+            if (err) throw err;
+            client.end();
+        });
     });
 }
 
