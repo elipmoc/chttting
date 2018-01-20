@@ -28,6 +28,7 @@ const client = new Client({
     ssl: true,
 });
 
+console.log("conectDB::" + JSON.stringify(process.env.DATABASE_URL) + "::conectDBEnd");
 client.connect();
 
 client.query("select room_name from room;", (err, res) => {
