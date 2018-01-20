@@ -5,6 +5,8 @@ var filter = require('fs').readFileSync('commandFilter.js');
 var syamu = require('fs').readFileSync('syamu.html');
 var dip = require('fs').readFileSync('dip.html');
 var main = require('fs').readFileSync('main.html');
+var normalChatRoomHtml = require('fs').readFileSync('normalChatRoom.html');
+var normalChatRoomJs = require('fs').readFileSync('normalChatRoom.js');
 var logging = require('fs').readFileSync('logging.js');
 var chatConnection = require('fs').readFileSync('chatConnection.js');
 var logDB = require('./logDB.js');
@@ -95,6 +97,17 @@ var http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(loadRoomJs);
+        } else if ("/normalChatRoom.html" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.end(normalChatRoomHtml);
+        }
+        else if ("/normalChatRoom.js" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/plain'
+            });
+            res.end(normalChatRoomJs);
         }
     }
 );
@@ -131,11 +144,10 @@ function socketOn(namespace) {
         );
 
         socket.on(
-          'debate_title',
-          function(odai)
-          {
-            socket.emit('debate_title',odai);
-          }
+            'debate_title',
+            function (odai) {
+                socket.emit('debate_title', odai);
+            }
         );
 
         socket.on(
