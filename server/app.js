@@ -22,13 +22,11 @@ const {
 
 //データベースの接続設定
 var room_name_list = new Array();
-var testStr = "tintin";
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
 });
 
-console.log("conectDB::" + JSON.stringify(process.env.DATABASE_URL) + "::conectDBEnd");
 client.connect();
 
 client.query("select room_name from room;", (err, res) => {
