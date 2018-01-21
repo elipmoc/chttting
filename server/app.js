@@ -1,3 +1,4 @@
+const app = require('express')();
 var html = require('fs').readFileSync('main.html');
 var arrow = require('fs').readFileSync('commentArrow.js');
 var loadRoomJs = require('fs').readFileSync('loadRoomList.js');
@@ -18,6 +19,10 @@ var pg = require('pg');
 const {
   Client
 } = require('pg');
+
+app.get(`/hogehoge`, (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
 
 //データベースの接続設定
 var room_name_list = new Array();
