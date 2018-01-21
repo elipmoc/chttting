@@ -21,7 +21,7 @@ const {
 } = require('pg');
 
 app.get('/hogehoge', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/../index.html');
 });
 
 //データベースの接続設定
