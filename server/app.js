@@ -122,14 +122,14 @@ function loadRoomSocket() {
 loadRoomSocket();
 
 
-function titleStreamSocket() {
-  io.on("connection", (socket) => {
-    socket.on("titleSend", (title) => {
-      io.emit("titleSend", title);
-    });
+
+io.on("connection", (socket) => {
+  socket.on("titleSend", (title) => {
+    io.emit("titleSend", title);
   });
+});
 }
-titleStreamSocket();
+
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {

@@ -40,7 +40,7 @@ function msgDataAdd(data) {
 }
 
 $("#title_send").click(() => {
-  let word = document.myf.word.title_word.value;
+  let word = document.myf.title_word.value;
   socket.emit('titleSend', word);
 });
 
