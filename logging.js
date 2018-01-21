@@ -6,6 +6,7 @@ $('#right').click(function(e) {
     document.location.href = "dip.html?name=dipe2";
 });
 
+socket.emit('debate_title', "");
 var debate_socket = io("/debateStream");
 var loc = document.location.href;
 var paramItem = loc.split('=');
