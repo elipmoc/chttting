@@ -129,7 +129,7 @@ function titleStreamSocket() {
     });
   });
 }
-
+titleStreamSocket();
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {
