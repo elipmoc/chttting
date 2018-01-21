@@ -20,7 +20,7 @@ const {
   Client
 } = require('pg');
 
-app.get(`/hogehoge`, (req, res) => {
+app.get('/hogehoge', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
