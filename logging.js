@@ -6,12 +6,12 @@ $('#right').click(function(e) {
     document.location.href = "dip.html?name=dipe2";
 });
 
-socket.emit('debate_title', "");
-var debate_socket = io("/debateStream");
+//socket.emit('debate_title', "");
+//var debate_socket = io("/debateStream");
 var loc = document.location.href;
 var paramItem = loc.split('=');
 var chatConnection = new ChatConnection("dipe", msgDataAdd);
-var debateTitleSend = new ChatConnection("debate_title", odai);
+//var debateTitleSend = new ChatConnection("debate_title", odai);
 
 $('#ugo').click(function(e) {
     let ms = document.myf.com.value;
@@ -28,14 +28,14 @@ $('#ugo').click(function(e) {
     document.myf.com.value = "";
 });
 
-$("#odai").click(function(e) {
+/*$("#odai").click(function(e) {
     debateTitleSend.sendData(
         JSON.stringify({
-            "dai": "<h2>" + document.myf.word.value + "</h2>";
-        });
+            "dai": "<h2>" + document.myf.word.value + "</h2>"
+        })
     );
 });
-
+*/
 /*
 $('#odai').click(function(e) {
     let odai = document.myf.odai.value;
@@ -57,10 +57,10 @@ function msgDataAdd(data) {
     }
 }
 
-function odai(data){
+/*function odai(data){
   data = JSON.parse(data);
   $("#titlec").prepend(data);
-}
+}*/
 
 /*
 socket.on('dai',

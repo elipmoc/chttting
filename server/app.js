@@ -3,6 +3,7 @@ var arrow = require('fs').readFileSync('commentArrow.js');
 var loadRoomJs = require('fs').readFileSync('loadRoomList.js');
 var filter = require('fs').readFileSync('commandFilter.js');
 var syamu = require('fs').readFileSync('syamu.html');
+var index = require('fs').readFileSync('index.html');
 var dip = require('fs').readFileSync('dip.html');
 var main = require('fs').readFileSync('main.html');
 var logging = require('fs').readFileSync('logging.js');
@@ -26,8 +27,8 @@ const client = new Client({
     ssl: true,
 });
 
-client.connect();
 
+client.connect();
 client.query("select room_name from room;", (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
@@ -36,7 +37,6 @@ client.query("select room_name from room;", (err, res) => {
     makeNameSpace();
     client.end();
 });
-
 
 
 var http = require('http').createServer(
@@ -95,6 +95,11 @@ var http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(loadRoomJs);
+        } else if("/index.html" == url){
+          res.writeHead(200,{
+            'Content-Type' : 'text/html'
+          });
+          res.end(index);
         }
     }
 );
@@ -118,7 +123,7 @@ loadRoomSocket();
 
 
 
-function debateSocket() {
+/*function debateSocket() {
     let namespace = io.of("/debateStream");
     namespace.on('connection', socket => {
         socket.on(
@@ -129,6 +134,7 @@ function debateSocket() {
     })
 }
 debateSocket();
+*/
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {
