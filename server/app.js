@@ -122,19 +122,13 @@ function loadRoomSocket() {
 loadRoomSocket();
 
 
+function titleStreamSocket(){
+  io.on("connection" , (socket)=>{
+    socket.on("titleSend",(title)=>{
+    io.emit("titleSend",title);
+  });
+});
 
-/*function debateSocket() {
-    let namespace = io.of("/debateStream");
-    namespace.on('connection', socket => {
-        socket.on(
-            'debate_title',
-            function(odai) {
-                socket.emit('debate_title', JSON.stringify(odai));
-            });
-    })
-}
-debateSocket();
-*/
 
 //クライアントソケットの応答処理
 function socketOn(namespace) {
