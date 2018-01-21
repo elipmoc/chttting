@@ -128,7 +128,7 @@ io.on("connection", (socket) => {
     io.emit("titleSend", title);
   });
 });
-}
+
 
 
 //クライアントソケットの応答処理
