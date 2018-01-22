@@ -21,11 +21,20 @@ $('#chat_send').click(function(e) {
     let nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
-        debateLeftConnection.sendData(
-            JSON.stringify({
-                "msg": nm + " > " + ms,
-                //"dipeType": paramItem[1]
+        if (urlParam["stance"] == "debateLeft") {
+            debateLeftConnection.sendData(
+                JSON.stringify({
+                    "msg": nm + " > " + ms,
+                    //"dipeType": paramItem[1]
+                })
             })
+        else if (urlParam["stance"] == "debateRight") {
+            debateRightConnection.sendData(
+                JSON.stringify({
+                    "msg": nm + " > " + ms,
+                    //"dipeType": paramItem[1]
+                })
+            }
         );
     }
     document.myf.com.value = "";
