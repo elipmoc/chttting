@@ -140,7 +140,7 @@ function debateTitleSocket() {
 //チャットをするためのソケット群
 function chatSocket(namespace) {
     return function(socket) {
-        //DBに格納するためのソケットを定義
+        //ログ管理
         socket.on(
             'msg',
             function(data) {
