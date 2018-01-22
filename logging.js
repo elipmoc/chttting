@@ -46,9 +46,9 @@ function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
     let msg = commandFilter(data["msg"]) + '<br><hr>';
-    if (data[dipeType] == "debateLeft") {
+    if (urlParam["stance"] == "debateLeft") {
         $('#chat_log').prepend(msg);
-    } else if (data[dipeType] == "debateRight") {
+    } else if (durlParam["stance"] == "debateRight") {
         $('#chat_log2').prepend(msg);
     }
 }
