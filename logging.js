@@ -11,6 +11,7 @@ const socket = io();
 const urlLocation = document.location.href;
 const debateLeftConnection = new ChatConnection("dipe2", msgDataAdd);
 const debateRightConnection = new ChatConnection("dipe", msgDataAdd);
+const urlParam = urlGetParamParse(urlLocation);
 
 function urlJage(param, callBack) {
     if (urlLocation.match("stance=" + param)) {
@@ -39,17 +40,13 @@ function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
     let msg = commandFilter(data["msg"]) + '<br><hr>';
-    if (urlLocation.match("stance=debateLeft")) {
+    if (urlParam["stance"] == "debateLeft") {
         $('#chat_log').prepend(msg);
-    } else if (urlLocation.match("stance=debateRight")) {
+    } else if (urlParam["stance"] == "debateRight") {
         $('#chat_log2').prepend(msg);
     }
 }
 
-var calling = function() => {
-    $('#chat_log').prepend(msg);
-}
-urlJage("hogedip", calling);
 
 $("#title_send").click(() => {
     let word = document.myf.title_word.value;
