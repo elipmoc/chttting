@@ -1,9 +1,9 @@
 //左右に別れるためのロケーション
 $('#left').click(function(e) {
-    document.location.href = "dip.html?stance=dipe";
+    document.location.href = "dip.html?stance=debateLeft";
 });
 $('#right').click(function(e) {
-    document.location.href = "dip.html?stance=dipe2";
+    document.location.href = "dip.html?stance=debateRight";
 });
 
 //議題定義のソケット定義
@@ -33,9 +33,9 @@ function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
     let msg = commandFilter(data["msg"]) + '<br><hr>';
-    if (loc.match(stance=dipe)) {
+    if (loc.match("stance=debateLeft")) {
         $('#chat_log').prepend(msg);
-    } else if (loc.match(stance=dipe2)) {
+    } else if (loc.match("stance=debateRight")) {
         $('#chat_log2').prepend(msg);
     }
 }
