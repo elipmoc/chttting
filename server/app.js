@@ -22,8 +22,13 @@ const {
     Client
 } = require('pg');
 
+<<<<<<< HEAD
 app.get('/hoge', (req, res) => {
     app.send("Fuck world");
+=======
+app.get('/hogehoge', (req, res) => {
+  res.sendFile('../index.html');
+>>>>>>> 86b2858d21d94ea4b2060bc21479a28fc5267a2e
 });
 
 //データベースの接続設定
