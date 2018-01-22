@@ -27,8 +27,8 @@ $('#chat_send').click(function(e) {
                     "msg": nm + " > " + ms,
                     //"dipeType": paramItem[1]
                 })
-            })
-        else if (urlParam["stance"] == "debateRight") {
+            );
+        }else if (urlParam["stance"] == "debateRight") {
             debateRightConnection.sendData(
                 JSON.stringify({
                     "msg": nm + " > " + ms,
