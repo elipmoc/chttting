@@ -13,6 +13,12 @@ var paramItem = loc.split('=');
 var debateLeftConnection = new ChatConnection("dipe2", msgDataAdd);
 const debateRightConnection = new ChatConnection("dipe",msgDataAdd);
 
+function urlJage(param,callBack){
+  if(loc.match(param)){
+    callBack();
+  }
+}
+
 $('#chat_send').click(function(e) {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
@@ -41,6 +47,10 @@ function msgDataAdd(data) {
     }
 }
 
+function hogedip(){
+$('#chat_log').prepend(msg);
+}
+urlJage("hogedip",hogedip());
 
 $("#title_send").click(() => {
     let word = document.myf.title_word.value;
