@@ -12,12 +12,9 @@ const urlLocation = document.location.href;
 const debateLeftConnection = new ChatConnection("dipe2", msgDataAdd);
 const debateRightConnection = new ChatConnection("dipe", msgDataAdd);
 const urlParam = urlGetParamParse(urlLocation);
+alert(urlParam["stance"]);
 
-function urlJage(param, callBack) {
-    if (urlLocation.match("stance=" + param)) {
-        callBack();
-    }
-}
+
 
 $('#chat_send').click(function(e) {
     let ms = document.myf.com.value;
