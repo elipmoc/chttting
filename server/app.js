@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-var express = require('express');
-var app = express();
+const getParameter = require('fs').readFileSync('getUrlParam.js');
 const html = require('fs').readFileSync('main.html');
 const arrow = require('fs').readFileSync('commentArrow.js');
 const loadRoomJs = require('fs').readFileSync('loadRoomList.js');
@@ -107,6 +106,11 @@ var http = require('http').createServer(
                 'Content-Type': 'text/html'
             });
             res.end(index);
+        } else if("/getUrlParam" == url){
+          res.writeHead(200,{
+            'Content-Type':'text/plain'
+          });
+          res.end(getParameter);
         }
     }
 );
