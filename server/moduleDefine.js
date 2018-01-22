@@ -1,0 +1,17 @@
+const app = require('express')();
+const html = require('fs').readFileSync('main.html');
+const arrow = require('fs').readFileSync('commentArrow.js');
+const loadRoomJs = require('fs').readFileSync('loadRoomList.js');
+const filter = require('fs').readFileSync('commandFilter.js');
+const syamu = require('fs').readFileSync('syamu.html');
+const index = require('fs').readFileSync('index.html');
+const dip = require('fs').readFileSync('dip.html');
+const main = require('fs').readFileSync('main.html');
+const logging = require('fs').readFileSync('logging.js');
+const chatConnection = require('fs').readFileSync('chatConnection.js');
+const logDB = require('./logDB.js');
+const sys = require('util');
+const qs = require('querystring');
+const pg = require('pg');
+const { URL } = require('url');
+const { Client } = require('pg');
