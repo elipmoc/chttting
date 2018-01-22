@@ -21,11 +21,6 @@ const {
     Client
 } = require('pg');
 
-
-app.get('/hoge', (req, res) => {
-    app.send("Fuck world");
-});
-
 //データベースの接続設定
 const room_name_list = new Array();
 const client = new Client({
