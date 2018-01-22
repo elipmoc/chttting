@@ -34,6 +34,7 @@ $('#chat_send').click(function(e) {
                     "msg": nm + " > " + ms,
                     //"dipeType": paramItem[1]
                 })
+              );
             }
         );
     }
