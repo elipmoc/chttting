@@ -25,14 +25,14 @@ $('#chat_send').click(() => {
             debateLeftConnection.sendData(
                 JSON.stringify({
                     "msg": nm + " > " + ms,
-                    //"dipeType": paramItem[1]
+                    "dipeType": paramItem[1]
                 })
             );
         } else if (urlParam["stance"] == "debateRight") {
             debateRightConnection.sendData(
                 JSON.stringify({
                     "msg": nm + " > " + ms,
-                    //"dipeType": paramItem[1]
+                    "dipeType": paramItem[1]
                 })
             );
         }
@@ -40,15 +40,15 @@ $('#chat_send').click(() => {
     document.myf.com.value = "";
 });
 
-
+//urlParam["stance"] == "debateLeft"
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
     let msg = commandFilter(data["msg"]) + '<br><hr>';
-    if (urlParam["stance"] == "debateLeft") {
+    if (data[dipeType] == "debateLeft") {
         $('#chat_log').prepend(msg);
-    } else if (urlParam["stance"] == "debateRight") {
+    } else if (data[dipeType] == "debateRight") {
         $('#chat_log2').prepend(msg);
     }
 }
