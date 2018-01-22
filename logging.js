@@ -16,7 +16,7 @@ alert(urlParam["stance"]);
 
 
 
-$('#chat_send').click(function(e) {
+$('#chat_send').click(() => {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
 
@@ -36,7 +36,7 @@ $('#chat_send').click(function(e) {
                 })
             );
         }
-      }
+    }
     document.myf.com.value = "";
 });
 
