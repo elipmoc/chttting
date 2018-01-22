@@ -21,21 +21,12 @@ $('#chat_send').click(() => {
     let nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
-        if (urlParam["stance"] == "debateLeft") {
-            debateLeftConnection.sendData(
-                JSON.stringify({
-                    "msg": nm + " > " + ms,
-                    "dipeType": paramItem[1]
-                })
-            );
-        } else if (urlParam["stance"] == "debateRight") {
-            debateRightConnection.sendData(
-                JSON.stringify({
-                    "msg": nm + " > " + ms,
-                    "dipeType": paramItem[1]
-                })
-            );
-        }
+        connection.sendData(
+            JSON.stringify({
+                "msg": nm + " > " + ms,
+                "dipeType": urlParam["stance"]
+            })
+        );
     }
     document.myf.com.value = "";
 });
@@ -46,9 +37,10 @@ function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
     let msg = commandFilter(data["msg"]) + '<br><hr>';
-    if (urlParam["stance"] == "debateLeft") {
+
+    if (data["dipeType"] == "debateLeft") {
         $('#chat_log').prepend(msg);
-    } else if (durlParam["stance"] == "debateRight") {
+    } else if (data["dipeType"] == "debateRight") {
         $('#chat_log2').prepend(msg);
     }
 }
