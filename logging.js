@@ -9,8 +9,7 @@ $('#right').click(function(e) {
 //議題定義のソケット定義
 const socket = io();
 const urlLocation = document.location.href;
-const debateLeftConnection = new ChatConnection("dipe2", msgDataAdd);
-const debateRightConnection = new ChatConnection("dipe", msgDataAdd);
+const connection = new ChatConnection("dipe", msgDataAdd);
 const urlParam = urlGetParamParse(urlLocation);
 alert(urlParam["stance"]);
 
