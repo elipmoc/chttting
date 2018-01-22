@@ -9,7 +9,7 @@ $('#right').click(function(e) {
 //議題定義のソケット定義
 const socket = io();
 const urlLocation = document.location.href;
-const connection = new ChatConnection("dipe", msgDataAdd);
+const chatConnection = new ChatConnection("dipe", msgDataAdd);
 const urlParam = urlGetParamParse(urlLocation);
 alert(urlParam["stance"]);
 
@@ -20,7 +20,7 @@ $('#chat_send').click(() => {
     let nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
-        connection.sendData(
+        chatConnection.sendData(
             JSON.stringify({
                 "msg": nm + " > " + ms,
                 "dipeType": urlParam["stance"]
