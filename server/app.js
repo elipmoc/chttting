@@ -101,7 +101,7 @@ var http = require('http').createServer(
                 'Content-Type': 'text/html'
             });
             res.end(index);
-        } else if("/getUrlParam" == url){
+        } else if("/getUrlParam.js" == url){
           res.writeHead(200,{
             'Content-Type':'text/plain'
           });
