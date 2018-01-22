@@ -28,16 +28,15 @@ $('#chat_send').click(function(e) {
                     //"dipeType": paramItem[1]
                 })
             );
-        }else if (urlParam["stance"] == "debateRight") {
+        } else if (urlParam["stance"] == "debateRight") {
             debateRightConnection.sendData(
                 JSON.stringify({
                     "msg": nm + " > " + ms,
                     //"dipeType": paramItem[1]
                 })
-              );
-            }
-        );
-    }
+            );
+        }
+      }
     document.myf.com.value = "";
 });
 
