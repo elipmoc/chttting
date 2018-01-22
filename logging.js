@@ -11,7 +11,6 @@ const socket = io();
 const urlLocation = document.location.href;
 const chatConnection = new ChatConnection("dipe", msgDataAdd);
 const urlParam = urlGetParamParse(urlLocation);
-alert(urlParam["stance"]);
 
 
 
