@@ -10,18 +10,18 @@ $('#right').click(function(e) {
 let socket = io();
 var loc = document.location.href;
 var paramItem = loc.split('=');
-var chatConnection = new ChatConnection("debateRight", msgDataAdd);
-const chatConnection = new ChatConnection("dipe",msgDataAdd);
+var debateLeftConnection = new ChatConnection("dipe2", msgDataAdd);
+const debateRightConnection = new ChatConnection("dipe",msgDataAdd);
 
 $('#chat_send').click(function(e) {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
-        chatConnection.sendData(
+        debateLeftConnection.sendData(
             JSON.stringify({
                 "msg": nm + " > " + ms,
-                "dipeType": paramItem[1]
+                //"dipeType": paramItem[1]
             })
         );
     }
