@@ -14,7 +14,7 @@ var debateLeftConnection = new ChatConnection("dipe2", msgDataAdd);
 const debateRightConnection = new ChatConnection("dipe",msgDataAdd);
 
 function urlJage(param,callBack){
-  if(loc.match(param)){
+  if(loc.match("stance="+param)){
     callBack();
   }
 }
