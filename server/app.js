@@ -1,19 +1,20 @@
-#!/usr/bin/env node
-const getParameter = require('fs').readFileSync('getUrlParam.js');
 const html = require('fs').readFileSync('main.html');
 const arrow = require('fs').readFileSync('commentArrow.js');
 const loadRoomJs = require('fs').readFileSync('loadRoomList.js');
 const filter = require('fs').readFileSync('commandFilter.js');
 const syamu = require('fs').readFileSync('syamu.html');
-const index = require('fs').readFileSync('index.html');
-const dip = require('fs').readFileSync('dip.html');
 const main = require('fs').readFileSync('main.html');
+const normalChatRoomHtml = require('fs').readFileSync('normalChatRoom.html');
+const normalChatRoomJs = require('fs').readFileSync('normalChatRoom.js');
 const logging = require('fs').readFileSync('logging.js');
 const chatConnection = require('fs').readFileSync('chatConnection.js');
 const logDB = require('./logDB.js');
 const sys = require('util');
+const getParameter = require('fs').readFileSync('getUrlParam.js');
+const index = require('fs').readFileSync('index.html');
+const dip = require('fs').readFileSync('dip.html');
 const qs = require('querystring');
-const pg = require('pg');
+
 const {
     URL
 } = require('url');
@@ -96,6 +97,17 @@ const http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(loadRoomJs);
+        } else if ("/normalChatRoom.html" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.end(normalChatRoomHtml);
+        }
+        else if ("/normalChatRoom.js" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/plain'
+            });
+            res.end(normalChatRoomJs);
         } else if ("/index.html" == url) {
             res.writeHead(200, {
                 'Content-Type': 'text/html'
@@ -120,7 +132,7 @@ function loadRoomSocket() {
     namespace.on('connection', socket => {
         socket.on(
             'loadRoom',
-            function(data) {
+            function (data) {
                 socket.emit('loadRoom', JSON.stringify(room_name_list));
             });
     });
@@ -138,19 +150,20 @@ function debateTitleSocket() {
 
 //チャットをするためのソケット群
 function chatSocket(namespace) {
-    return function(socket) {
+    return function (socket) {
         //ログ管理
         socket.on(
             'msg',
-            function(data) {
+            function (data) {
                 console.log("msg:" + data);
                 namespace.emit('msg', data);
                 logDB.logPush_div(namespace.name, data);
-            });
+            }
+        );
         //発言するためのソケット
         socket.on(
             'initMsg',
-            function(data) {
+            function (data) {
                 console.log("initmsg:" + data);
                 socket.emit(
                     'initMsg',
@@ -158,12 +171,14 @@ function chatSocket(namespace) {
                         socket.emit('initMsg', JSON.stringify(msgList))
                     )
                 );
-            });
-    }
+            }
+        );
+    };
 }
+
 //roomNameListから各種ソケットの名前空間リストを生成
 function makeNameSpace() {
-    room_name_list.forEach(function(x) {
+    room_name_list.forEach(function (x) {
         let namespace = io.of("/" + x);
         namespace.on('connection', chatSocket(namespace));
         namespaceList[x] = namespace;
