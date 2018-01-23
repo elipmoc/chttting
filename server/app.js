@@ -60,7 +60,7 @@ function chatSocket(namespace) {
             function (data) {
                 console.log("msg:" + data);
                 namespace.emit('msg', data);
-                logDB.logPush_div(namespace.name, data);
+                logDB.logPush(namespace.name, data);
             }
         );
         //発言するためのソケット
@@ -70,7 +70,7 @@ function chatSocket(namespace) {
                 console.log("initmsg:" + data);
                 socket.emit(
                     'initMsg',
-                    logDB.logRead_div(namespace.name, msgList =>
+                    logDB.logRead(namespace.name, msgList =>
                         socket.emit('initMsg', JSON.stringify(msgList))
                     )
                 );
