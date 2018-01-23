@@ -1,10 +1,12 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
+    <title>
+        POCA CHAT
+    </title>
+    <meta charset="UTF-8">
     <style>
         body {
-            overflow: hidden;
             padding: 0px;
             margin: 0px;
             font-family: Times New Roman;
@@ -19,6 +21,7 @@
             left: calc(100%-5%);
             background: #D35400;
             color: #ffffff;
+            /*box-shadow:0px 1px 5px #000000;*/
             height: 40px;
             padding-bottom: 5px;
             padding-top: 5px;
@@ -46,59 +49,35 @@
             zoom: 100%;
             font-size: 110%;
         }
-
-        .commentMove {
-            white-space: nowrap;
-            position: absolute;
-            top: 0;
-            left: 100%;
-            color: #D35400;
-            font-size: xx-large;
-        }
-
-        #ruler {
-            font-size: xx-large;
-        }
-
-        #videoArea {
-            position: relative;
-            width: 100%;
-        }
     </style>
-    <title>810 chat</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 <center>
     <div class="titlec">Agile chat</div>
 </center>
-<center>
-    <div class="chat_box">
-        <div id="chat_log"></div>
-        <div>
-            <div id="videoArea">
-                <iframe width="100%" height="500" src="https://www.youtube.com/embed/Iag55pIKWzI?rel=0&start=0&end=5&modestbranding=0&showinfo=0&fs=0&controls=0&autoplay=1&loop=1&playlist=Iag55pIKWzI"
-                    frameborder="0">
-                </iframe>
-            </div>
-        </div>
-    </div>
-</center>
 <div class="form_t">
     <form id="com_form" name="myf">
-        <input type="text" hidden> chat-
+        name-
+        <input type="text" placeholder="name" id="name" name="name"> chat-
         <input type="text" placeholder="comment" id="com" name="com">
         <br>
+        <br>
         <span style="">
-            <input type="button" value="aiueo" id="ugo">
+            <input type="button" id="sendButton">
         </span>
+        <big>Command[931,810,1919]</big>
 
     </form>
 </div>
-
-<span id="ruler" style="visibility:hidden;position:absolute;white-space:nowrap;"></span>
-
-<script src="commandFilter.js"></script>
-<script src="commentArrow.js"></script>
+[参加者]@conf@
+<center>
+    <div class="chat_box">
+        <div id="chat_log"></div>
+    </div>
+</center>
+<script src="Js/commandFilter.js"></script>
+<script src="Js/chatConnection.js"></script>
+<script src="Js/normalChatRoom.js"></script>
 
 </html>
