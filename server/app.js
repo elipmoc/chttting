@@ -1,34 +1,6 @@
-<<<<<<< HEAD
-const router = require('express')();
-var html = require('fs').readFileSync('main.html');
-var arrow = require('fs').readFileSync('commentArrow.js');
-var loadRoomJs = require('fs').readFileSync('loadRoomList.js');
-var filter = require('fs').readFileSync('commandFilter.js');
-var syamu = require('fs').readFileSync('syamu.html');
-var index = require('fs').readFileSync('index.html');
-var dip = require('fs').readFileSync('dip.html');
-var main = require('fs').readFileSync('main.html');
-var logging = require('fs').readFileSync('logging.js');
-var chatConnection = require('fs').readFileSync('chatConnection.js');
-var logDB = require('./logDB.js');
-var sys = require('util');
-const {
-  URL
-} = require('url');
-var qs = require('querystring');
-var pg = require('pg');
-const {
-  Client
-} = require('pg');
-
-router.get('/hoge', (req, res) => {
-  res.render('logDB.js');
-});
-=======
 const logDB = require('./logDB.js');
 const myRouter = require("./myRouter.js");
 const { Client } = require('pg');
->>>>>>> c8cceda75be4826c3b48b80fe448a700f4852606
 
 //データベースの接続設定
 const room_name_list = new Array();

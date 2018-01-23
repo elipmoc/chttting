@@ -1,4 +1,4 @@
-var socket = io("/loadRoomStream");
+const socket = io("/loadRoomStream");
 socket.emit('loadRoom', "");
 socket.on('loadRoom', data => {
       JSON.parse(data).forEach(
