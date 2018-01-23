@@ -40,9 +40,9 @@ client.query("select room_name from room;", (err, res) => {
 });
 
 
-var http = require('http').createServer(
+let http = require('http').createServer(
     function(req, res) {
-        var url = req.url;
+        let url = req.url;
         if (req.method == 'GET') {
             var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
             //console.log(url_parts);
@@ -101,11 +101,11 @@ var http = require('http').createServer(
                 'Content-Type': 'text/html'
             });
             res.end(index);
-        } else if("/getUrlParam.js" == url){
-          res.writeHead(200,{
-            'Content-Type':'text/plain'
-          });
-          res.end(getParameter);
+        } else if ("/getUrlParam.js" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/plain'
+            });
+            res.end(getParameter);
         }
     }
 );
@@ -174,5 +174,5 @@ function makeNameSpace() {
 //関数呼び出し
 debateTitleSocket();
 loadRoomSocket();
-var webPort = process.env.PORT || 3000;
+const webPort = process.env.PORT || 3000;
 http.listen(webPort);
