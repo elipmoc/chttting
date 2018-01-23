@@ -8,6 +8,9 @@ socket.on('loadRoom', data => {
                         case "discussion_free":
                               url = "dip.html";
                               break;
+                        case "normal":
+                              url = "normalChatRoom.html";
+                              break;
                   }
                   $('#roomList').prepend("<a href=" + url + "?roomName=" + room.room_name + "><h1><font color='red'>" + room.room_name + "</font></h1></a>");
             }
