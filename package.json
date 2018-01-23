@@ -12,9 +12,11 @@
   "dependencies": {
     "ejs": "*",
     "express": "^3.3.4",
+    "finalhandler": "^1.1.0",
     "mongodb": "*",
     "pg": "^7.4.0",
     "psql": "0.0.1",
+    "router": "^1.3.2",
     "socket.io": "^2.0.4",
     "websocket": "^1.0.25",
     "ws": "^3.3.2"
