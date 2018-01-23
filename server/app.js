@@ -3,7 +3,7 @@ const myRouter = require("./myRouter.js");
 const { Client } = require('pg');
 
 //データベースの接続設定
-const room_name_list = new Array();
+const room_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
@@ -14,7 +14,7 @@ client.connect();
 client.query("select room_name,room_type from room;", (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-        room_name_list.push(row["room_name"]);
+        room_name_list.push({ "room_name":row["room_name"],"room_type":row["room_type"] });
     }
     makeNameSpace();
     client.end();
@@ -36,7 +36,7 @@ function loadRoomSocket() {
         socket.on(
             'loadRoom',
             function (data) {
-                socket.emit('loadRoom', JSON.stringify(room_name_list));
+                socket.emit('loadRoom', JSON.stringify(room_list["room_name"]));
             });
     });
 
