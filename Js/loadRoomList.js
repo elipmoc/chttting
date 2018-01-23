@@ -6,7 +6,7 @@ socket.on('loadRoom', data => {
                   let url;
                   switch (room.room_type) {
                         case "discussion_free":
-                              url = "dip.html";
+                              url = "discussion.html";
                               break;
                         case "normal":
                               url = "normalChatRoom.html";
