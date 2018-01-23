@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const router = require('express')();
 var html = require('fs').readFileSync('main.html');
 var arrow = require('fs').readFileSync('commentArrow.js');
@@ -23,168 +24,102 @@ const {
 router.get('/hoge', (req, res) => {
   res.render('logDB.js');
 });
+=======
+const logDB = require('./logDB.js');
+const myRouter = require("./myRouter.js");
+const { Client } = require('pg');
+>>>>>>> c8cceda75be4826c3b48b80fe448a700f4852606
 
 //データベースの接続設定
-var room_name_list = new Array();
-var testStr = "tintin";
+const room_name_list = new Array();
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
 });
 
 
 client.connect();
-client.query("select room_name from room;", (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    room_name_list.push(row["room_name"]);
-  }
-  makeNameSpace();
-  client.end();
+client.query("select room_name,room_type from room;", (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+        room_name_list.push(row["room_name"]);
+    }
+    makeNameSpace();
+    client.end();
 });
 
 
-var http = require('http').createServer(
-  function(req, res) {
-    var url = req.url;
-    if (req.method == 'GET') {
-      var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
-      //console.log(url_parts);
-      //url_parts = "http://google.com/?name=a";
-      url = url_parts.pathname;
-      console.log(url_parts.search);
-    }
-
-    if ('/' == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/html'
-      });
-      res.end(html);
-    } else if ('/logging.js' == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/plain'
-      });
-      res.end(logging);
-    } else if ("/main.html" == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/html'
-      });
-      res.end(main);
-    } else if ("/dip.html" == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/html'
-      });
-      res.end(dip);
-    } else if ("/syamu.html" == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/html'
-      });
-      res.end(syamu);
-    } else if ("/commentArrow.js" == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/html'
-      });
-      res.end(arrow);
-    } else if ("/commandFilter.js" == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/plain'
-      });
-      res.end(filter);
-    } else if ("/chatConnection.js" == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/plain'
-      });
-      res.end(chatConnection);
-    } else if ("/loadRoomList.js" == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/plain'
-      });
-      res.end(loadRoomJs);
-    } else if ("/index.html" == url) {
-      res.writeHead(200, {
-        'Content-Type': 'text/html'
-      });
-      res.end(index);
-    }
-  }
+const http = require('http').createServer(
+    myRouter.createRouter()
 );
 const io = require('socket.io')(http);
 
 //名前空間のリスト。いまはまだ使いみちがない
 let namespaceList = new Array();
 
+//ルーム一覧を表示するソケットを定義
 function loadRoomSocket() {
-  let namespace = io.of("/loadRoomStream");
-  namespace.on('connection', socket => {
-    socket.on(
-      'loadRoom',
-      function(data) {
-        socket.emit('loadRoom', JSON.stringify(room_name_list));
-      });
-  });
+    let namespace = io.of("/loadRoomStream");
+    namespace.on('connection', socket => {
+        socket.on(
+            'loadRoom',
+            function (data) {
+                socket.emit('loadRoom', JSON.stringify(room_name_list));
+            });
+    });
 
 }
-loadRoomSocket();
+
+//議題を定義するためのソケットを定義
+function debateTitleSocket() {
+    io.on("connection", (socket) => {
+        socket.on("titleSend", (title) => {
+            io.emit("titleSend", title);
+        });
+    });
+}
 
 
-
-io.on("connection", (socket) => {
-  socket.on("titleSend", (title) => {
-    io.emit("titleSend", title);
-  });
-});
-
-
-
-//クライアントソケットの応答処理
-function socketOn(namespace) {
-  return function(socket) {
-    socket.on(
-      'msg',
-      function(data) {
-        console.log("msg:" + data);
-        namespace.emit('msg', data);
-        logDB.logPush_div(namespace.name, data);
-      });
-
-    socket.on(
-      'initMsg',
-      function(data) {
-        console.log("initmsg:" + data);
-        socket.emit(
-          'initMsg',
-          logDB.logRead_div(namespace.name, msgList =>
-            socket.emit('initMsg', JSON.stringify(msgList))
-          )
+//チャットをするためのソケット群
+function chatSocket(namespace) {
+    return function (socket) {
+        //ログ管理
+        socket.on(
+            'msg',
+            function (data) {
+                console.log("msg:" + data);
+                namespace.emit('msg', data);
+                logDB.logPush(namespace.name, data);
+            }
         );
-      });
-  }
-}
-//roomNameListから各種ソケットの名前空間リストを生成
-function makeNameSpace() {
-  room_name_list.forEach(function(x) {
-    let namespace = io.of("/" + x);
-    namespace.on('connection', socketOn(namespace));
-    namespaceList[x] = namespace;
-  });
+        //発言するためのソケット
+        socket.on(
+            'initMsg',
+            function (data) {
+                console.log("initmsg:" + data);
+                socket.emit(
+                    'initMsg',
+                    logDB.logRead(namespace.name, msgList =>
+                        socket.emit('initMsg', JSON.stringify(msgList))
+                    )
+                );
+            }
+        );
+    };
 }
 
-var webPort = process.env.PORT || 3000;
-var adminNamespace = io.of("/admin");
+//roomNameListから各種ソケットの名前空間リストを生成  *
+function makeNameSpace() {
+    room_name_list.forEach(function (x) {
+        let namespace = io.of("/" + x);
+        namespace.on('connection', chatSocket(namespace));
+        namespaceList[x] = namespace;
+    });
+}
+
+
+//関数呼び出し
+debateTitleSocket();
+loadRoomSocket();
+const webPort = process.env.PORT || 3000;
 http.listen(webPort);
-adminNamespace.on(
-  'connection',
-  function(socket) {
-    socket.on(
-      'msg',
-      function(data) {
-        adminNamespace.emit('msg', /*testStr*/ data + String(url_parts.query));
-        switch (url_parts.query) {
-          case "room_admin":
-            adminNamespace.emit('msg', data + String(url_parts.query));
-            break;
-        }
-      }
-    );
-  }
-);
