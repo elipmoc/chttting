@@ -31,7 +31,7 @@ let namespaceList = new Array();
 
 //ルーム一覧を表示するソケットを定義
 function loadRoomSocket() {
-    let namespace = io.of("/loadRoomStream");
+    const namespace = io.of("/loadRoomStream");
     namespace.on('connection', socket => {
         socket.on(
             'loadRoom',
@@ -82,7 +82,7 @@ function chatSocket(namespace) {
 
 //roomNameListから各種ソケットの名前空間リストを生成  *
 function makeNameSpace() {
-    room_list.map(room.room_name).forEach((x)=> {
+    room_list.map("room_name").forEach((x)=> {
         let namespace = io.of("/" + x);
         namespace.on('connection', chatSocket(namespace));
         namespaceList[x] = namespace;
