@@ -14,7 +14,7 @@ const getParameter = require('fs').readFileSync('getUrlParam.js');
 const index = require('fs').readFileSync('index.html');
 const dip = require('fs').readFileSync('dip.html');
 const qs = require('querystring');
-
+const myRouter = require("./myRouter.js");
 const {
     URL
 } = require('url');
@@ -42,7 +42,7 @@ client.query("select room_name from room;", (err, res) => {
 
 
 const http = require('http').createServer(
-    function(req, res) {
+    function (req, res) {
         let url = req.url;
         if (req.method == 'GET') {
             var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
