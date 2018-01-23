@@ -3,6 +3,7 @@ const getParameter = require('fs').readFileSync('getUrlParam.js');
 const html = require('fs').readFileSync('main.html');
 const arrow = require('fs').readFileSync('commentArrow.js');
 const loadRoomJs = require('fs').readFileSync('loadRoomList.js');
+const style = require('fs').readFileSync('style.css');
 const filter = require('fs').readFileSync('commandFilter.js');
 const syamu = require('fs').readFileSync('syamu.html');
 const index = require('fs').readFileSync('index.html');
@@ -106,6 +107,10 @@ const http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(getParameter);
+        } else if("/style.css" == url){
+          res.writeHead(200,{
+            'Content-Type' : 'text/css'
+          });
         }
     }
 );
