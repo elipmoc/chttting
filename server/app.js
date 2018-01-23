@@ -14,7 +14,7 @@ client.connect();
 client.query("select room_name,room_type from room;", (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-        room_list.push({ "room_name":row["room_name"],"room_type":row["room_type"] });
+        room_list.push({ room_name:row["room_name"],room_type:row["room_type"] });
     }
     makeNameSpace();
     client.end();
