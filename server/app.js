@@ -40,7 +40,7 @@ client.query("select room_name from room;", (err, res) => {
 });
 
 
-let http = require('http').createServer(
+const http = require('http').createServer(
     function(req, res) {
         let url = req.url;
         if (req.method == 'GET') {
