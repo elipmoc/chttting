@@ -3,7 +3,7 @@ const myRouter = require("./myRouter.js");
 const { Client } = require('pg');
 
 //データベースの接続設定
-const room_list = new Array();
+const room_name_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
@@ -14,7 +14,7 @@ client.connect();
 client.query("select room_name,room_type from room;", (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-        room_list.push({ room_name: row["room_name"], room_type: row["room_type"] });
+        room_name_list.push(row["room_name"]);
     }
     makeNameSpace();
     client.end();
@@ -36,11 +36,12 @@ function loadRoomSocket() {
         socket.on(
             'loadRoom',
             function (data) {
-                socket.emit('loadRoom', JSON.stringify(room_list));
+                socket.emit('loadRoom', JSON.stringify(room_name_list));
             });
     });
 
 }
+
 //議題を定義するためのソケットを定義
 function debateTitleSocket() {
     io.on("connection", (socket) => {
@@ -79,9 +80,9 @@ function chatSocket(namespace) {
     };
 }
 
-//roomNameListから各種ソケットの名前空間リストを生成
+//roomNameListから各種ソケットの名前空間リストを生成  *
 function makeNameSpace() {
-    room_list.map(room => room.room_name).forEach(function (x) {
+    room_name_list.forEach(function (x) {
         let namespace = io.of("/" + x);
         namespace.on('connection', chatSocket(namespace));
         namespaceList[x] = namespace;
