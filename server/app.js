@@ -123,6 +123,7 @@ const http = require('http').createServer(
           res.writeHead(200,{
             'Content-Type' : 'text/css'
           });
+          res.end(style);
         }
     }
 );
