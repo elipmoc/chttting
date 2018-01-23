@@ -82,7 +82,7 @@ function chatSocket(namespace) {
 
 //roomNameListから各種ソケットの名前空間リストを生成  *
 function makeNameSpace() {
-    room_list.map("room_name").forEach((x)=> {
+    room_list.map(room.room_name {
         let namespace = io.of("/" + x);
         namespace.on('connection', chatSocket(namespace));
         namespaceList[x] = namespace;
