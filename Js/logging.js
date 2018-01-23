@@ -9,10 +9,8 @@ $('#right').click(() => {
 //議題定義のソケット定義
 const socket = io();
 const urlLocation = document.location.href;
-const chatConnection = new ChatConnection("dipe", msgDataAdd);
 const urlParam = urlGetParamParse(urlLocation);
-
-
+const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
 
 $('#chat_send').click(() => {
     let ms = document.myf.com.value;
