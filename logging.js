@@ -1,8 +1,8 @@
 //左右に別れるためのロケーション
-$('#left').click(function(e) {
+$('#left').click(() => {
     document.location.href = "dip.html?stance=debateLeft";
 });
-$('#right').click(function(e) {
+$('#right').click(() => {
     document.location.href = "dip.html?stance=debateRight";
 });
 
