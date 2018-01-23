@@ -1,34 +1,36 @@
-var html = require('fs').readFileSync('main.html');
-var arrow = require('fs').readFileSync('commentArrow.js');
-var loadRoomJs = require('fs').readFileSync('loadRoomList.js');
-var filter = require('fs').readFileSync('commandFilter.js');
-var syamu = require('fs').readFileSync('syamu.html');
-var dip = require('fs').readFileSync('dip.html');
-var main = require('fs').readFileSync('main.html');
-var normalChatRoomHtml = require('fs').readFileSync('normalChatRoom.html');
-var normalChatRoomJs = require('fs').readFileSync('normalChatRoom.js');
-var logging = require('fs').readFileSync('logging.js');
-var chatConnection = require('fs').readFileSync('chatConnection.js');
-var logDB = require('./logDB.js');
-var sys = require('util');
+const html = require('fs').readFileSync('main.html');
+const arrow = require('fs').readFileSync('commentArrow.js');
+const loadRoomJs = require('fs').readFileSync('loadRoomList.js');
+const filter = require('fs').readFileSync('commandFilter.js');
+const syamu = require('fs').readFileSync('syamu.html');
+const main = require('fs').readFileSync('main.html');
+const normalChatRoomHtml = require('fs').readFileSync('normalChatRoom.html');
+const normalChatRoomJs = require('fs').readFileSync('normalChatRoom.js');
+const logging = require('fs').readFileSync('logging.js');
+const chatConnection = require('fs').readFileSync('chatConnection.js');
+const logDB = require('./logDB.js');
+const sys = require('util');
+const getParameter = require('fs').readFileSync('getUrlParam.js');
+const index = require('fs').readFileSync('index.html');
+const dip = require('fs').readFileSync('dip.html');
+const qs = require('querystring');
+
 const {
     URL
 } = require('url');
-var qs = require('querystring');
-var pg = require('pg');
 const {
     Client
 } = require('pg');
 
 //データベースの接続設定
-var room_name_list = new Array();
+const room_name_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
 });
 
-client.connect();
 
+client.connect();
 client.query("select room_name from room;", (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
@@ -39,10 +41,9 @@ client.query("select room_name from room;", (err, res) => {
 });
 
 
-
-var http = require('http').createServer(
+let http = require('http').createServer(
     function (req, res) {
-        var url = req.url;
+        let url = req.url;
         if (req.method == 'GET') {
             var url_parts = new URL("https://serene-fjord-98327.herokuapp.com" + url);
             //console.log(url_parts);
@@ -107,6 +108,16 @@ var http = require('http').createServer(
                 'Content-Type': 'text/plain'
             });
             res.end(normalChatRoomJs);
+        } else if ("/index.html" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.end(index);
+        } else if ("/getUrlParam.js" == url) {
+            res.writeHead(200, {
+                'Content-Type': 'text/plain'
+            });
+            res.end(getParameter);
         }
     }
 );
@@ -115,6 +126,7 @@ const io = require('socket.io')(http);
 //名前空間のリスト。いまはまだ使いみちがない
 let namespaceList = new Array();
 
+//ルーム一覧を表示するソケットを定義
 function loadRoomSocket() {
     let namespace = io.of("/loadRoomStream");
     namespace.on('connection', socket => {
@@ -126,13 +138,20 @@ function loadRoomSocket() {
     });
 
 }
-loadRoomSocket();
+//議題を定義するためのソケットを定義
+function debateTitleSocket() {
+    io.on("connection", (socket) => {
+        socket.on("titleSend", (title) => {
+            io.emit("titleSend", title);
+        });
+    });
+}
 
 
-
-//クライアントソケットの応答処理
-function socketOn(namespace) {
+//チャットをするためのソケット群
+function chatSocket(namespace) {
     return function (socket) {
+        //ログ管理
         socket.on(
             'msg',
             function (data) {
@@ -141,54 +160,34 @@ function socketOn(namespace) {
                 logDB.logPush_div(namespace.name, data);
             }
         );
-
-        socket.on(
-            'debate_title',
-            function (odai) {
-                socket.emit('debate_title', odai);
-            }
-        );
-
+        //発言するためのソケット
         socket.on(
             'initMsg',
             function (data) {
                 console.log("initmsg:" + data);
-                logDB.logRead_div(namespace.name, msgList =>
-                    socket.emit(
-                        'initMsg',
-                        JSON.stringify(msgList)
+                socket.emit(
+                    'initMsg',
+                    logDB.logRead_div(namespace.name, msgList =>
+                        socket.emit('initMsg', JSON.stringify(msgList))
                     )
                 );
             }
         );
-    }
+    };
 }
 
 //roomNameListから各種ソケットの名前空間リストを生成
 function makeNameSpace() {
     room_name_list.forEach(function (x) {
         let namespace = io.of("/" + x);
-        namespace.on('connection', socketOn(namespace));
+        namespace.on('connection', chatSocket(namespace));
         namespaceList[x] = namespace;
     });
 }
 
-var webPort = process.env.PORT || 3000;
-var adminNamespace = io.of("/admin");
+
+//関数呼び出し
+debateTitleSocket();
+loadRoomSocket();
+const webPort = process.env.PORT || 3000;
 http.listen(webPort);
-adminNamespace.on(
-    'connection',
-    function (socket) {
-        socket.on(
-            'msg',
-            function (data) {
-                adminNamespace.emit('msg', /*testStr*/ data + String(url_parts.query));
-                switch (url_parts.query) {
-                    case "room_admin":
-                        adminNamespace.emit('msg', data + String(url_parts.query));
-                        break;
-                }
-            }
-        );
-    }
-);

@@ -1,56 +1,55 @@
-$('#left').click(function (e) {
-    document.location.href = "dip.html?name=dipe";
+//左右に別れるためのロケーション
+$('#left').click(function(e) {
+    document.location.href = "dip.html?stance=debateLeft";
+});
+$('#right').click(function(e) {
+    document.location.href = "dip.html?stance=debateRight";
 });
 
-$('#right').click(function (e) {
-    document.location.href = "dip.html?name=dipe2";
-});
+//議題定義のソケット定義
+const socket = io();
+const urlLocation = document.location.href;
+const chatConnection = new ChatConnection("dipe", msgDataAdd);
+const urlParam = urlGetParamParse(urlLocation);
 
 
-var loc = document.location.href;
-var paramItem = loc.split('=');
-var chatConnection = new ChatConnection("dipe", msgDataAdd);
 
-$('#ugo').click(function (e) {
+$('#chat_send').click(() => {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
         chatConnection.sendData(
-            JSON.stringify(
-                {
-                    "msg": nm + " > " + ms,
-                    "dipeType": paramItem[1]
-                }
-            )
+            JSON.stringify({
+                "msg": nm + " > " + ms,
+                "dipeType": urlParam["stance"]
+            })
         );
     }
     document.myf.com.value = "";
 });
 
-/*
-$('#odai').click(function(e) {
-    let odai = document.myf.odai.value;
-    if (odai != "") {
-        socket.emit('dai', odai);
-    }
-    document.myf.word.value = "";
-});*/
-
+//urlParam["stance"] == "debateLeft"
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
     let msg = commandFilter(data["msg"]) + '<br><hr>';
-    if (data["dipeType"] == "dipe") {
+
+    if (data["dipeType"] == "debateLeft") {
         $('#chat_log').prepend(msg);
-    } else if (data["dipeType"] == "dipe2") {
+    } else if (data["dipeType"] == "debateRight") {
         $('#chat_log2').prepend(msg);
     }
 }
-/*
-socket.on('dai',
-    function (data) {
-        $('#titlec').prepend(data);
-    });
-*/
+
+
+$("#title_send").click(() => {
+    let word = document.myf.title_word.value;
+    socket.emit('titleSend', word);
+});
+
+socket.on('titleSend', (title) => {
+    let title_bar = document.getElementById("titlec");
+    title_bar.innerHTML = title;
+});

@@ -5,65 +5,8 @@
         POCA CHAT
     </title>
     <meta charset="UTF-8">
-    <style>
-        body {
-            padding: 0px;
-            margin: 0px;
-            font-family: Times New Roman;
-            background-color: #FDFEFE;
-        }
-
-        .titlec {
-            font-size: 200%;
-            font-family: Times New Roman;
-            border: 1px;
-            width: 100%;
-            left: calc(100%-5%);
-            background-color: #FF6347;
-            color: #ffffff;
-
-            height: 40px;
-            padding-bottom: 5px;
-            padding-top: 5px;
-            margin-bottom: 10px;
-        }
-
-        .left_box {
-            position: absolute;
-            padding-left: 5px;
-            box-shadow: 0px 0px 1px #000000;
-            margin-top: 10px;
-            padding: 10px;
-            width: 48%;
-            border: 1px;
-            left: 0px;
-        }
-
-        .right_box {
-            position: absolute;
-            padding-left: 5px;
-            box-shadow: 0px 0px 1px #000000;
-            margin-top: 10px;
-            padding: 10px;
-            width: 48%;
-            border: 1px;
-            right: 0px;
-        }
-
-        .form_t {
-            margin-left: 10px;
-            border-bottom: 1px solid #000000;
-            margin-bottom: 10px;
-        }
-
-        input[type="text"] {
-            border-radius: 5px;
-            background-color: #FBFCFC;
-            border: 1px solid #B3B6B7;
-            zoom: 100%;
-            font-size: 110%;
-        }
-    </style>
+   <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script src="/socket.io/socket.io.js"></script>
     <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
@@ -77,12 +20,12 @@
         <input type="text" placeholder="comment" id="com" name="com">
         <input type="button" id="left" value="左側">
         <input type="button" id="right" value="右側">
-        <input type="text" id="word">
+        <input type="text" id="title_word">
         <br>
         <br>
         <span style="">
-            <input type="button" value="aiueo" id="ugo">
-            <input type="button" id="odai">
+            <input type="button" value="aiueo" id="chat_send">
+            <input type="button" id="title_send" value="titleSend">
         </span>
         <big>Command[931,810,1919]</big>
     </form>
@@ -101,8 +44,10 @@
 
 
 <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="commandFilter.js"></script>
 <script src="chatConnection.js"></script>
+<script src="getUrlParam.js"></script>
 <script src="./logging.js"></script>
-
 </html>
