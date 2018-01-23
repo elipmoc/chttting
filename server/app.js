@@ -1,4 +1,4 @@
-const app = require('express')();
+const router = require('express')();
 var html = require('fs').readFileSync('main.html');
 var arrow = require('fs').readFileSync('commentArrow.js');
 var loadRoomJs = require('fs').readFileSync('loadRoomList.js');
@@ -20,8 +20,8 @@ const {
   Client
 } = require('pg');
 
-app.get('/hogehoge', (req, res) => {
-  res.sendFile('../index.html');
+router.get('/hoge', (req, res) => {
+  res.render('logDB.js');
 });
 
 //データベースの接続設定
