@@ -1,18 +1,16 @@
-//左右に別れるためのロケーション
-$('#left').click(() => {
-    document.location.href = "dip.html?stance=debateLeft";
-});
-$('#right').click(() => {
-    document.location.href = "dip.html?stance=debateRight";
-});
-
 //議題定義のソケット定義
 const socket = io();
 const urlLocation = document.location.href;
-const chatConnection = new ChatConnection("dipe", msgDataAdd);
 const urlParam = urlGetParamParse(urlLocation);
+const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
 
-
+//左右に別れるためのロケーション
+$('#left').click(() => {
+    document.location.href = "dip.html?stance=debateLeft&roomName=" + urlParam["roomName"];
+});
+$('#right').click(() => {
+    document.location.href = "dip.html?stance=debateRight&roomName=" + urlParam["roomName"];
+});
 
 $('#chat_send').click(() => {
     let ms = document.myf.com.value;

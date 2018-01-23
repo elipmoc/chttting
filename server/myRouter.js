@@ -4,6 +4,9 @@ const finalhandler = require('finalhandler');
 
 exports.createRouter = () => {
     let myRouter = router();
+    myRouter.get("/", (req, res) => {
+        sendHtml(res, "./Html/main.html");
+    });
     myRouter.get("/Css/:path", (req, res) => {
         sendCss(res, "./Css/" + req.params.path);
     });

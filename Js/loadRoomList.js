@@ -2,6 +2,17 @@ var socket = io("/loadRoomStream");
 socket.emit('loadRoom', "");
 socket.on('loadRoom', data => {
       JSON.parse(data).forEach(
-            name => $('#roomList').prepend("<h1><font color='red'>" + name + "</font></h1>")
+            room => {
+                  let url;
+                  switch (room.room_type) {
+                        case "discussion_free":
+                              url = "dip.html";
+                              break;
+                        case "normal":
+                              url = "normalChatRoom.html";
+                              break;
+                  }
+                  $('#roomList').prepend("<a href=" + url + "?roomName=" + room.room_name + "><h1><font color='red'>" + room.room_name + "</font></h1></a>");
+            }
       );
 });
