@@ -36,7 +36,7 @@ function loadRoomSocket() {
         socket.on(
             'loadRoom',
             function (data) {
-                socket.emit('loadRoom', JSON.stringify(room_list["room_name"]));
+                socket.emit('loadRoom', JSON.stringify(room_list));
             });
     });
 
