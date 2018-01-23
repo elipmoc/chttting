@@ -1,14 +1,6 @@
 const logDB = require('./logDB.js');
-const sys = require('util');
-
-const qs = require('querystring');
 const myRouter = require("./myRouter.js");
-const {
-    URL
-} = require('url');
-const {
-    Client
-} = require('pg');
+const { Client } = require('pg');
 
 //データベースの接続設定
 const room_name_list = new Array();
