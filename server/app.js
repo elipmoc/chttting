@@ -3,7 +3,7 @@ const myRouter = require("./myRouter.js");
 const { Client } = require('pg');
 
 //データベースの接続設定
-const room_list = new Array();
+let room_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
@@ -82,7 +82,7 @@ function chatSocket(namespace) {
 
 //roomNameListから各種ソケットの名前空間リストを生成  *
 function makeNameSpace() {
-    room_list["room_name"].forEach((x)=> {
+    room_list.map(room.room_name).forEach((x)=> {
         let namespace = io.of("/" + x);
         namespace.on('connection', chatSocket(namespace));
         namespaceList[x] = namespace;
