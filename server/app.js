@@ -64,7 +64,7 @@ function debateTitleSocket() {
 function firstAccessSocket() {
     const firstStream = io.of("/fistLoadStream");
     firstStream.on("connection", (scoket) => {
-        socket.on("firstSend", () => {
+        socket.on("firstSend", (data) => {
             socket.emit("firstSend", "sss");
         });
     });
