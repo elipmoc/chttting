@@ -49,5 +49,5 @@ $("#title_send").click(() => {
 });
 
 socket.on('titleSend', (title) => {
-    $("#titlec").text(title).html();
+    $("#titlec").text(title).html().fadeIn("fast");
 });
