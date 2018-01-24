@@ -4,6 +4,7 @@ const myRouter = require("./myRouter.js");
 const { Client } = require('pg');
 
 //データベースの接続設定
+let rondai = "";
 let room_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -48,8 +49,17 @@ function debateTitleSocket() {
     io.on("connection", (socket) => {
         socket.on("titleSend", (title) => {
             io.emit("titleSend", title);
+            rondai = title;
         });
     });
+}
+
+function firstAccessSocket(){
+  io.on("connection",(scoket) => {
+    socket.on("firstSend" ,() => {
+      io.emit("firstSend",rondai);
+    });
+  });
 }
 
 
