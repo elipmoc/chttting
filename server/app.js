@@ -109,5 +109,6 @@ function makeNameSpace() {
 //関数呼び出し
 debateTitleSocket();
 loadRoomSocket();
+firstAccessSocket();
 const webPort = process.env.PORT || 3000;
 http.listen(webPort);
