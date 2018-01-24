@@ -4,6 +4,9 @@ const {
     Client
 } = require('pg');
 
+//ポート指定
+const webPort = process.env.PORT || 3000;
+
 //データベースの接続設定
 let rondai = "";
 let room_list = new Array();
@@ -110,5 +113,6 @@ function makeNameSpace() {
 debateTitleSocket();
 loadRoomSocket();
 firstAccessSocket();
-const webPort = process.env.PORT || 3000;
+
+//listen
 http.listen(webPort);
