@@ -33,7 +33,7 @@ $('#chat_send').click(() => {
 function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
-    let msg = commandFilter(data["msg"]) + '<br><hr>';
+    let msg = '<div style="border-top:1px;">'+ commandFilter(data["msg"]) + '</div><br>';
 
     if (data["dipeType"] == "debateLeft") {
         $('#chat_log').prepend(msg);
