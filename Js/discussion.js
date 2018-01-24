@@ -49,6 +49,5 @@ $("#title_send").click(() => {
 });
 
 socket.on('titleSend', (title) => {
-    let title_bar = document.getElementById("titlec");
-    title_bar.innerHTML = title;
+    $("#titlec").text(title).html();
 });
