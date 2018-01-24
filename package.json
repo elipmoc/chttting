@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "ejs": "*",
+    "finalhandler": "^1.1.0",
     "mongodb": "*",
     "pg": "^7.4.0",
     "psql": "0.0.1",
