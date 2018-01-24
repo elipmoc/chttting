@@ -1,6 +1,6 @@
-const socket = io("/firstLoadStream");
-socket.emit('firstSend', "");
-socket.on('firstSend', data => {
+const firstSocket = io("/firstLoadStream");
+firstSocket.emit('firstSend', "");
+firstSocket.on('firstSend', (data) => {
     let titlein = document.getElementById("titlec");
     titlein.innerHTML = data;
 });
