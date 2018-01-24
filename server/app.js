@@ -62,7 +62,7 @@ function debateTitleSocket() {
 }
 
 function firstAccessSocket() {
-    const firstStream = io.of("/fistLoadStream");
+    const firstStream = io.of("/firstLoadStream");
     firstStream.on("connection", (scoket) => {
         socket.on("firstSend", (data) => {
             socket.emit("firstSend", rondai);
