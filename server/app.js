@@ -65,7 +65,7 @@ function firstAccessSocket() {
     const firstStream = io.of("/fistLoadStream");
     firstStream.on("connection", (scoket) => {
         socket.on("firstSend", (data) => {
-            socket.emit("firstSend", "sss");
+            socket.emit("firstSend", rondai);
         });
     });
 }
