@@ -1,9 +1,10 @@
+
 const logDB = require('./logDB.js');
 const myRouter = require("./myRouter.js");
 const { Client } = require('pg');
 
 //データベースの接続設定
-const room_list = new Array();
+let room_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
