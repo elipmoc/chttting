@@ -36,9 +36,9 @@ function msgDataAdd(data) {
     let msg = '<div style="border-top:1px #D5D8DC solid; margin-top:3px;margin-bottom:-12px;">'+ commandFilter(data["msg"]) + '</div><br>';
 
     if (data["dipeType"] == "debateLeft") {
-        $('#chat_log').prepend(msg).fadeIn('slow');
+        $('#chat_log').prependTo(msg).hide().fadeIn('slow');
     } else if (data["dipeType"] == "debateRight") {
-        $('#chat_log2').prepend(msg).fadeIn('slow');
+        $('#chat_log2').prependTo(msg).hide().fadeIn('slow');
     }
 }
 
