@@ -5,7 +5,7 @@ const {
 } = require('pg');
 
 //データベースの接続設定
-
+let debate_title = "";
 let room_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -50,16 +50,16 @@ function debateTitleSocket() {
     io.on("connection", (socket) => {
         socket.on("titleSend", (title) => {
             socket.emit("titleSend", title);
-
+            debate_title = title;
         });
     });
 }
 
 function firstAccessSocket() {
     const firstStream = io.of("/firstLoadStream");
-    firstStream.on("connection", (scoket) => {
+    firstStream.on("connection", (socket) => {
         socket.on("firstSend", (data) => {
-            socket.emit("firstSend", "aiuie");
+            socket.emit("firstSend", debate_title);
         });
     });
 }
