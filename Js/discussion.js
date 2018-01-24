@@ -12,7 +12,7 @@ $('#left').click(() => {
 $('#right').click(() => {
     document.location.href = "discussion.html?stance=debateRight&roomName=" + urlParam["roomName"];
 });
-alert();
+
 $('#chat_send').click(() => {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
