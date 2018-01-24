@@ -4,6 +4,7 @@ const urlLocation = document.location.href;
 const urlParam = urlGetParamParse(urlLocation);
 const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
 
+
 //左右に別れるためのロケーション
 $('#left').click(() => {
     document.location.href = "discussion.html?stance=debateLeft&roomName=" + urlParam["roomName"];
@@ -11,7 +12,7 @@ $('#left').click(() => {
 $('#right').click(() => {
     document.location.href = "discussion.html?stance=debateRight&roomName=" + urlParam["roomName"];
 });
-
+alert();
 $('#chat_send').click(() => {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
