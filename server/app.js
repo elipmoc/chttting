@@ -8,7 +8,7 @@ const {
 const webPort = process.env.PORT || 3000;
 
 //データベースの接続設定
-let rondai = "";
+var rondai = "";
 let room_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
