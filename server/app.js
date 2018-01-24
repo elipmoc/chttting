@@ -55,7 +55,7 @@ function loadRoomSocket() {
 function debateTitleSocket() {
     io.on("connection", (socket) => {
         socket.on("titleSend", (title) => {
-            io.emit("titleSend", title);
+            socket.emit("titleSend", title);
             rondai = title;
         });
     });
