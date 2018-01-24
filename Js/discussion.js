@@ -6,10 +6,10 @@ const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
 
 //左右に別れるためのロケーション
 $('#left').click(() => {
-    document.location.href = "dip.html?stance=debateLeft&roomName=" + urlParam["roomName"];
+    document.location.href = "discussion.html?stance=debateLeft&roomName=" + urlParam["roomName"];
 });
 $('#right').click(() => {
-    document.location.href = "dip.html?stance=debateRight&roomName=" + urlParam["roomName"];
+    document.location.href = "discussion.html?stance=debateRight&roomName=" + urlParam["roomName"];
 });
 
 $('#chat_send').click(() => {
