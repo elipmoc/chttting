@@ -5,7 +5,7 @@ const {
 } = require('pg');
 
 //データベースの接続設定
-let debate_title = "";
+let debate_title = "øphi-chat *debate";
 let room_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
