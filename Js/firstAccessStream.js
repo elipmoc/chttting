@@ -2,5 +2,6 @@ const firstSocket = io("/firstLoadStream");
 firstSocket.emit('firstSend', "");
 firstSocket.on('firstSend', (data) => {
     let titlein = document.getElementById("titlec");
-    titlein.innerHTML = data;
+    titlein.innerHTML = titlec;
+    $.escapeSelector("#titlec");
 });
