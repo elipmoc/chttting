@@ -4,6 +4,7 @@ const urlLocation = document.location.href;
 const urlParam = urlGetParamParse(urlLocation);
 const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
 
+
 //左右に別れるためのロケーション
 $('#left').click(() => {
     document.location.href = "discussion.html?stance=debateLeft&roomName=" + urlParam["roomName"];
@@ -32,7 +33,7 @@ $('#chat_send').click(() => {
 function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
-    let msg = commandFilter(data["msg"]) + '<br><hr>';
+    let msg = '<div style="border-top:1px #D5D8DC solid; margin-top:6px;margin-bottom:-12px;">'+ commandFilter(data["msg"]) + '</div><br>';
 
     if (data["dipeType"] == "debateLeft") {
         $('#chat_log').prepend(msg);
@@ -48,6 +49,5 @@ $("#title_send").click(() => {
 });
 
 socket.on('titleSend', (title) => {
-    let title_bar = document.getElementById("titlec");
-    title_bar.innerHTML = title;
+    $("#titlec").text(title).html();
 });

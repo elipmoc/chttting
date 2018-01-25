@@ -1,8 +1,11 @@
 const logDB = require('./logDB.js');
 const myRouter = require("./myRouter.js");
-const { Client } = require('pg');
+const {
+    Client
+} = require('pg');
 
 //データベースの接続設定
+let debate_title = "øphi-chat *debate";
 let room_list = new Array();
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -14,7 +17,7 @@ client.connect();
 client.query("select room_name,room_type from room;", (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-        room_list.push({ room_name:row["room_name"],room_type:row["room_type"] });
+        room_list.push({room_name: row["room_name"],room_type: row["room_type"]});
     }
     makeNameSpace();
     client.end();
@@ -35,7 +38,7 @@ function loadRoomSocket() {
     namespace.on('connection', socket => {
         socket.on(
             'loadRoom',
-            function (data) {
+            function(data) {
                 socket.emit('loadRoom', JSON.stringify(room_list));
             });
     });
@@ -46,7 +49,17 @@ function loadRoomSocket() {
 function debateTitleSocket() {
     io.on("connection", (socket) => {
         socket.on("titleSend", (title) => {
-            io.emit("titleSend", title);
+            socket.emit("titleSend", title);
+            debate_title = title;
+        });
+    });
+}
+
+function firstAccessSocket() {
+    const firstStream = io.of("/firstLoadStream");
+    firstStream.on("connection", (socket) => {
+        socket.on("firstSend", (data) => {
+            socket.emit("firstSend", debate_title);
         });
     });
 }
@@ -54,11 +67,11 @@ function debateTitleSocket() {
 
 //チャットをするためのソケット群
 function chatSocket(namespace) {
-    return function (socket) {
+    return function(socket) {
         //ログ管理
         socket.on(
             'msg',
-            function (data) {
+            function(data) {
                 console.log("msg:" + data);
                 namespace.emit('msg', data);
                 logDB.logPush(namespace.name, data);
@@ -67,7 +80,7 @@ function chatSocket(namespace) {
         //発言するためのソケット
         socket.on(
             'initMsg',
-            function (data) {
+            function(data) {
                 console.log("initmsg:" + data);
                 socket.emit(
                     'initMsg',
@@ -82,7 +95,7 @@ function chatSocket(namespace) {
 
 //roomNameListから各種ソケットの名前空間リストを生成  *
 function makeNameSpace() {
-    room_list.map(room => room.room_name).forEach((x)=> {
+    room_list.map(room => room.room_name).forEach((x) => {
         let namespace = io.of("/" + x);
         namespace.on('connection', chatSocket(namespace));
         namespaceList[x] = namespace;
@@ -93,5 +106,9 @@ function makeNameSpace() {
 //関数呼び出し
 debateTitleSocket();
 loadRoomSocket();
+firstAccessSocket();
+
+//ポート指定
 const webPort = process.env.PORT || 3000;
+//listen
 http.listen(webPort);
