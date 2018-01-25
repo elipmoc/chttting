@@ -17,7 +17,7 @@ client.connect();
 client.query("select room_name,room_type from room;", (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-        room_list.push({room_name: row["room_name"],room_type: row["room_type"]});
+        room_list.push({ room_name: row["room_name"], room_type: row["room_type"] });
     }
     makeNameSpace();
     client.end();
@@ -38,7 +38,7 @@ function loadRoomSocket() {
     namespace.on('connection', socket => {
         socket.on(
             'loadRoom',
-            function(data) {
+            function (data) {
                 socket.emit('loadRoom', JSON.stringify(room_list));
             });
     });
@@ -64,14 +64,25 @@ function firstAccessSocket() {
     });
 }
 
+//部屋を作成するためのソケット
+function roomCreateSocket() {
+    const firstStream = io.of("/roomCreate");
+    firstStream.on("connection", (socket) => {
+        socket.on("create", (data) => {
+            console.log("createRequest:" + data);
+            socket.emit("created", "");
+        });
+    });
+}
+
 
 //チャットをするためのソケット群
 function chatSocket(namespace) {
-    return function(socket) {
+    return function (socket) {
         //ログ管理
         socket.on(
             'msg',
-            function(data) {
+            function (data) {
                 console.log("msg:" + data);
                 namespace.emit('msg', data);
                 logDB.logPush(namespace.name, data);
@@ -80,7 +91,7 @@ function chatSocket(namespace) {
         //発言するためのソケット
         socket.on(
             'initMsg',
-            function(data) {
+            function (data) {
                 console.log("initmsg:" + data);
                 socket.emit(
                     'initMsg',
@@ -107,6 +118,7 @@ function makeNameSpace() {
 debateTitleSocket();
 loadRoomSocket();
 firstAccessSocket();
+roomCreateSocket();
 
 //ポート指定
 const webPort = process.env.PORT || 3000;
