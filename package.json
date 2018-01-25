@@ -10,6 +10,7 @@
     "npm": "1.3.x"
   },
   "dependencies": {
+    "@types/jquery": "^3.3.0",
     "ejs": "*",
     "finalhandler": "^1.1.0",
     "mongodb": "*",
