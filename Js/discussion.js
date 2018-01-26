@@ -13,6 +13,21 @@ $('#right').click(() => {
     document.location.href = "discussion.html?stance=debateRight&roomName=" + urlParam["roomName"];
 });
 
+$("#com").keydown((e) => {
+  let ms = document.myf.com.value;
+  let nm = document.myf.name.value;
+  if (ms != "" && nm != "") {
+    if (e.keyCode == 13) {
+      chatConnection.sendData(
+          JSON.stringify({
+              "msg": nm + " > " + ms,
+              "dipeType": urlParam["stance"]
+          })
+      );
+    }
+    document.myf.com.value = "";
+});
+
 $('#chat_send').click(() => {
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
@@ -46,20 +61,10 @@ function msgDataAdd(data) {
 $("#title_send").click(() => {
     let word = document.myf.title_word.value;
     socket.emit('titleSend', word);
-    commentBtnEvent();
 });
 
-$("#com").keydown((e) => {
-  alert("a");
-    if (e.keyCode == 13) {
-    let word = document.myf.title_word.value;
-    socket.emit('titleSend', word);
-        commentBtnEvent();
-    }
-});
 
-function commentBtnEvent() {
-    socket.on('titleSend', (title) => {
-        $("#titlec").text(title).html();
-    });
-}
+
+socket.on('titleSend', (title) => {
+    $("#titlec").text(title).html();
+});
