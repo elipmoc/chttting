@@ -51,9 +51,11 @@ $("#title_send").click(() => {
 
 $("#com").keydown((e) => {
   alert("a");
-    //if (e.keyCode == 13) {
+    if (e.keyCode == 13) {
+    let word = document.myf.title_word.value;
+    socket.emit('titleSend', word);
         commentBtnEvent();
-    //}
+    }
 });
 
 function commentBtnEvent() {
