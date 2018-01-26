@@ -1,25 +1,35 @@
 const logDB = require('./logDB.js');
 const myRouter = require("./myRouter.js");
+const createRoomDB = require("./createRoomDB.js");
 const {
     Client
 } = require('pg');
 
+const escape = require('escape-html');
+
 //データベースの接続設定
 let debate_title = "øphi-chat *debate";
 let room_list = new Array();
+
+//部屋を新しく作成する
+function addRoom(roomName, roomType) {
+    room_list.push({ room_name: roomName, room_type: roomType });
+    let namespace = io.of("/" + roomName);
+    namespace.on('connection', chatSocket(namespace));
+    namespaceList[roomName] = namespace;
+}
+
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
 });
 
-
 client.connect();
 client.query("select room_name,room_type from room;", (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-        room_list.push({ room_name: row["room_name"], room_type: row["room_type"] });
+        addRoom(row["room_name"], row["room_type"]);
     }
-    makeNameSpace();
     client.end();
 });
 
@@ -69,7 +79,12 @@ function roomCreateSocket() {
     const firstStream = io.of("/roomCreate");
     firstStream.on("connection", (socket) => {
         socket.on("create", (data) => {
-            console.log("createRequest:" + data);
+            data = JSON.parse(data);
+            let roomName = escape(data["roomName"]);
+            let roomType = escape(data["roomType"]);
+            createRoomDB.createRoom(roomName, roomType, () => {
+                addRoom(roomName, roomType);
+            });
             socket.emit("created", "");
         });
     });
@@ -83,7 +98,6 @@ function chatSocket(namespace) {
         socket.on(
             'msg',
             function (data) {
-                console.log("msg:" + data);
                 namespace.emit('msg', data);
                 logDB.logPush(namespace.name, data);
             }
@@ -92,7 +106,6 @@ function chatSocket(namespace) {
         socket.on(
             'initMsg',
             function (data) {
-                console.log("initmsg:" + data);
                 socket.emit(
                     'initMsg',
                     logDB.logRead(namespace.name, msgList =>
@@ -103,16 +116,6 @@ function chatSocket(namespace) {
         );
     };
 }
-
-//roomNameListから各種ソケットの名前空間リストを生成  *
-function makeNameSpace() {
-    room_list.map(room => room.room_name).forEach((x) => {
-        let namespace = io.of("/" + x);
-        namespace.on('connection', chatSocket(namespace));
-        namespaceList[x] = namespace;
-    });
-}
-
 
 //関数呼び出し
 debateTitleSocket();
