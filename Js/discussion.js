@@ -1,6 +1,5 @@
 //議題定義のソケット定義
 const socket = io();
-const urlLocation = document.location.href;
 const urlParam = urlGetParamParse(urlLocation);
 const chatConnection = new ChatConnection(decodeURIComponent(urlParam["roomName"]), msgDataAdd);
 
