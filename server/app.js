@@ -32,10 +32,11 @@ let debate_title = new Array();
 function debateTitleSocket() {
     io.on("connection", (socket) => {
         socket.on("titleSend", (title) => {
-            socket.emit("titleSend", title);
+          let title_data = JSON.parse(title);
+            socket.emit("titleSend", title_data["debate_title"]);
             debate_title = {
-                room_name: room_name,
-                debate_title: title
+                room_name: title_data["room_name"],
+                debate_title: title_data["debate_title"]
             };
         });
     });
