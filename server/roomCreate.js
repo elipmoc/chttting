@@ -1,3 +1,5 @@
+const createRoomDB = require("./createRoomDB.js");
+
 //部屋を作成するためのソケット
 exports.createRoomCreateSocket = (mainSocket) => {
     const roomCreateSocket = mainSocket.of("/roomCreate");
