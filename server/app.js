@@ -5,6 +5,8 @@ const {
     Client
 } = require('pg');
 
+const escape = require('escape-html');
+
 //データベースの接続設定
 let debate_title = "øphi-chat *debate";
 let room_list = new Array();
@@ -78,8 +80,10 @@ function roomCreateSocket() {
     firstStream.on("connection", (socket) => {
         socket.on("create", (data) => {
             data = JSON.parse(data);
-            createRoomDB.createRoom(data["roomName"], data["roomType"], () => {
-                addRoom(data["roomName"], data["roomType"]);
+            let roomName = escape(data["roomName"]);
+            let roomType = escape(data["roomType"]);
+            createRoomDB.createRoom(roomName, roomType, () => {
+                addRoom(roomName, roomType);
             });
             socket.emit("created", "");
         });
