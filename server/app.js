@@ -22,7 +22,7 @@ function loadRoomSocket() {
         socket.on(
             'loadRoom',
             function (data) {
-                socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
+                socket.emit('loadRoom', JSON.stringify(roomList.getRoomList()));
             });
     });
 
