@@ -3,7 +3,7 @@ const urlLocation = document.location.href;
 const urlParam = urlGetParamParse(urlLocation);
 firstSocket.emit('firstSend', "");
 firstSocket.on('firstSend', (data) => {
-  alert(data);
+  alert(url);
     data = JSON.parse(data);
-    $("#titlec").text(data[urlParam["room_name"]]).html();
+    $("#titlec").text(data[urlParam["roomName"]]).html();
 });
