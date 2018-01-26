@@ -4,10 +4,6 @@ const {
     Client
 } = require('pg');
 
-//データベースの接続設定
-let debate_title = "øphi-chat *debate";
-
-
 const http = require('http').createServer(
     myRouter.createRouter()
 );
@@ -26,12 +22,14 @@ function loadRoomSocket() {
 
 }
 
+let debate_title = {};
 //議題を定義するためのソケットを定義
 function debateTitleSocket() {
     io.on("connection", (socket) => {
         socket.on("titleSend", (title) => {
-            socket.emit("titleSend", title);
-            debate_title = title;
+            let title_data = JSON.parse(title);
+            socket.emit("titleSend", title_data["debate_title"]);
+            debate_title[title_data["room_name"]] = title_data["debate_title"];
         });
     });
 }
@@ -40,7 +38,7 @@ function firstAccessSocket() {
     const firstStream = io.of("/firstLoadStream");
     firstStream.on("connection", (socket) => {
         socket.on("firstSend", (data) => {
-            socket.emit("firstSend", debate_title);
+            socket.emit("firstSend", JSON.stringify(debate_title));
         });
     });
 }

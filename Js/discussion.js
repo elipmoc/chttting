@@ -1,7 +1,5 @@
 //議題定義のソケット定義
 const socket = io();
-const urlLocation = document.location.href;
-const urlParam = urlGetParamParse(urlLocation);
 const chatConnection = new ChatConnection(decodeURIComponent(urlParam["roomName"]), msgDataAdd);
 
 
@@ -58,10 +56,12 @@ function msgDataAdd(data) {
     }
 }
 
+let title_list = new Array();
 
 $("#title_send").click(() => {
     let word = document.myf.title_word.value;
-    socket.emit('titleSend', word);
+    title_list = { room_name : urlParam["roomName"] , debate_title :word };
+    socket.emit('titleSend', JSON.stringify(title_list));
 });
 
 
