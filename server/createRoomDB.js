@@ -13,7 +13,11 @@ exports.createRoom = (roomName, roomType, func) => {
         if (res.rows[0].count != 0)
             return false;
         client.query("insert into room(room_name,room_type) values($1,$2);", [roomName, roomType], (err, res) => {
-            if (err) func(false);
+            if (err) {
+                func(false);
+                client.end();
+                return;
+            }
             func(true);
             client.end();
         });
