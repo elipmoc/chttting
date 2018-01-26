@@ -1,7 +1,6 @@
 const {
     Client
 } = require('pg');
-const fs = require('fs');
 
 exports.logPush = (roomNameSpace, msg) => {
     if (roomNameSpace[0] != '/') {
