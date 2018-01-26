@@ -1,6 +1,7 @@
 const logDB = require('./logDB.js');
 const myRouter = require("./myRouter.js");
 const createRoomDB = require("./createRoomDB.js");
+const roomCreate = require("./roomCreate.js");
 const {
     Client
 } = require('pg');
@@ -74,29 +75,6 @@ function firstAccessSocket() {
     });
 }
 
-//部屋を作成するためのソケット
-function roomCreateSocket() {
-    const firstStream = io.of("/roomCreate");
-    firstStream.on("connection", (socket) => {
-        socket.on("create", (data) => {
-            data = JSON.parse(data);
-            let roomName = escape(data["roomName"]);
-            let roomType = escape(data["roomType"]);
-            createRoomDB.createRoom(roomName, roomType, (flag) => {
-                if (flag) {
-                    addRoom(roomName, roomType);
-                    socket.emit("created", "");
-                }
-                else {
-                    socket.emit("created", "部屋の作成に失敗しました");
-                }
-            });
-
-        });
-    });
-}
-
-
 //チャットをするためのソケット群
 function chatSocket(namespace) {
     return function (socket) {
@@ -129,7 +107,7 @@ function chatSocket(namespace) {
 debateTitleSocket();
 loadRoomSocket();
 firstAccessSocket();
-roomCreateSocket();
+const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
 //ポート指定
 const webPort = process.env.PORT || 3000;
