@@ -1,13 +1,8 @@
 const myRouter = require("./myRouter.js");
-const roomCreate = require("./roomCreate.js");
+const roomList = require("./roomList.js");
 const {
     Client
 } = require('pg');
-
-const escape = require('escape-html');
-
-
-
 
 const http = require('http').createServer(
     myRouter.createRouter()
@@ -20,8 +15,8 @@ function loadRoomSocket() {
     namespace.on('connection', socket => {
         socket.on(
             'loadRoom',
-            function(data) {
-                socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
+            function (data) {
+                socket.emit('loadRoom', JSON.stringify(roomList.getRoomList()));
             });
     });
 
@@ -53,8 +48,7 @@ function firstAccessSocket() {
 debateTitleSocket();
 loadRoomSocket();
 firstAccessSocket();
-roomCreate.initRoom(io);
-const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
+const roomCreateSocket = roomList.createRoomCreateSocket(io);
 
 //ポート指定
 const webPort = process.env.PORT || 3000;

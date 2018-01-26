@@ -1,5 +1,7 @@
 const createRoomDB = require("./createRoomDB.js");
 const logDB = require('./logDB.js');
+const escape = require('escape-html');
+
 
 const {
     Client
@@ -46,7 +48,7 @@ function chatSocket(namespace) {
     };
 }
 
-exports.initRoom = (mainSocket) => {
+function initRoomList(mainSocket) {
     const client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: true,
@@ -69,6 +71,7 @@ exports.getRoomList = () => {
 
 //部屋を作成するためのソケット
 exports.createRoomCreateSocket = (mainSocket) => {
+    initRoomList(mainSocket);
     const roomCreateSocket = mainSocket.of("/roomCreate");
     roomCreateSocket.on("connection", (socket) => {
         socket.on("create", (data) => {
