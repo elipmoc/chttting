@@ -1,5 +1,5 @@
 const myRouter = require("./myRouter.js");
-const roomCreate = require("./roomCreate.js");
+const roomList = require("./roomList.js");
 const {
     Client
 } = require('pg');
@@ -52,7 +52,7 @@ function firstAccessSocket() {
 debateTitleSocket();
 loadRoomSocket();
 firstAccessSocket();
-const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
+const roomCreateSocket = roomList.createRoomCreateSocket(io);
 
 //ポート指定
 const webPort = process.env.PORT || 3000;
