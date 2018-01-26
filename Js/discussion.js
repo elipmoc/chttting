@@ -50,16 +50,10 @@ $("#title_send").click(() => {
 });
 
 $("#com").keydown((e) => {
-    if (e.keydown == 13) {
+    if (e.keyCode == 13) {
         commentBtnEvent();
     }
 });
-
-function commentKeyEvent(e) {
-    socket.on('titleSend', (title) => {
-        $("#titlec").text(title).html();
-    });
-}
 
 function commentBtnEvent() {
     socket.on('titleSend', (title) => {
