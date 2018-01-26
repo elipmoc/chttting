@@ -4,29 +4,32 @@ const {
 } = require('pg');
 
 let room_list = new Array();
+//名前空間のリスト。いまはまだ使いみちがない
+let namespaceList = new Array();
 
 //部屋を新しく作成する
-function addRoom(roomName, roomType) {
+function addRoom(roomName, roomType, mainSocket) {
     room_list.push({ room_name: roomName, room_type: roomType });
-    let namespace = io.of("/" + roomName);
+    let namespace = mainSocket.of("/" + roomName);
     namespace.on('connection', chatSocket(namespace));
     namespaceList[roomName] = namespace;
 }
 
-const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-});
+exports.initRoom = (mainSocket) => {
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+    });
 
-client.connect();
-client.query("select room_name,room_type from room;", (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-        addRoom(row["room_name"], row["room_type"]);
-    }
-    client.end();
-});
-
+    client.connect();
+    client.query("select room_name,room_type from room;", (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            addRoom(row["room_name"], row["room_type"], mainSocket);
+        }
+        client.end();
+    });
+}
 
 //部屋の情報を返す
 exports.getRoomList = () => {
@@ -43,7 +46,7 @@ exports.createRoomCreateSocket = (mainSocket) => {
             let roomType = escape(data["roomType"]);
             createRoomDB.createRoom(roomName, roomType, (flag) => {
                 if (flag) {
-                    addRoom(roomName, roomType);
+                    addRoom(roomName, roomType, mainSocket);
                     socket.emit("created", "");
                 }
                 else {

@@ -16,9 +16,6 @@ const http = require('http').createServer(
 );
 const io = require('socket.io')(http);
 
-//名前空間のリスト。いまはまだ使いみちがない
-let namespaceList = new Array();
-
 //ルーム一覧を表示するソケットを定義
 function loadRoomSocket() {
     const namespace = io.of("/loadRoomStream");
@@ -83,6 +80,7 @@ function chatSocket(namespace) {
 debateTitleSocket();
 loadRoomSocket();
 firstAccessSocket();
+roomCreate.initRoom(io);
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
 //ポート指定
