@@ -5,7 +5,7 @@ firstSocket.emit('firstSend', "");
 firstSocket.on('firstSend', (data) => {
     JSON.parse(data).forEach(room => {
             if (room.room_name == urlParam["room_name"]) {
-                $("#titlec").text(data["room_title"]).html();
+                $("#titlec").text(room.debate_title).html();
             }
         }
     });
