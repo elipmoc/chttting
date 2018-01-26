@@ -46,15 +46,11 @@ function msgDataAdd(data) {
 $("#title_send").click(() => {
     let word = document.myf.title_word.value;
     socket.emit('titleSend', word);
+    comment.Event();
 });
 
 function commentEvent() {
-    if (e.keyCode !== 13 || (e.keyCode === 13 && (e.shiftKey === true || e.ctrlKey === true || e.altKey === true))) { // Enterキー除外
-        socket.on('titleSend', (title) => {
-            $("#titlec").text(title).html();
-        });
-    }
+    socket.on('titleSend', (title) => {
+        $("#titlec").text(title).html();
+    });
 }
-socket.on('titleSend', (title) => {
-    $("#titlec").text(title).html();
-});
