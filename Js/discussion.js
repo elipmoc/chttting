@@ -33,7 +33,7 @@ $('#chat_send').click(() => {
 function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
-    let msg = '<div style="border-top:1px #D5D8DC solid; margin-top:6px;margin-bottom:-12px;">'+ commandFilter(data["msg"]) + '</div><br>';
+    let msg = '<div style="border-top:1px #D5D8DC solid; margin-top:6px;margin-bottom:-12px;">' + commandFilter(data["msg"]) + '</div><br>';
 
     if (data["dipeType"] == "debateLeft") {
         $('#chat_log').prepend(msg);
@@ -48,6 +48,13 @@ $("#title_send").click(() => {
     socket.emit('titleSend', word);
 });
 
+function commentEvent() {
+    if (e.keyCode !== 13 || (e.keyCode === 13 && (e.shiftKey === true || e.ctrlKey === true || e.altKey === true))) { // Enterキー除外
+        socket.on('titleSend', (title) => {
+            $("#titlec").text(title).html();
+        });
+    }
+}
 socket.on('titleSend', (title) => {
     $("#titlec").text(title).html();
 });
