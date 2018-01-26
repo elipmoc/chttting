@@ -50,6 +50,7 @@ $("#title_send").click(() => {
 });
 
 $("#com").keydown((e) => {
+  alert("a");
     if (e.keyCode == 13) {
         commentBtnEvent();
     }
