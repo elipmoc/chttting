@@ -4,6 +4,6 @@ const urlParam = urlGetParamParse(urlLocation);
 firstSocket.emit('firstSend', "");
 firstSocket.on('firstSend', (data) => {
     data = JSON.parse(data);
-    alert(data);
+    alert(data[urlParam["room_name"]]);
     $("#titlec").text(data[urlParam["room_name"]]).html();
 });
