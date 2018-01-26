@@ -25,6 +25,7 @@ $("#com").keydown((e) => {
           })
       );
     }
+  }
     document.myf.com.value = "";
 });
 
