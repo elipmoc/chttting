@@ -13,7 +13,7 @@ const client = new Client({
     ssl: true,
 });
 
-createRoomDB.createRoom("dis", "");
+createRoomDB.createRoom("test", "normal", () => { });
 
 client.connect();
 client.query("select room_name,room_type from room;", (err, res) => {
