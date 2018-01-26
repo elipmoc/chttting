@@ -13,8 +13,6 @@ const client = new Client({
     ssl: true,
 });
 
-createRoomDB.createRoom("test", "normal", () => { });
-
 client.connect();
 client.query("select room_name,room_type from room;", (err, res) => {
     if (err) throw err;
@@ -71,6 +69,7 @@ function roomCreateSocket() {
     const firstStream = io.of("/roomCreate");
     firstStream.on("connection", (socket) => {
         socket.on("create", (data) => {
+            createRoomDB.createRoom(data["roomName"], data["roomType"], () => { });
             console.log("createRequest:" + data);
             socket.emit("created", "");
         });
