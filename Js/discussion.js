@@ -14,19 +14,19 @@ $('#right').click(() => {
 });
 
 $("#com").keydown((e) => {
-  let ms = document.myf.com.value;
-  let nm = document.myf.name.value;
-  if (ms != "" && nm != "") {
-    if (e.keyCode == 13) {
-      chatConnection.sendData(
-          JSON.stringify({
-              "msg": nm + " > " + ms,
-              "dipeType": urlParam["stance"]
-          })
-      );
+    let ms = document.myf.com.value;
+    let nm = document.myf.name.value;
+    if (ms != "" && nm != "") {
+        if (e.keyCode == 13) {
+            chatConnection.sendData(
+                JSON.stringify({
+                    "msg": nm + " > " + ms,
+                    "dipeType": urlParam["stance"]
+                })
+            );
+            document.myf.com.value = "";
+        }
     }
-  }
-    document.myf.com.value = "";
 });
 
 $('#chat_send').click(() => {
