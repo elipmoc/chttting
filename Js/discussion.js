@@ -2,7 +2,7 @@
 const socket = io();
 const urlLocation = document.location.href;
 const urlParam = urlGetParamParse(urlLocation);
-const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
+const chatConnection = new ChatConnection(decodeURIComponent(urlParam["roomName"]), msgDataAdd);
 
 
 //左右に別れるためのロケーション

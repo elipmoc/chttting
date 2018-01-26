@@ -1,6 +1,8 @@
 const roomCreateSocket = io("/roomCreate");
 roomCreateSocket.on('created', (data) => {
-    document.location.href = "/";
+    if (data == "")
+        document.location.href = "/";
+    else document.write(data);
 });
 
 $('#create_room').click(() => {
