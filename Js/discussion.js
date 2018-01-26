@@ -49,6 +49,10 @@ $("#title_send").click(() => {
     commentBtnEvent();
 });
 
+$("#com").keydown(() => {
+  commentBtnEvent();
+});
+
 function commentKeyEvent(e) {
         socket.on('titleSend', (title) => {
             $("#titlec").text(title).html();
