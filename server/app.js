@@ -69,6 +69,7 @@ function roomCreateSocket() {
     const firstStream = io.of("/roomCreate");
     firstStream.on("connection", (socket) => {
         socket.on("create", (data) => {
+            data = JSON.parse(data);
             createRoomDB.createRoom(data["roomName"], data["roomType"], () => { });
             console.log("createRequest:" + data);
             socket.emit("created", "");
