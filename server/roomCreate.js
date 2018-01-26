@@ -1,4 +1,6 @@
 const createRoomDB = require("./createRoomDB.js");
+const logDB = require('./logDB.js');
+
 const {
     Client
 } = require('pg');
@@ -13,6 +15,35 @@ function addRoom(roomName, roomType, mainSocket) {
     let namespace = mainSocket.of("/" + roomName);
     namespace.on('connection', chatSocket(namespace));
     namespaceList[roomName] = namespace;
+}
+
+
+//チャットをするためのソケット群
+function chatSocket(namespace) {
+    return function (socket) {
+        //ログ管理
+        socket.on(
+            'msg',
+            function (data) {
+                if (data.length > 100)
+                    return;
+                namespace.emit('msg', data);
+                logDB.logPush(namespace.name, data);
+            }
+        );
+        //発言するためのソケット
+        socket.on(
+            'initMsg',
+            function (data) {
+                socket.emit(
+                    'initMsg',
+                    logDB.logRead(namespace.name, msgList =>
+                        socket.emit('initMsg', JSON.stringify(msgList))
+                    )
+                );
+            }
+        );
+    };
 }
 
 exports.initRoom = (mainSocket) => {

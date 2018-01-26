@@ -1,4 +1,3 @@
-const logDB = require('./logDB.js');
 const myRouter = require("./myRouter.js");
 const roomCreate = require("./roomCreate.js");
 const {
@@ -48,33 +47,6 @@ function firstAccessSocket() {
     });
 }
 
-//チャットをするためのソケット群
-function chatSocket(namespace) {
-    return function (socket) {
-        //ログ管理
-        socket.on(
-            'msg',
-            function (data) {
-                if (data.length > 100)
-                    return;
-                namespace.emit('msg', data);
-                logDB.logPush(namespace.name, data);
-            }
-        );
-        //発言するためのソケット
-        socket.on(
-            'initMsg',
-            function (data) {
-                socket.emit(
-                    'initMsg',
-                    logDB.logRead(namespace.name, msgList =>
-                        socket.emit('initMsg', JSON.stringify(msgList))
-                    )
-                );
-            }
-        );
-    };
-}
 
 //関数呼び出し
 debateTitleSocket();
