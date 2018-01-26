@@ -20,7 +20,7 @@
             <span class="text-secondary">NAME</span>
             <input type="text" placeholder="name" id="name" name="name"class="form-control">
             <span class="text-secondary">CHAT</span>
-            <input type="text" placeholder="comment" id="com" name="com"class="form-control">
+            <input type="text" placeholder="comment" id="com" name="com"class="form-control" onkeydown="if(window.event.keyCode==13)commentEvent();">
             <input type="text" id="title_word">
 
             <input type="button" value="aiueo" class="btn btn-primary" id="chat_send">

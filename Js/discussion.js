@@ -46,8 +46,17 @@ function msgDataAdd(data) {
 $("#title_send").click(() => {
     let word = document.myf.title_word.value;
     socket.emit('titleSend', word);
+    commentBtnEvent();
 });
 
-socket.on('titleSend', (title) => {
-    $("#titlec").text(title).html();
-});
+function commentKeyEvent(e) {
+        socket.on('titleSend', (title) => {
+            $("#titlec").text(title).html();
+        });
+}
+
+function commentBtnEvent() {
+    socket.on('titleSend', (title) => {
+        $("#titlec").text(title).html();
+    });
+}
