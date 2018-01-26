@@ -35,7 +35,7 @@ function debateTitleSocket() {
             let title_data = JSON.parse(title);
             socket.emit("titleSend", title_data["debate_title"]);
             debate_title[title_data["room_name"] = title_data["debate_title"];
-            };
+            }
         });
     });
 }
