@@ -1,5 +1,6 @@
 const logDB = require('./logDB.js');
 const myRouter = require("./myRouter.js");
+const createRoomDB = require("./createRoomDB.js");
 const {
     Client
 } = require('pg');
@@ -12,6 +13,7 @@ const client = new Client({
     ssl: true,
 });
 
+createRoomDB.createRoom("dis", "");
 
 client.connect();
 client.query("select room_name,room_type from room;", (err, res) => {
