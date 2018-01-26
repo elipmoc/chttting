@@ -1,5 +1,7 @@
 const createRoomDB = require("./createRoomDB.js");
 const logDB = require('./logDB.js');
+const escape = require('escape-html');
+
 
 const {
     Client

@@ -4,8 +4,6 @@ const {
     Client
 } = require('pg');
 
-const escape = require('escape-html');
-
 //データベースの接続設定
 let debate_title = "øphi-chat *debate";
 
