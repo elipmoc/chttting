@@ -49,14 +49,16 @@ $("#title_send").click(() => {
     commentBtnEvent();
 });
 
-$("#com").keydown(() => {
-  commentBtnEvent();
+$("#com").keydown((e) => {
+    if (e.keydown == 13) {
+        commentBtnEvent();
+    }
 });
 
 function commentKeyEvent(e) {
-        socket.on('titleSend', (title) => {
-            $("#titlec").text(title).html();
-        });
+    socket.on('titleSend', (title) => {
+        $("#titlec").text(title).html();
+    });
 }
 
 function commentBtnEvent() {
