@@ -1,5 +1,5 @@
 const myRouter = require("./myRouter.js");
-const roomCreate = require("./roomCreateDB.js");
+const roomCreate = require("./roomList.js");
 const {
     Client
 } = require('pg');
