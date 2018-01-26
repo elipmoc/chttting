@@ -49,7 +49,7 @@ $("#title_send").click(() => {
     commentBtnEvent();
 });
 
-function commentKeyEvent() {
+function commentKeyEvent(e) {
     if (e.keyCode !== 13 || (e.keyCode === 13 && (e.shiftKey === true || e.ctrlKey === true || e.altKey === true))) { // Enterキー除外
         socket.on('titleSend', (title) => {
             $("#titlec").text(title).html();
