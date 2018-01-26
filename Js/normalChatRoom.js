@@ -1,6 +1,6 @@
 const loc = document.location.href;
 const paramItem = loc.split('=');
-const chatConnection = new ChatConnection(paramItem[1], msgDataAdd);
+const chatConnection = new ChatConnection(decodeURIComponent(paramItem[1]), msgDataAdd);
 
 $("#com").keydown((e) => {
     let ms = document.myf.com.value;
