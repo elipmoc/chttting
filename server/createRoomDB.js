@@ -10,7 +10,7 @@ exports.createRoom = (roomName, roomType) => {
     client.connect();
     client.query("select count(*) from room where room_name =$1;", [roomName], (err, res) => {
         if (err) throw err;
-        console.log(res);
+        console.log(res.rows[0].count);
         client.end();
     });
 
