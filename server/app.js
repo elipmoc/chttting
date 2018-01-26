@@ -18,8 +18,8 @@ client.query("select room_name,room_type from room;", (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
         room_list.push({ room_name: row["room_name"], room_type: row["room_type"] });
+        addNameSpace(row["room_name"]);
     }
-    makeNameSpace();
     client.end();
 });
 
@@ -70,7 +70,10 @@ function roomCreateSocket() {
     firstStream.on("connection", (socket) => {
         socket.on("create", (data) => {
             data = JSON.parse(data);
-            createRoomDB.createRoom(data["roomName"], data["roomType"], () => { });
+            createRoomDB.createRoom(data["roomName"], data["roomType"], () => {
+                room_list.push({ room_name: data["roomName"], room_type: data["roomType"] });
+                addNameSpace(data["roomName"]);
+            });
             console.log("createRequest:" + data);
             socket.emit("created", "");
         });
@@ -107,14 +110,19 @@ function chatSocket(namespace) {
 }
 
 //roomNameListから各種ソケットの名前空間リストを生成  *
-function makeNameSpace() {
+/*function makeNameSpace() {
     room_list.map(room => room.room_name).forEach((x) => {
         let namespace = io.of("/" + x);
         namespace.on('connection', chatSocket(namespace));
         namespaceList[x] = namespace;
     });
-}
+}*/
 
+function addNameSpace(roomName) {
+    let namespace = io.of("/" + roomName);
+    namespace.on('connection', chatSocket(namespace));
+    namespaceList[roomName] = namespace;
+}
 
 //関数呼び出し
 debateTitleSocket();
