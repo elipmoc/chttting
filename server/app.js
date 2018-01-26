@@ -53,7 +53,6 @@ function firstAccessSocket() {
 debateTitleSocket();
 loadRoomSocket();
 firstAccessSocket();
-roomCreate.initRoomList(io);
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
 //ポート指定
