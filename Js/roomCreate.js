@@ -2,7 +2,7 @@ const roomCreateSocket = io("/roomCreate");
 roomCreateSocket.on('created', (data) => {
     if (data == "")
         document.location.href = "/";
-    else document.write(data);
+    else document.write(data + "<br><a href='/'>メインページに戻る</a>");
 });
 
 $('#create_room').click(() => {
