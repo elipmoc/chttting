@@ -2,7 +2,7 @@
 const socket = io();
 const urlLocation = document.location.href;
 const urlParam = urlGetParamParse(urlLocation);
-const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
+const chatConnection = new ChatConnection(decodeURIComponent(urlParam["roomName"]), msgDataAdd);
 
 
 //左右に別れるためのロケーション
@@ -33,7 +33,7 @@ $('#chat_send').click(() => {
 function msgDataAdd(data) {
     data = JSON.parse(data);
     console.log(data);
-    let msg = '<div style="border-top:1px #D5D8DC solid; margin-top:6px;margin-bottom:-12px;">'+ commandFilter(data["msg"]) + '</div><br>';
+    let msg = '<div style="border-top:1px #D5D8DC solid; margin-top:6px;margin-bottom:-12px;">' + commandFilter(data["msg"]) + '</div><br>';
 
     if (data["dipeType"] == "debateLeft") {
         $('#chat_log').prepend(msg);

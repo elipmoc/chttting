@@ -1,7 +1,7 @@
 
 var loc = document.location.href;
 var paramItem = loc.split('=');
-var chatConnection = new ChatConnection(paramItem[1], msgDataAdd);
+var chatConnection = new ChatConnection(decodeURIComponent(paramItem[1]), msgDataAdd);
 
 $('#sendButton').click(function (e) {
     let ms = document.myf.com.value;
