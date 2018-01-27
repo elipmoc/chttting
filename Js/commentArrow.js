@@ -49,3 +49,11 @@ $('#ugo').click(function (e) {
     }
     document.myf.com.value = "";
 });
+
+$("#com").keydown((e) => {
+    var ms = document.myf.com.value;
+    if (ms != "") {
+        commentArrow.create(commandFilter(ms));
+    }
+    document.myf.com.value = "";
+});
