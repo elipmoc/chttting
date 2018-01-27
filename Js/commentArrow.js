@@ -53,7 +53,9 @@ $('#ugo').click(function (e) {
 $("#com").keydown((e) => {
     var ms = document.myf.com.value;
     if (ms != "") {
-        commentArrow.create(commandFilter(ms));
+        if (e.keyCode == 13) {
+            commentArrow.create(commandFilter(ms));
+            document.myf.com.value = "";
+        }
     }
-    document.myf.com.value = "";
 });
