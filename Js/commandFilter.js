@@ -20,7 +20,6 @@ function commandFilter(data) {
             data = htmlEscape(data);
             let userName = data.replace(/hscalc.*/g, "");
             let msg = data.replace(/.*hscalc/g, "");
-            return userName + msg;
             let lexerRet = hscalc.lexer(msg);
             if (lexerRet.errorFlag) {
                 return userName + "トークンエラー";
