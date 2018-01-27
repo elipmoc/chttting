@@ -17,7 +17,6 @@ function commandFilter(data) {
         case /810/.test(data):
             return "まだ実装されてないコマンドだよ";
         case /hscalc/.test(data):
-            data = htmlEscape(data);
             let userName = data.replace(/hscalc.*/g, "");
             let msg = data.replace(/.*hscalc/g, "");
             let lexerRet = hscalc.lexer(msg);
