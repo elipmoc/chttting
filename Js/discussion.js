@@ -53,10 +53,10 @@ function msgDataAdd(data) {
 
     if (data["dipeType"] == "debateLeft") {
         $('#chat_log').prepend(msg);
-        $('#chat_log').prepend(data["uname"]);
+        $('#left_name_area').prepend(data["uname"]);
     } else if (data["dipeType"] == "debateRight") {
         $('#chat_log2').prepend(msg);
-        $('#chat_log2').prepend(data["uname"]);
+        $('#right_name_area').prepend(data["uname"]);
     }
 }
 
