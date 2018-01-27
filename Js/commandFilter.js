@@ -25,8 +25,12 @@ function commandFilter(data) {
                 return userName + "トークンエラー";
             }
             let parser = new hscalc.Parser(lexerRet.tokenList);
-            return parser.doParse();
-
+            try {
+                return parser.doParse();
+            }
+            catch (e) {
+                return e;
+            }
 
         default:
             data = htmlEscape(data);
