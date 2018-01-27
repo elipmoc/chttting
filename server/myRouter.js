@@ -13,6 +13,9 @@ exports.createRouter = () => {
     myRouter.get("/Js/:path", (req, res) => {
         sendJs(res, "./Js/" + req.params.path);
     });
+    myRouter.get("/Js/hscalc/:path", (req, res) => {
+        sendJs(res, "./Js/hscalc/" + req.params.path);
+    });
     myRouter.get("/:path", (req, res) => {
         sendHtml(res, "./Html/" + req.params.path);
     });
