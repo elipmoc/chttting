@@ -5,7 +5,7 @@ function htmlEscape(htmlText) {
 }
 
 //hscalcライブラリのロード
-//hscalc.load();
+hscalc.load();
 
 //コマンドを読み取り実行結果を得る
 function commandFilter(data) {
@@ -21,10 +21,13 @@ function commandFilter(data) {
             let userName = data.replace(/hscalc.*/g, "");
             let msg = data.replace(/.*hscalc/g, "");
             return userName + msg;
-        /*            let lexerRet = hscalc.lexer(data);
-                    if (lexerRet.errorFlag) {
-                        return 
-                    }*/
+            let lexerRet = hscalc.lexer(msg);
+            if (lexerRet.errorFlag) {
+                return userName + "トークンエラー";
+            }
+            let parser = new hscalc.Parser(msg);
+            return parser.doParse();
+
 
         default:
             data = htmlEscape(data);
