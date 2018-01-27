@@ -39,12 +39,6 @@ class CommentArrow {
 }
 
 let commentArrow = new CommentArrow();
-
-commentArrow.create("うんこ");
-commentArrow.create("もりもり");
-commentArrow.create("おいいいいいいいいいいいいいいいいいいいいいいいいいす！！！");
-commentArrow.create('<img src="https://pbs.twimg.com/profile_images/510615322307461120/o-vKGUzY_400x400.jpeg" width="100" height="100">');
-
 //var socket = io("/syamu");
 
 $('#ugo').click(function (e) {
@@ -55,12 +49,3 @@ $('#ugo').click(function (e) {
     }
     document.myf.com.value = "";
 });
-
-/*
-socket.on('msg', function (data) {
-    msgConvert(data);
-});*/
-
-setInterval(() => {
-    commentArrow.create("野獣先輩");
-}, 1);
