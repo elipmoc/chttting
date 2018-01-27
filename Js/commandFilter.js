@@ -25,7 +25,7 @@ function commandFilter(data) {
             if (lexerRet.errorFlag) {
                 return userName + "トークンエラー";
             }
-            let parser = new hscalc.Parser(msg);
+            let parser = new hscalc.Parser(lexerRet.tokenList);
             return parser.doParse();
 
 
