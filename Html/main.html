@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>poca chat</title>
+    <title>LiMMY</title>
     <style>
         body {
             margin: 0px;
@@ -77,13 +77,14 @@
         }
     </style>
     <!--  <canvas id="canvas"></canvas>!-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="/socket.io/socket.io.js"></script>
     <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
     <script>
-
         // 1.図形を描画
         // 描画サイクルを開始する
-        onload = function () {
+        onload = function() {
             let d = document.all("tile");
             let wid = d[0].scrollWidth;
             //alert(d.length);
@@ -99,17 +100,81 @@
 
     <center>
         <div class="header">
-            øphi-chat
+            LiMMY-CHAT
         </div>
         <div class="come_box">
             <center>
-                <iframe width="500" height="200" src="https://www.youtube.com/watch?v=f9yT_G4_Smo"
-                    frameborder="0" allowfullscreen></iframe>
+                <iframe width="500" height="200" src="" frameborder="0" allowfullscreen></iframe>
 
         </div>
+        <div class="card-columns">
+          <div class="card text-center">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+          <div class="card text-center">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div><div class="card text-center">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div><div class="card text-center">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div><div class="card text-center">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div><div class="card text-center">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div><div class="card text-center">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div><div class="card text-center">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div><div class="card text-center">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+        <input type="button" value="aiueo" class="btn btn-primary" id="chat_send">
         <div class="tilebox">
-            <div id="roomList"></div>
-            <!--
+
+
+            <div class="card">
+                <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Header</div>
+                    <div id="roomList"></div>
+                </div>
+                <!--
             <div class="tile" id="tile">
                 <span class="chara">
                     <a class="side_front" href="https://serene-fjord-98327.herokuapp.com/?name=c++">C++</a>
@@ -156,6 +221,8 @@
             </center>
             !-->
 </body>
+<script src="https://maxcdn.bootstrapcp.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 <script src="Js/loadRoomList.js"></script>
 
 </html>
