@@ -12,7 +12,7 @@ socket.on('loadRoom', data => {
                     url = "normalChatRoom.html";
                     break;
             }
-            $('#roomList').prepend("<a href=" + url + "?roomName=" + encodeURIComponent(room.room_name) + ">><font size='7' color='red'>" + room.room_name + "</font></a>");
+            $('#card-list').prepend('<div class="card text-center"><div class="card-block"><h4 class="card-title">'+encodeURIComponent(room.room_name)+'</h4><p class="card-text">Description<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p></p><a href=" + url + "?roomName=" + encodeURIComponent(room.room_name) + ">><font size='7' color='red'>" + room.room_name + "</font></a>');
         }
     );
 });
