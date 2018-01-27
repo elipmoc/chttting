@@ -5,8 +5,7 @@
         øphi-chat
     </title>
     <meta charset="UTF-8">
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="/socket.io/socket.io.js"></script>
     <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
     <style>
@@ -34,39 +33,36 @@
             <div class="form_t form-inline">
                 <form id="com_form" name="myf" class="form-group" target="hoge">
 
-                    <div class="panel-group">
-                        <div class="panel panel-primary">
-                            <div class="panel-body">
-                                <font size="6"><b>LiMMY [Room Create]</b></font>
-                            </div>
-                        </div>
-                        <div class="panel panel-primary">
-                            <div class="panel-body">Panel Content</div>
-                        </div>
-                    </div>
+                    <div class="card card-inverse" style="background-color: #333; color:#ffffff; border-color: #333;">
+                        <div class="card-block">
+                            <h3 class="card-title"><b>LiMMY [Room Create]</b></h3>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
 
-                    <span class="text-secondary">RoomName</span>
-                    <input type="text" placeholder="RoomName" id="roomName" name="name" class="form-control">
-                    <span class="text-secondary">RoomType</span>
-                    <select class="form-control" id="roomType">
+                        </div>
+                      </div>
+
+                        <span class="text-secondary">RoomName</span>
+                        <input type="text" placeholder="RoomName" id="roomName" name="name" class="form-control">
+                        <span class="text-secondary">RoomType</span>
+                        <select class="form-control" id="roomType">
                 <option value="normal">Normal</option>
                 <option value="discussion_free">Discussion</option>
             </select>
-                    <br>
-                    <br>
-                    <input type="button" id="create_room" class="btn btn-primary" value="CreateRoom">
-                    <iframe id="hoge" name="hoge" width="0" height="0"></iframe>
+                        <br>
+                        <br>
+                        <input type="button" id="create_room" class="btn btn-primary" value="CreateRoom">
+                        <iframe id="hoge" name="hoge" width="0" height="0"></iframe>
                 </form>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
 
     <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
     <script src="https://maxcdn.bootstrapcp.min.js"></script>
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="Js/roomCreate.js"></script>
 
 
