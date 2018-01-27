@@ -5,7 +5,9 @@
         øphi-chat
     </title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
     <style>
         body {
             background-color: #F0F3F4;
@@ -20,8 +22,6 @@
             background-color: #FBFCFC;
         }
     </style>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 
 <body style="background-color:#ECF0F1;">
@@ -32,16 +32,18 @@
         <div class="col-md-10 form_box">
             <div class="form_t form-inline">
                 <form id="com_form" name="myf" class="form-group" target="hoge">
+
                     <div class="panel-group">
                         <div class="panel panel-primary">
                             <div class="panel-body">
                                 <font size="6"><b>LiMMY [Room Create]</b></font>
                             </div>
                         </div>
-                        <div class="panel panel-default">
+                        <div class="panel panel-primary">
                             <div class="panel-body">Panel Content</div>
                         </div>
                       </div>
+
                         <span class="text-secondary">RoomName</span>
                         <input type="text" placeholder="RoomName" id="roomName" name="name" class="form-control">
                         <span class="text-secondary">RoomType</span>
@@ -61,7 +63,8 @@
 
 
         <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcp.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
         <script src="Js/roomCreate.js"></script>
 
 
