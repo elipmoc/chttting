@@ -27,10 +27,12 @@ function chatSocket(namespace) {
         socket.on(
             'msg',
             function (data) {
-                if (data.length > 500)
+                data = JSON.parse(data);
+                if (data["msg"].length > 500)
                     return;
-                namespace.emit('msg', data);
-                logDB.logPush(namespace.name, data);
+                namespace.emit('msg', data["msg"]);
+                if (data["logSaveFlag"])
+                    logDB.logPush(namespace.name, data["msg"]);
             }
         );
         //発言するためのソケット
