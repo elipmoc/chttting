@@ -39,23 +39,32 @@ class CommentArrow {
 }
 
 let commentArrow = new CommentArrow();
-//var socket = io("/syamu");
 
 $('#ugo').click(function (e) {
     var ms = document.myf.com.value;
     if (ms != "") {
-        //socket.emit('msg', ms);
-        commentArrow.create(commandFilter(ms));
+        chatConnection.sendData(ms);
+        document.myf.com.value = "";
+
     }
-    document.myf.com.value = "";
 });
 
 $("#com").keydown((e) => {
     var ms = document.myf.com.value;
     if (ms != "") {
         if (e.keyCode == 13) {
-            commentArrow.create(commandFilter(ms));
+            chatConnection.sendData(ms);
             document.myf.com.value = "";
         }
     }
 });
+
+
+const chatConnection = new ChatConnection("syamu", msgDataAdd);
+chatConnection.logSaveFlag = false;
+
+//データをチャットメッセージとして追加する関数
+function msgDataAdd(data) {
+    let msg = commandFilter(data);
+    commentArrow.create(msg);
+}
