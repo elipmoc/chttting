@@ -19,7 +19,8 @@ $("#com").keydown((e) => {
             chatConnection.sendData(
                 JSON.stringify({
                     "msg": nm + " > " + ms,
-                    "dipeType": urlParam["stance"]
+                    "dipeType": urlParam["stance"],
+                    "uname" : nm
                 })
             );
             document.myf.com.value = "";
@@ -35,7 +36,8 @@ $('#chat_send').click(() => {
         chatConnection.sendData(
             JSON.stringify({
                 "msg": nm + " > " + ms,
-                "dipeType": urlParam["stance"]
+                "dipeType": urlParam["stance"],
+                "uname" : nm
             })
         );
     }
@@ -51,8 +53,10 @@ function msgDataAdd(data) {
 
     if (data["dipeType"] == "debateLeft") {
         $('#chat_log').prepend(msg);
+        $('#left_name_area').prepend(data["uname"]);
     } else if (data["dipeType"] == "debateRight") {
         $('#chat_log2').prepend(msg);
+        $('#right_name_area').prepend(data["uname"]);
     }
 }
 
