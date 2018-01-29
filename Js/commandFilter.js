@@ -17,7 +17,7 @@ function commandFilter(data) {
         case /810/.test(data):
             return "まだ実装されてないコマンドだよ";
         case /hscalc/.test(data):
-            let userName = data.replace(/hscalc.*/g, "");
+            let userName = htmlEscape(data.replace(/hscalc.*/g, ""));
             let msg = data.replace(/.*hscalc/g, "");
             let lexerRet = hscalc.lexer(msg);
             if (lexerRet.errorFlag) {
@@ -25,10 +25,10 @@ function commandFilter(data) {
             }
             let parser = new hscalc.Parser(lexerRet.tokenList);
             try {
-                return parser.doParse();
+                return userName + parser.doParse();
             }
             catch (e) {
-                return e;
+                return userName + e;
             }
 
         default:

@@ -27,7 +27,7 @@ function chatSocket(namespace) {
         socket.on(
             'msg',
             function (data) {
-                if (data.length > 100)
+                if (data.length > 500)
                     return;
                 namespace.emit('msg', data);
                 logDB.logPush(namespace.name, data);
