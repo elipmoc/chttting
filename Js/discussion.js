@@ -12,6 +12,7 @@ $('#right').click(() => {
 });
 
 $("#com").keydown((e) => {
+  const auth_numb = Math.floor(Math.random() * 1100);
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
     if (ms != "" && nm != "") {
@@ -20,7 +21,8 @@ $("#com").keydown((e) => {
                 JSON.stringify({
                     "msg": nm + " > " + ms,
                     "dipeType": urlParam["stance"],
-                    "uname" : nm
+                    "uname": nm,
+                    "auth": autu_numb
                 })
             );
             document.myf.com.value = "";
@@ -29,15 +31,17 @@ $("#com").keydown((e) => {
 });
 
 $('#chat_send').click(() => {
-    let ms = document.myf.com.value;
-    let nm = document.myf.name.value;
+    const auth_numb = Math.floor(Math.random() * 1100);
+    const ms = document.myf.com.value;
+    const nm = document.myf.name.value;
 
     if (ms != "" && nm != "") {
         chatConnection.sendData(
             JSON.stringify({
                 "msg": nm + " > " + ms,
                 "dipeType": urlParam["stance"],
-                "uname" : nm
+                "uname": nm,
+                "auth": autu_numb
             })
         );
     }
@@ -64,7 +68,10 @@ let title_list = new Array();
 
 $("#title_send").click(() => {
     let word = document.myf.title_word.value;
-    title_list = { room_name : urlParam["roomName"] , debate_title :word };
+    title_list = {
+        room_name: urlParam["roomName"],
+        debate_title: word
+    };
     socket.emit('titleSend', JSON.stringify(title_list));
 });
 
