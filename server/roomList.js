@@ -1,5 +1,5 @@
 const createRoomDB = require("./createRoomDB.js");
-const logDB = require('./logDB.js');
+const chatSocketBase = require('./chatSocketBase.js');
 const escape = require('escape-html');
 const discussion = require("./discussionSocket.js");
 
@@ -18,46 +18,14 @@ function addRoom(roomName, roomType, mainSocket) {
     room_list.push({ room_name: roomName, room_type: roomType });
     let namespace = mainSocket.of("/" + roomName);
     if (roomType = "discussion_free") {
-        namespace.on('connection', (socket) => {
-            chatSocket(namespace)(socket);
-            new discussion.bindDiscussionSocket(namespace).event(socket);
-        });
+        new DiscussionNameSpace(namespace);
     }
     else
-        namespace.on('connection', chatSocket(namespace));
+        namespace.on('connection', chatSocketBase.chatSocket(namespace));
     namespaceList[roomName] = namespace;
 }
 
 
-//チャットをするためのソケット群
-function chatSocket(namespace) {
-    return function (socket) {
-        //ログ管理
-        socket.on(
-            'msg',
-            function (data) {
-                data = JSON.parse(data);
-                if (data["msg"].length > 500)
-                    return;
-                namespace.emit('msg', data["msg"]);
-                if (data["logSaveFlag"])
-                    logDB.logPush(namespace.name, data["msg"]);
-            }
-        );
-        //発言するためのソケット
-        socket.on(
-            'initMsg',
-            function (data) {
-                socket.emit(
-                    'initMsg',
-                    logDB.logRead(namespace.name, msgList =>
-                        socket.emit('initMsg', JSON.stringify(msgList))
-                    )
-                );
-            }
-        );
-    };
-}
 
 function initRoomList(mainSocket) {
     const client = new Client({
