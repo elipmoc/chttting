@@ -61,6 +61,8 @@ function testSocket() {
   const nm = io.of("/aaa");
   nm.on("connection", (socket) => {
     const address = socket.handshake.address.address;
+    const adr = socket.handshake.headers['x-forwarded-for'];
+    const adr2 = socket.request.headers['x-forwarded-for'];
     socket.on("hoge", () => {
       nm.emit("hoge", address);
     });
