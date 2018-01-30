@@ -35,7 +35,7 @@ function attractWriteSocket() {
         console.log(attractWord);
         attract_title = attractWord;
       }else{
-        attractNamespace.emit("attractLoad",attract_title);
+        attractNamespace.emit("attractWrite",attract_title);
       }
     });
   });
