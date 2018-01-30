@@ -77,6 +77,7 @@ $("#title_send").click(() => {
   });
 });
 
+/*
 chatConnection.socket.on('titleSend', (title) => {
   $("#titlec").text(title).html();
 });
@@ -114,3 +115,4 @@ chatConnection.socket.on("endVote", (data) => {
 chatConnection.socket.on("startVote", (data) => {
   buttonChange();
 })
+*/
