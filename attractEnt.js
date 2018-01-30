@@ -1,9 +1,0 @@
-const socket = io.of("attractConnection");
-
-$("#attract_send").click(() => {
-  const atr_word = document.myf.attract_word.value;
-  socket.emit("attractWrite");
-  socket.on("attractWrite", (attractWord) => {
-    $("#attract_box").perpend('<a href="' + urlLocation + '"</a>'+attractWord);
-  });
-});

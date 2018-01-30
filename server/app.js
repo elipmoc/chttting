@@ -4,9 +4,7 @@ const discussion = require("./discussionSocket.js");
 const {
   Client
 } = require('pg');
-
 const escape = require('escape-html');
-
 const http = require('http').createServer(
   myRouter.createRouter()
 );
@@ -25,20 +23,33 @@ function loadRoomSocket() {
 
 }
 
-let attract_title = {};
+let attract_title = "";
 
 function attractWriteSocket() {
   const attractNamespace = io.of("/attractConnection");
   attractNamespace.on("connection", (socket) => {
+    console.log('a user connected');
     socket.on("attractWrite", (attractWord) => {
-      socket.emit("attractWrite", attractWord);
+      if (attractWord != "load") {
+        attractNamespace.emit("attractWrite", attractWord);
+        console.log(attractWord);
+        attract_title = attractWord;
+      } else {
+        attractNamespace.emit("attractLoad", attract_title);
+      }
     });
   });
 }
 
+/*function attractMainSocket() {
+  const attractNamespace = io.of("/attractConnection");
+
+}*/
+
 
 //関数呼び出し
 loadRoomSocket();
+attractWriteSocket();
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
 //ポート指定

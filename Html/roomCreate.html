@@ -1,71 +1,60 @@
 <html>
 
 <head>
-    <title>
-        øphi-chat
-    </title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-    <style>
-        body {
-            background-color: #F0F3F4;
-            font-size: 150%;
-            color: #1B2631;
-        }
+  <title>
+    øphi-chat
+  </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+  <style>
+    body {
+      background-color: #F0F3F4;
+      font-size: 150%;
+      color: #1B2631;
+    }
 
-        .form_box {
-            border: 0px;
-            padding: 30px;
-            border-radius: 20px;
-            background-color: #FBFCFC;
-        }
-    </style>
+    .form_box {
+      border: 0px;
+      padding: 30px;
+      border-radius: 20px;
+      background-color: #FBFCFC;
+    }
+  </style>
 </head>
 
 <body style="background-color:#ECF0F1;">
-    <center>
-        <div class="titlec" id="titlec">øphi-chat</div>
-    </center>
-    <div class="container">
-        <div class="col-md-10 form_box">
-            <div class="form_t form-inline">
-                <form id="com_form" name="myf" class="form-group" target="hoge">
+  <center>
+    <div class="titlec" id="titlec">øphi-chat</div>
+  </center>
+  <div class="container">
+    <div class="col-md-10 form_box">
+      <div class="form_t form-inline">
+        <form id="com_form" name="myf" class="" target="hoge">
 
-                    <div class="card card-inverse" style="background-color: #333; color:#ffffff; border-color: #333;">
-                        <div class="card-block">
-                            <h3 class="card-title"><b>LiMMY [Room Create]</b></h3>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+          LiMMY [Room Create]<br>
 
-                        </div>
-                      </div>
-
-                        <span class="text-secondary">RoomName</span>
-                        <input type="text" placeholder="RoomName" id="roomName" name="name" class="form-control">
-                        <span class="text-secondary">RoomType</span>
-                        <select class="form-control" id="roomType">
+          <div class="text-secondary">RoomName</div>
+          <input type="text" placeholder="RoomName" id="roomName" name="name" class=""><br>
+          <div class="text-secondary">RoomType</div>
+          <select class="form-control" id="roomType">
                 <option value="normal">Normal</option>
                 <option value="discussion_free">Discussion</option>
             </select>
-                        <br>
-                        <br>
-                        <input type="button" id="create_room" class="btn btn-primary" value="CreateRoom">
-                        <iframe id="hoge" name="hoge" width="0" height="0"></iframe>
-                </form>
-                </div>
-            </div>
-        </div>
+          <br>
+          <br>
+          <input type="button" id="create_room" class="btn btn-primary" value="CreateRoom">
+          <iframe id="hoge" name="hoge" width="0" height="0"></iframe>
+        </form>
+      </div>
     </div>
-
-
-    <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
-    <script src="https://maxcdn.bootstrapcp.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-    <script src="Js/roomCreate.js"></script>
-
-
+  </div>
 </body>
+
+  <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
+  <script src="https://maxcdn.bootstrapcp.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+  <script src="Js/roomCreate.js"></script>
 
 </html>

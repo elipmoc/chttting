@@ -18,7 +18,6 @@ exports.DiscussionNameSpace = class {
                         namespace.emit("titleSend", this._debate_title);
                         namespace.emit("endVote", "");
                     }, 10 * 1000);
-
                 }, 10 * 1000);
             });
             socket.on("firstTitleSend", (data) => {

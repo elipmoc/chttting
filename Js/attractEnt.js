@@ -1,9 +1,17 @@
-const socket = io.of("attractConnection");
+const attract_socket = io("/attractConnection");
 
-$("#attract_send").click(() => {
-  const atr_word = document.myf.attract_word.value;
-  socket.emit("attractWrite");
-  socket.on("attractWrite", (attractWord) => {
-    $("#attract_box").perpend('<a href="' + urlLocation + '">'+attractWord+'</a>');
+//const url = location.href;
+//attract_socket.emit("attractWrite","");
+if (document.getElementById("attract_send")) {
+  $("#attract_send").click(() => {
+    const atr_word = document.myf.attract_word.value;
+    attract_socket.emit("attractWrite", atr_word);
+    $("#left_name_area").prepend(atr_word);
   });
-});
+}
+if (document.getElementById("attract_box")) {
+  attract_socket.emit("attractLoad", "load");
+  attract_socket.on("attractLoad", (atr_word) => {
+    $("#attract_box").prepend('<h3>'+atr_word+'</h3>');
+  });
+}
