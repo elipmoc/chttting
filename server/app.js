@@ -38,7 +38,6 @@ function attractWriteSocket() {
 
 
 //関数呼び出し
-discussion.debateTitleSocket(io);
 loadRoomSocket();
 const firstAccessSocket = discussion.firstAccessSocket(io);
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);

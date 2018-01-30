@@ -13,6 +13,8 @@ class ChatConnection {
         this._socket.emit('initMsg', "");
     }
 
+    get socket() { return this._socket; }
+
     get logSaveFlag() { return this._logSaveFlag; }
     set logSaveFlag(value) { this._logSaveFlag = value; }
 
