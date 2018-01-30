@@ -11,6 +11,7 @@ exports.bindDiscussionSocket = (namespace) => {
     };
 }
 
+
 exports.firstAccessSocket = (mainSocket) => {
     const firstStream = mainSocket.of("/firstLoadStream");
     firstStream.on("connection", (socket) => {
