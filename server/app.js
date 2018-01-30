@@ -60,7 +60,7 @@ let getIP = function(req) {
 function testSocket() {
   const nm = io.of("/aaa");
   nm.on("connection", (socket) => {
-    const address = socket.request.connection.remoteAddress;
+    const address = socket.handshake.address.address;
     socket.on("hoge", () => {
       nm.emit("hoge", address);
     });
