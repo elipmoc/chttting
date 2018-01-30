@@ -1,12 +1,31 @@
+const logDB = require("./logDB.js");
+
+function createVoteResultJsonStr(leftCount, rightCount) {
+    let json = {
+        "msg": "投票結果：肯定=" + leftCount + " 否定=" + rightCount,
+        "dipeType": leftCount > rightCount ? "debateLeft" : "debateRight",
+        "uname": ""
+    };
+    return JSON.stringify(json);
+}
+
 
 exports.DiscussionNameSpace = class {
     constructor(namespace) {
         this._debate_title = "";
         this._voteFlag = false;
+
+        //投票数のカウント
+        this._leftCount = 0;
+        this._rightCount = 0;
+
+        //ソケットのイベント
         this.event = (socket) => {
             socket.on("titleSend", (title) => {
                 if (this._debate_title != "")
                     return;
+                this._leftCount = 0;
+                this._rightCount = 0;
                 this._debate_title = title;
                 namespace.emit("titleSend", this._debate_title);
                 setTimeout(() => {
@@ -17,6 +36,9 @@ exports.DiscussionNameSpace = class {
                         this._debate_title = "LiMMY-CHAT";
                         namespace.emit("titleSend", this._debate_title);
                         namespace.emit("endVote", "");
+                        let msg = createVoteResultJsonStr(this._leftCount, this._rightCount);
+                        namespace.emit("msg", msg);
+                        logDB.logPush(namespace.name, msg);
                     }, 100 * 1000);
                 }, 100 * 1000);
             });
@@ -25,6 +47,12 @@ exports.DiscussionNameSpace = class {
             });
             socket.on("initVoteFlag", (data) => {
                 socket.emit("initVoteFlag", this._voteFlag);
+            })
+            socket.on("vote", (data) => {
+                if (data == "left")
+                    this._leftCount++;
+                else if (data == "right")
+                    this._rightCount++;
             })
         };
     }

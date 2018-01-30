@@ -2,12 +2,7 @@ const createRoomDB = require("./createRoomDB.js");
 const chatSocketBase = require('./chatSocketBase.js');
 const escape = require('escape-html');
 const discussion = require("./discussionSocket.js");
-
-
-
-const {
-    Client
-} = require('pg');
+const getDbClient = require("./getDbClient.js");
 
 let room_list = new Array();
 //名前空間のリスト。いまはまだ使いみちがない
@@ -29,14 +24,8 @@ function addRoom(roomName, roomType, mainSocket) {
     namespaceList[roomName] = namespace;
 }
 
-
-
 function initRoomList(mainSocket) {
-    const client = new Client({
-        connectionString: process.env.DATABASE_URL,
-        ssl: true,
-    });
-
+    const client = getDbClient.get();
     client.connect();
     client.query("select room_name,room_type from room;", (err, res) => {
         if (err) throw err;

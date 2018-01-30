@@ -1,9 +1,6 @@
 const myRouter = require("./myRouter.js");
 const roomCreate = require("./roomList.js");
 const discussion = require("./discussionSocket.js");
-const {
-  Client
-} = require('pg');
 const escape = require('escape-html');
 const http = require('http').createServer(
   myRouter.createRouter()
@@ -16,7 +13,7 @@ function loadRoomSocket() {
   namespace.on('connection', socket => {
     socket.on(
       'loadRoom',
-      function(data) {
+      function (data) {
         socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
       });
   });

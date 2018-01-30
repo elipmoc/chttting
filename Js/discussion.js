@@ -4,12 +4,20 @@ const urlParam = urlGetParamParse(urlLocation);
 //議題定義のソケット定義
 const chatConnection = new ChatConnection(decodeURIComponent(urlParam["roomName"]), msgDataAdd);
 
+let voteFlag = false;
+
 //左右に別れるためのロケーション
 $('#left').click(() => {
-  document.location.href = "discussion.html?stance=debateLeft&roomName=" + urlParam["roomName"];
+    if (voteFlag == false)
+        document.location.href = "discussion.html?stance=debateLeft&roomName=" + urlParam["roomName"];
+    else
+        chatConnection.socket.emit("vote", "left");
 });
 $('#right').click(() => {
-  document.location.href = "discussion.html?stance=debateRight&roomName=" + urlParam["roomName"];
+    if (voteFlag == false)
+        document.location.href = "discussion.html?stance=debateRight&roomName=" + urlParam["roomName"];
+    else
+        chatConnection.socket.emit("vote", "right");
 });
 
 $("#com").keydown((e) => {
@@ -87,32 +95,37 @@ chatConnection.socket.on('firstTitleSend', (data) => {
   $("#titlec").text(data).html();
 });
 
-function buttonReset() {
-  $("#left").text("肯定").html();
-  $("#right").text("否定").html();
+
+function unsetVoteMode() {
+    voteFlag = false;
+    $("#left").text("肯定").html();
+    $("#right").text("否定").html();
 }
 
-function buttonChange() {
-  $("#left").text("肯定に投票する").html();
-  $("#right").text("否定に投票する").html();
+function setVoteMode() {
+    voteFlag = true;
+    $("#left").text("肯定に投票する").html();
+    $("#right").text("否定に投票する").html();
 }
 
 chatConnection.socket.emit("initVoteFlag", "");
 
 //投票状況を取得し、投票中ならbuttonを投票用に変更する
 chatConnection.socket.on("initVoteFlag", (data) => {
-  if (data) {
-    buttonChange();
-  }
+
+    if (data) {
+        setVoteMode();
+    }
 });
 
 //投票終了したらbutton元に戻す
 chatConnection.socket.on("endVote", (data) => {
-  buttonReset();
+    unsetVoteMode();
 });
 
 //投票の開始
 chatConnection.socket.on("startVote", (data) => {
-  buttonChange();
+
+    setVoteMode();
 })
 */

@@ -1,16 +1,11 @@
-const {
-    Client
-} = require('pg');
+const getDbClient = require("./getDbClient.js");
 
 exports.logPush = (roomNameSpace, msg) => {
     if (roomNameSpace[0] != '/') {
         throw "room_nameに/がついていません";
     }
     let roomName = roomNameSpace.slice(1);
-    const client = new Client({
-        connectionString: process.env.DATABASE_URL,
-        ssl: true,
-    });
+    const client = getDbClient.get();
     client.connect();
     client.query("select * from room where room_name ='" + roomName + "';", (err, res) => {
         if (err) throw err;
@@ -42,10 +37,7 @@ exports.logRead = (roomNameSpace, func) => {
         throw "room_nameに/がついていません";
     }
     let roomName = roomNameSpace.slice(1);
-    const client = new Client({
-        connectionString: process.env.DATABASE_URL,
-        ssl: true,
-    });
+    const client = getDbClient.get();
     client.connect();
     client.query("select * from room where room_name ='" + roomName + "';", (err, res) => {
         if (err) throw err;
