@@ -20,7 +20,7 @@ function addRoom(roomName, roomType, mainSocket) {
     if (roomType = "discussion_free") {
         namespace.on('connection', (socket) => {
             chatSocket(namespace)(socket);
-            discussion.bindDiscussionSocket(namespace)(socket);
+            new discussion.bindDiscussionSocket(namespace).event(socket);
         });
     }
     else

@@ -1,9 +1,7 @@
-let debate_title = {};
-
 //議題を定義するためのイベントをソケットにバインド
 exports.bindDiscussionSocket = (namespace) => {
-    this.devate_title2 = "";
-    return (socket) => {
+    this.debate_title2 = "";
+    this.event = (socket) => {
         socket.on("titleSend", (title) => {
             let title_data = JSON.parse(title);
             debate_title2 = title_data["debate_title"];
