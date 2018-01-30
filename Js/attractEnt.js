@@ -10,8 +10,8 @@ if (document.getElementById("attract_send")) {
   });
 }
 if (document.getElementById("attract_box")) {
-  attract_socket.emit("attractWrite", "load");
-  attract_socket.on("attractWrite", (atr_word) => {
+  attract_socket.emit("attractLoad", "load");
+  attract_socket.on("attractLoad", (atr_word) => {
     $("#attract_box").prepend(atr_word);
   });
 }
