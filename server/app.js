@@ -43,19 +43,21 @@ function attractWriteSocket() {
 
 let getIP = function (req) {
   if (req.headers['x-forwarded-for']) {
-    console.log(req.headers['x-forwarded-for']);
+    return req.headers['x-forwarded-for'];
   }
   if (req.connection && req.connection.remoteAddress) {
-    console.log(req.connection.remoteAddress);
+    return req.connection.remoteAddress;
   }
   if (req.connection.socket && req.connection.socket.remoteAddress) {
-    console.log(req.connection.socket.remoteAddress);
+    return req.connection.socket.remoteAddress;
   }
   if (req.socket && req.socket.remoteAddress) {
-    console.log(req.socket.remoteAddress);
+    return req.socket.remoteAddress;
   }
   return '0.0.0.0';
 };
+
+console.log(getIP);
 
 /*function attractMainSocket() {
   const attractNamespace = io.of("/attractConnection");
