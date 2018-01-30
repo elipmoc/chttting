@@ -59,10 +59,10 @@ let getIP = function(req) {
 
 function testSocket() {
   const nm = io.of("/aaa");
-  const address = socket.handshake.address;
   nm.on("connection", (socket) => {
-  socket.on("hoge", () => {
-      nm.emit("hoge" , address);
+    const address = socket.request.connection.remoteAddress;
+    socket.on("hoge", () => {
+      nm.emit("hoge", address);
     });
   });
 }
