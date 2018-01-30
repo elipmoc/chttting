@@ -24,8 +24,6 @@ function addRoom(roomName, roomType, mainSocket) {
     namespaceList[roomName] = namespace;
 }
 
-console.log(process.env.DATABASE_URL);
-
 function initRoomList(mainSocket) {
     const client = getDbClient.get();
     client.connect();

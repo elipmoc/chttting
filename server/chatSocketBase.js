@@ -2,6 +2,8 @@ const logDB = require('./logDB.js');
 //チャットをするためのソケット群
 exports.chatSocket = (namespace) => {
     return function (socket) {
+        console.log("ip:" + socket.handshake.address);
+
         //ログ管理
         socket.on(
             'msg',
