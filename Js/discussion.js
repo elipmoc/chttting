@@ -65,11 +65,7 @@ let title_list = new Array();
 
 $("#title_send").click(() => {
     let word = document.myf.title_word.value;
-    title_list = {
-        room_name: urlParam["roomName"],
-        debate_title: word
-    };
-    chatConnection.socket.emit('titleSend', JSON.stringify(title_list));
+    chatConnection.socket.emit('titleSend', word);
 });
 
 
