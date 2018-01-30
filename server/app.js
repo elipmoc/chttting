@@ -16,7 +16,7 @@ function loadRoomSocket() {
   namespace.on('connection', socket => {
     socket.on(
       'loadRoom',
-      function(data) {
+      function (data) {
         socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
       });
   });
@@ -34,8 +34,8 @@ function attractWriteSocket() {
         attractNamespace.emit("attractWrite", attractWord);
         console.log(attractWord);
         attract_title = attractWord;
-      }else{
-        attractNamespace.emit("attractLoad",attract_title);
+      } else {
+        attractNamespace.emit("attractLoad", attract_title);
       }
     });
   });
@@ -50,7 +50,6 @@ function attractWriteSocket() {
 //関数呼び出し
 loadRoomSocket();
 attractWriteSocket();
-const firstAccessSocket = discussion.firstAccessSocket(io);
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
 //ポート指定
