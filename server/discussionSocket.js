@@ -1,5 +1,5 @@
 //議題を定義するためのイベントをソケットにバインド
-exports.bindDiscussionSocket = (namespace) => {
+exports.bindDiscussionSocket = function (namespace) {
     this.debate_title2 = "";
     this.event = (socket) => {
         socket.on("titleSend", (title) => {
