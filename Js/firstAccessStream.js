@@ -1,8 +1,5 @@
-const firstSocket = io("/firstLoadStream");
-const urlLocation = document.location.href;
-const urlParam = urlGetParamParse(urlLocation);
-firstSocket.emit('firstSend', "");
-firstSocket.on('firstSend', (data) => {
+chatConnection.socket.emit('firstTitleSend', "");
+chatConnection.socket.on('firstTitleSend', (data) => {
     data = JSON.parse(data);
     $("#titlec").text(data[urlParam["roomName"]]).html();
 });

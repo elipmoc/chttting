@@ -11,15 +11,8 @@ exports.bindDiscussionSocket = (namespace) => {
             }, 30 * 1000);
             debate_title[title_data["room_name"]] = title_data["debate_title"];
         });
-    };
-}
-
-exports.firstAccessSocket = (mainSocket) => {
-    const firstStream = mainSocket.of("/firstLoadStream");
-    firstStream.on("connection", (socket) => {
-        socket.on("firstSend", (data) => {
-            socket.emit("firstSend", JSON.stringify(debate_title));
+        socket.on("firstTitleSend", (data) => {
+            socket.emit("firstTitleSend", JSON.stringify(debate_title));
         });
-    });
-    return firstStream;
+    };
 }
