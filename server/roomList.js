@@ -21,7 +21,7 @@ function addRoom(roomName, roomType, mainSocket) {
         let event = new discussion.DiscussionNameSpace(namespace).event;
         namespace.on('connection', (socket) => {
             chatSocketBase.chatSocket(namespace)(socket);
-            event(namespace);
+            event(socket);
         });
     }
     else
