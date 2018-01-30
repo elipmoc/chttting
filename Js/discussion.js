@@ -12,7 +12,6 @@ $('#right').click(() => {
 });
 
 $("#com").keydown((e) => {
-  const auth_numb = Math.floor(Math.random() * 1100);
     let ms = document.myf.com.value;
     let nm = document.myf.name.value;
     if (ms != "" && nm != "") {
@@ -21,8 +20,7 @@ $("#com").keydown((e) => {
                 JSON.stringify({
                     "msg": nm + " > " + ms,
                     "dipeType": urlParam["stance"],
-                    "uname": nm,
-                    "auth": autu_numb
+                    "uname": nm
                 })
             );
             document.myf.com.value = "";
@@ -31,7 +29,6 @@ $("#com").keydown((e) => {
 });
 
 $('#chat_send').click(() => {
-    const auth_numb = Math.floor(Math.random() * 1100);
     const ms = document.myf.com.value;
     const nm = document.myf.name.value;
 
@@ -40,8 +37,7 @@ $('#chat_send').click(() => {
             JSON.stringify({
                 "msg": nm + " > " + ms,
                 "dipeType": urlParam["stance"],
-                "uname": nm,
-                "auth": autu_numb
+                "uname": nm
             })
         );
     }
@@ -51,8 +47,8 @@ $('#chat_send').click(() => {
 //urlParam["stance"] == "debateLeft"
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
-    data = JSON.parse(data);
     console.log(data);
+    data = JSON.parse(data);
     let msg = '<div style="border-top:1px #D5D8DC solid; margin-top:6px;margin-bottom:-12px;">' + commandFilter(data["msg"]) + '</div><br>';
 
     if (data["dipeType"] == "debateLeft") {
