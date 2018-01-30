@@ -30,9 +30,13 @@ function attractWriteSocket() {
   attractNamespace.on("connection", (socket) => {
     console.log('a user connected');
     socket.on("attractWrite", (attractWord) => {
-      attractNamespace.emit("attractWrite", attractWord);
-      console.log(attractWord);
-      attract_title = attractWord;
+      if (attractWord != "load") {
+        attractNamespace.emit("attractWrite", attractWord);
+        console.log(attractWord);
+        attract_title = attractWord;
+      }else{
+        attractNamespace.emit("attractWrite",attract_title);
+      }
     });
   });
 }
