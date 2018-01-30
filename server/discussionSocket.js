@@ -5,7 +5,7 @@ exports.DiscussionNameSpace = class {
         this._voteFlag = false;
         this.event = (socket) => {
             socket.on("titleSend", (title) => {
-                if (this._debate_title == "")
+                if (this._debate_title != "")
                     return;
                 this._debate_title = title;
                 namespace.emit("titleSend", this._debate_title);
