@@ -16,7 +16,7 @@ function loadRoomSocket() {
   namespace.on('connection', socket => {
     socket.on(
       'loadRoom',
-      function (data) {
+      function(data) {
         socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
       });
   });
@@ -28,10 +28,12 @@ let attract_title = {};
 function attractWriteSocket() {
   const attractNamespace = io.of("/attractConnection");
   attractNamespace.on("connection", (socket) => {
+    console.log('a user connected');
     socket.on("attractWrite", (attractWord) => {
-      //socket.emit("attractWrite", attractWord);
+      attractNamespace.emit("attractWrite", attractWord);
       console.log(attractWord);
-    })
+
+    });
   });
 }
 
