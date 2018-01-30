@@ -81,5 +81,6 @@ chatConnection.socket.on('firstTitleSend', (data) => {
 
 //投票の開始
 chatConnection.socket.on("startVote", (data) => {
-    console.log("投票開始！");
+    $("#left").text("肯定に投票する").html();
+    $("#right").text("否定に投票する").html();
 })
