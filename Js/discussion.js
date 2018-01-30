@@ -47,8 +47,8 @@ $('#chat_send').click(() => {
 //urlParam["stance"] == "debateLeft"
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
-    data = JSON.parse(data);
     console.log(data);
+    data = JSON.parse(data);
     let msg = '<div style="border-top:1px #D5D8DC solid; margin-top:6px;margin-bottom:-12px;">' + commandFilter(data["msg"]) + '</div><br>';
 
     if (data["dipeType"] == "debateLeft") {
