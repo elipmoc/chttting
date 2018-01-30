@@ -78,8 +78,8 @@ chatConnection.socket.on('titleSend', (title) => {
     $("#titlec").text(title).html();
 });
 
-chatConnection.socket.emit('firstSend', "");
-chatConnection.socket.on('firstSend', (data) => {
+chatConnection.socket.emit('firstTitleSend', "");
+chatConnection.socket.on('firstTitleSend', (data) => {
     $("#titlec").text(data).html();
 });
 
