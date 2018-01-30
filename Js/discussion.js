@@ -75,3 +75,8 @@ $("#title_send").click(() => {
 chatConnection.socket.on('titleSend', (title) => {
     $("#titlec").text(title).html();
 });
+
+//投票の開始
+chatConnection.socket.on("startVote", (data) => {
+    console.log("投票開始！");
+})
