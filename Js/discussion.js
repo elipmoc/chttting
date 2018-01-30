@@ -1,6 +1,8 @@
+const urlLocation = document.location.href;
+const urlParam = urlGetParamParse(urlLocation);
+
 //議題定義のソケット定義
 const chatConnection = new ChatConnection(decodeURIComponent(urlParam["roomName"]), msgDataAdd);
-
 
 //左右に別れるためのロケーション
 $('#left').click(() => {
@@ -74,6 +76,12 @@ $("#title_send").click(() => {
 
 chatConnection.socket.on('titleSend', (title) => {
     $("#titlec").text(title).html();
+});
+
+chatConnection.socket.emit('firstSend', "");
+chatConnection.socket.on('firstSend', (data) => {
+    data = JSON.parse(data);
+    $("#titlec").text(data[urlParam["roomName"]]).html();
 });
 
 //投票の開始
