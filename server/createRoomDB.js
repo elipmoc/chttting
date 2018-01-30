@@ -1,12 +1,7 @@
-const {
-    Client
-} = require('pg');
+const getDbClient = require("./getDbClient.js");
 
 exports.createRoom = (roomName, roomType, func) => {
-    const client = new Client({
-        connectionString: process.env.DATABASE_URL,
-        ssl: true,
-    });
+    const client = getDbClient.get();
     client.connect();
     client.query("select count(*) from room where room_name =$1;", [roomName], (err, res) => {
         if (err) throw err;
