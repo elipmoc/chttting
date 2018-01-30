@@ -1,6 +1,8 @@
+const urlLocation = document.location.href;
+const urlParam = urlGetParamParse(urlLocation);
+
 //議題定義のソケット定義
 const chatConnection = new ChatConnection(decodeURIComponent(urlParam["roomName"]), msgDataAdd);
-
 
 //左右に別れるためのロケーション
 $('#left').click(() => {
@@ -63,11 +65,7 @@ let title_list = new Array();
 
 $("#title_send").click(() => {
     let word = document.myf.title_word.value;
-    title_list = {
-        room_name: urlParam["roomName"],
-        debate_title: word
-    };
-    chatConnection.socket.emit('titleSend', JSON.stringify(title_list));
+    chatConnection.socket.emit('titleSend', word);
 });
 
 
@@ -75,3 +73,37 @@ $("#title_send").click(() => {
 chatConnection.socket.on('titleSend', (title) => {
     $("#titlec").text(title).html();
 });
+
+chatConnection.socket.emit('firstTitleSend', "");
+chatConnection.socket.on('firstTitleSend', (data) => {
+    $("#titlec").text(data).html();
+});
+
+function buttonReset() {
+    $("#left").text("肯定").html();
+    $("#right").text("否定").html();
+}
+
+function buttonChange() {
+    $("#left").text("肯定に投票する").html();
+    $("#right").text("否定に投票する").html();
+}
+
+chatConnection.socket.emit("initVoteFlag", "");
+
+//投票状況を取得し、投票中ならbuttonを投票用に変更する
+chatConnection.socket.on("initVoteFlag", (data) => {
+    if (data) {
+        buttonChange();
+    }
+});
+
+//投票終了したらbutton元に戻す
+chatConnection.socket.on("endVote", (data) => {
+    buttonReset();
+});
+
+//投票の開始
+chatConnection.socket.on("startVote", (data) => {
+    buttonChange();
+})

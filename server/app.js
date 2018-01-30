@@ -16,7 +16,7 @@ function loadRoomSocket() {
   namespace.on('connection', socket => {
     socket.on(
       'loadRoom',
-      function(data) {
+      function (data) {
         socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
       });
   });
@@ -50,7 +50,6 @@ function attractWriteSocket() {
 //関数呼び出し
 loadRoomSocket();
 attractWriteSocket();
-const firstAccessSocket = discussion.firstAccessSocket(io);
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
 //ポート指定
