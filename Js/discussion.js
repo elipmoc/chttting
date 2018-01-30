@@ -79,6 +79,11 @@ chatConnection.socket.on('firstTitleSend', (data) => {
     $("#titlec").text(data).html();
 });
 
+function buttonReset() {
+    $("#left").text("肯定").html();
+    $("#right").text("否定").html();
+}
+
 function buttonChange() {
     $("#left").text("肯定に投票する").html();
     $("#right").text("否定に投票する").html();
@@ -93,6 +98,10 @@ chatConnection.socket.on("initVoteFlag", (data) => {
     }
 });
 
+//投票終了したらbutton元に戻す
+chatConnection.socket.on("endVote", (data) => {
+    buttonReset();
+});
 
 //投票の開始
 chatConnection.socket.on("startVote", (data) => {

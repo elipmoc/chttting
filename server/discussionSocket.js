@@ -16,6 +16,7 @@ exports.DiscussionNameSpace = class {
                         this._voteFlag = false;
                         this._debate_title = "";
                         namespace.emit("titleSend", this._debate_title);
+                        namespace.emit("endVote", "");
                     }, 10 * 1000);
 
                 }, 10 * 1000);
