@@ -12,6 +12,6 @@ if (document.getElementById("attract_send")) {
 if (document.getElementById("attract_box")) {
   attract_socket.emit("attractLoad", "load");
   attract_socket.on("attractLoad", (atr_word) => {
-    $("#attract_box").prepend(atr_word);
+    $("#attract_box").prepend('<h3>'+atr_word+'</h3>');
   });
 }
