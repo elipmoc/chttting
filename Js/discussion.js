@@ -70,9 +70,9 @@ $("#title_send").click(() => {
 
 $("#title_send").click(() => {
   const f = io("/aaa");
+  f.emit("hoge", "")
   f.on("hoge", (data) => {
     alert(data);
-    f.emit("hoge","");
     $("#titlec").text(data).html();
   });
 });

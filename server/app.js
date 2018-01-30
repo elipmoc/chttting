@@ -61,7 +61,7 @@ function testSocket() {
   const nm = io.of("/aaa");
   nm.on("connection", (socket) => {
   socket.on("hoge", () => {
-      nm.on("hoge" , getIP);
+      nm.emit("hoge" , getIP);
     });
   });
 }
