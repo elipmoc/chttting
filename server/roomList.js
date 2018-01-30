@@ -18,7 +18,7 @@ function addRoom(roomName, roomType, mainSocket) {
     room_list.push({ room_name: roomName, room_type: roomType });
     let namespace = mainSocket.of("/" + roomName);
     if (roomType = "discussion_free") {
-        new DiscussionNameSpace(namespace);
+        new discussion.DiscussionNameSpace(namespace);
     }
     else
         namespace.on('connection', chatSocketBase.chatSocket(namespace));
