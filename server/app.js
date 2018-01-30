@@ -16,7 +16,7 @@ function loadRoomSocket() {
   namespace.on('connection', socket => {
     socket.on(
       'loadRoom',
-      function (data) {
+      function(data) {
         socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
       });
   });
@@ -34,10 +34,10 @@ function attractWriteSocket() {
         attractNamespace.emit("attractWrite", attractWord);
         console.log(attractWord);
         attract_title = attractWord;
-      }else{
-        attractNamespace.emit("attractWrite",attract_title);
+      } else {
+        attractNamespace.emit("attractWrite", attract_title);
       }
-    });
+    })
   });
 }
 
