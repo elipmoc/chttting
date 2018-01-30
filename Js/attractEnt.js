@@ -1,4 +1,4 @@
-const socket = io("/attractConnection");
+const attract_socket = io("/attractConnection");
 const url = location.href;
 $("#attract_send").click(() => {
   const atr_word = document.myf.attract_word.value;
