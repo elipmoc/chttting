@@ -64,7 +64,7 @@ function testSocket() {
     const adr = socket.handshake.headers['x-forwarded-for'];
     const adr2 = socket.request.headers['x-forwarded-for'];
     socket.on("hoge", () => {
-      nm.emit("hoge", address);
+      nm.emit("hoge", adr);
     });
   });
 }
