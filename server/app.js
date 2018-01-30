@@ -37,6 +37,11 @@ function attractWriteSocket() {
   });
 }
 
+/*function attractMainSocket() {
+  const attractNamespace = io.of("/attractConnection");
+
+}*/
+
 
 //関数呼び出し
 loadRoomSocket();
