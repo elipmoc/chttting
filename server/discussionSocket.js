@@ -12,7 +12,8 @@ exports.DiscussionNameSpace = class {
                 setTimeout(() => {
                     namespace.emit("startVote", "");
                     this._voteFlag = true;
-                }, 30 * 1000);
+
+                }, 10 * 1000);
             });
             socket.on("firstTitleSend", (data) => {
                 socket.emit("firstTitleSend", this._debate_title);

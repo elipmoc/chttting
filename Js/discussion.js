@@ -79,8 +79,22 @@ chatConnection.socket.on('firstTitleSend', (data) => {
     $("#titlec").text(data).html();
 });
 
-//投票の開始
-chatConnection.socket.on("startVote", (data) => {
+function buttonChange() {
     $("#left").text("肯定に投票する").html();
     $("#right").text("否定に投票する").html();
+}
+
+chatConnection.socket.emit("initVoteFlag", "");
+
+//投票状況を取得し、投票中ならbuttonを投票用に変更する
+chatConnection.socket.on("initVoteFlag", (data) => {
+    if (data) {
+        buttonChange();
+    }
+});
+
+
+//投票の開始
+chatConnection.socket.on("startVote", (data) => {
+    buttonChange();
 })
