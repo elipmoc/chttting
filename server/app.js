@@ -4,9 +4,7 @@ const discussion = require("./discussionSocket.js");
 const {
   Client
 } = require('pg');
-
 const escape = require('escape-html');
-
 const http = require('http').createServer(
   myRouter.createRouter()
 );
@@ -32,6 +30,7 @@ function attractWriteSocket() {
   attractNamespace.on("connection", (socket) => {
     socket.on("attractWrite", (attractWord) => {
       socket.emit("attractWrite", attractWord);
+      alert(attractWord);
     });
   });
 }
@@ -39,6 +38,7 @@ function attractWriteSocket() {
 
 //関数呼び出し
 loadRoomSocket();
+attractWriteSocket();
 const firstAccessSocket = discussion.firstAccessSocket(io);
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
