@@ -1,6 +1,8 @@
 const createRoomDB = require("./createRoomDB.js");
 const logDB = require('./logDB.js');
 const escape = require('escape-html');
+const discussion = require("./discussionSocket.js");
+
 
 
 const {
@@ -15,7 +17,14 @@ let namespaceList = new Array();
 function addRoom(roomName, roomType, mainSocket) {
     room_list.push({ room_name: roomName, room_type: roomType });
     let namespace = mainSocket.of("/" + roomName);
-    namespace.on('connection', chatSocket(namespace));
+    if (roomType = "discussion_free") {
+        namespace.on('connection', (socket) => {
+            chatSocket(namespace)(socket);
+            discussion.bindDiscussionSocket(namespace)(socket);
+        });
+    }
+    else
+        namespace.on('connection', chatSocket(namespace));
     namespaceList[roomName] = namespace;
 }
 

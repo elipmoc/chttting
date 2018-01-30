@@ -1,5 +1,4 @@
 //議題定義のソケット定義
-const socket = io();
 const chatConnection = new ChatConnection(decodeURIComponent(urlParam["roomName"]), msgDataAdd);
 
 
@@ -68,11 +67,11 @@ $("#title_send").click(() => {
         room_name: urlParam["roomName"],
         debate_title: word
     };
-    socket.emit('titleSend', JSON.stringify(title_list));
+    chatConnection.socket.emit('titleSend', JSON.stringify(title_list));
 });
 
 
 
-socket.on('titleSend', (title) => {
+chatConnection.socket.on('titleSend', (title) => {
     $("#titlec").text(title).html();
 });
