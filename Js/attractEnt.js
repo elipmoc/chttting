@@ -1,5 +1,5 @@
-const socket = io.of("attractConnection");
-
+const socket = io("attractConnection");
+const url = location.href;
 $("#attract_send").click(() => {
   const atr_word = document.myf.attract_word.value;
   socket.emit("attractWrite");
