@@ -80,8 +80,7 @@ chatConnection.socket.on('titleSend', (title) => {
 
 chatConnection.socket.emit('firstSend', "");
 chatConnection.socket.on('firstSend', (data) => {
-    data = JSON.parse(data);
-    $("#titlec").text(data[urlParam["roomName"]]).html();
+    $("#titlec").text(data).html();
 });
 
 //投票の開始
