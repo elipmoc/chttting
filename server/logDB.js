@@ -43,7 +43,7 @@ exports.logRead = (roomNameSpace, func) => {
         if (err) throw err;
         if (res.rows.length != 1) throw "room名" + roomName + "が重複しています:" + res.rows.length;
         let id = res.rows[0]["room_id"];
-        client.query("select msg_data from msg where room_id=$1;", [Number(id)], (err, res) => {
+        client.query("select msg_data from msg where room_id=$1 order by msg_time;", [Number(id)], (err, res) => {
             if (err) throw err;
             func(res.rows.map(row => row["msg_data"]));
             client.end();
