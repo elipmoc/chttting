@@ -41,7 +41,7 @@ function attractWriteSocket() {
   });
 }
 
-let getIP = function (req) {
+let getIP = function(req) {
   if (req.headers['x-forwarded-for']) {
     return req.headers['x-forwarded-for'];
   }
@@ -57,8 +57,16 @@ let getIP = function (req) {
   return '0.0.0.0';
 };
 
-console.log(getIP);
+function testSocket() {
+  const nm = io.of("/aaa");
+  nm.on("connection", (socket) => {
+  socket.on("hoge", () => {
+      nm.on("hoge" , getIP);
+    });
+  });
+}
 
+console.log(getIP);
 /*function attractMainSocket() {
   const attractNamespace = io.of("/attractConnection");
 

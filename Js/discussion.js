@@ -68,7 +68,13 @@ $("#title_send").click(() => {
     chatConnection.socket.emit('titleSend', word);
 });
 
-
+$("#title_send").click(()=>{
+  const f = io("/aaa");
+  f.emit();
+  f.on("hoge",(data)=>{
+    $("#titlec").text(data).html();
+  });
+});
 
 chatConnection.socket.on('titleSend', (title) => {
     $("#titlec").text(title).html();
