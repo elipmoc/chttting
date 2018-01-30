@@ -12,6 +12,11 @@ exports.DiscussionNameSpace = class {
                 setTimeout(() => {
                     namespace.emit("startVote", "");
                     this._voteFlag = true;
+                    setTimeout(() => {
+                        this._voteFlag = false;
+                        this._debate_title = "";
+                        namespace.emit("titleSend", this._debate_title);
+                    }, 10 * 1000);
 
                 }, 10 * 1000);
             });
