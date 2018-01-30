@@ -1,4 +1,4 @@
-
+const logDB = require("./logDB.js");
 
 function createVoteResultJsonStr(leftCount, rightCount) {
     let json = {
@@ -36,7 +36,10 @@ exports.DiscussionNameSpace = class {
                         this._debate_title = "";
                         namespace.emit("titleSend", this._debate_title);
                         namespace.emit("endVote", "");
-                        namespace.emit("msg", createVoteResultJsonStr(this._leftCount, this._rightCount));
+                        let msg = createVoteResultJsonStr(this._leftCount, this._rightCount);
+                        namespace.emit("msg", msg);
+                        logDB.logPush(namespace.name, msg);
+
                     }, 10 * 1000);
                 }, 10 * 1000);
             });
