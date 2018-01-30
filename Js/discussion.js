@@ -20,9 +20,7 @@ $("#com").keydown((e) => {
             chatConnection.sendData(
                 JSON.stringify({
                     "msg": nm + " > " + ms,
-                    "dipeType": urlParam["stance"],
-                    "uname": nm,
-                    "auth": autu_numb
+                    "dipeType": urlParam["stance"]
                 })
             );
             document.myf.com.value = "";
@@ -39,9 +37,7 @@ $('#chat_send').click(() => {
         chatConnection.sendData(
             JSON.stringify({
                 "msg": nm + " > " + ms,
-                "dipeType": urlParam["stance"],
-                "uname": nm,
-                "auth": autu_numb
+                "dipeType": urlParam["stance"]
             })
         );
     }
