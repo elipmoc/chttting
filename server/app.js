@@ -30,7 +30,7 @@ function attractWriteSocket() {
   attractNamespace.on("connection", (socket) => {
     socket.on("attractWrite", (attractWord) => {
       socket.emit("attractWrite", attractWord);
-      alert(attractWord);
+      console.log(attractWord);
     })
   });
 }
