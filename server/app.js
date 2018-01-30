@@ -29,7 +29,7 @@ function attractWriteSocket() {
   const attractNamespace = io.of("/attractConnection");
   attractNamespace.on("connection", (socket) => {
     socket.on("attractWrite", (attractWord) => {
-      socket.emit("attractWrite", attractWord);
+      //socket.emit("attractWrite", attractWord);
       console.log(attractWord);
     })
   });
