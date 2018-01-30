@@ -23,7 +23,7 @@ function loadRoomSocket() {
 
 }
 
-let attract_title = {};
+let attract_title = "";
 
 function attractWriteSocket() {
   const attractNamespace = io.of("/attractConnection");
@@ -32,7 +32,7 @@ function attractWriteSocket() {
     socket.on("attractWrite", (attractWord) => {
       attractNamespace.emit("attractWrite", attractWord);
       console.log(attractWord);
-
+      attract_title = attractWord;
     });
   });
 }
