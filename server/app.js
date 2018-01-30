@@ -31,7 +31,7 @@ function attractWriteSocket() {
     socket.on("attractWrite", (attractWord) => {
       socket.emit("attractWrite", attractWord);
       alert(attractWord);
-    });
+    })
   });
 }
 
