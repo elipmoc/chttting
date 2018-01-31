@@ -141,9 +141,6 @@ exports.DiscussionNameSpace = class {
                 this._voteControl.vote(data, socketUtil.getClientIP(socket));
 
             });
-            socket.on("disconnect", () => {
-                console.log("dis");
-            });
         };
     }
 }
