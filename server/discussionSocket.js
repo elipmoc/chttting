@@ -129,7 +129,7 @@ exports.DiscussionNameSpace = class {
         }
 
         //ソケットのイベント
-        this.event = (socket) => {
+        this.connectEvent = (socket) => {
             socket.on("titleSend", (title) => {
                 if (this._debateTitle.isDefaultTitle() == false)
                     return;
