@@ -105,8 +105,13 @@ function setVoteMode() {
 chatConnection.socket.emit("initVoteFlag", "");
 
 //投票までの時間をカウントダウンする
-chatConnection.socket.on("voteSecond", (second) => {
+chatConnection.socket.on("startVoteSecond", (second) => {
   $("#countDown").text("投票まで残り" + second + "秒");
+});
+
+//投票終了までの時間をカウントダウンする
+chatConnection.socket.on("endVoteSecond", (second) => {
+  $("#countDown").text("投票終了まで残り" + second + "秒");
 });
 
 //投票状況を取得し、投票中ならbuttonを投票用に変更する

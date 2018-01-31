@@ -1,4 +1,5 @@
 
+
 const logDB = require("./logDB.js");
 
 
@@ -40,26 +41,36 @@ exports.DiscussionNameSpace = class {
 
         this._startVote = () => {
             this._secondCount = voteSecondInterval;
-            let interval = setInterval(() => {
+            let startVoteCount = setInterval(() => {
                 this._secondCount--;
-                namespace.emit("voteSecond", this._secondCount);
+                namespace.emit("startVoteSecond", this._secondCount);
                 if (this._secondCount <= 0) {
-                    clearInterval(interval);
+                    clearInterval(startVoteCount);
                     namespace.emit("startVote", "");
                     this._voteFlag = true;
-                    setTimeout(() => {
-                        this._voteFlag = false;
-                        this._debate_title = "";
-                        namespace.emit("titleSend", this._debate_title);
-                        namespace.emit("endVote", "");
-                        this._votersIpList = {};
-                        let msg = createVoteResultJsonStr(this._leftCount, this._rightCount);
-                        namespace.emit("msg", msg);
-                        logDB.logPush(namespace.name, msg);
-                    }, 10 * 1000);
+                    this._endVote();
                 }
             }, 1000);
         };
+
+        this._endVote = () => {
+            this._secondCount = voteSecondInterval;
+            let endVoteCount = setInterval(() => {
+                this._secondCount--;
+                namespace.emit("endVoteSecond", this._secondCount);
+                if (this._secondCount <= 0) {
+                    clearInterval(endVoteCount);
+                    this._voteFlag = false;
+                    this._debate_title = "";
+                    namespace.emit("titleSend", this._debate_title);
+                    namespace.emit("endVote", "");
+                    this._votersIpList = {};
+                    let msg = createVoteResultJsonStr(this._leftCount, this._rightCount);
+                    namespace.emit("msg", msg);
+                    logDB.logPush(namespace.name, msg);
+                }
+            }, 1000);
+        }
 
         //ソケットのイベント
         this.event = (socket) => {
