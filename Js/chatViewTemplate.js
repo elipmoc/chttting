@@ -1,1 +1,6 @@
-$(".bind-chatName").text("ARRAYMA");
+const chatName = "ARRAYMA";
+
+
+
+$(".bind-chatName").text(chatName);
+$(".bind-prepend-chatName").prepend(chatName);
