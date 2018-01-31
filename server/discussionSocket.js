@@ -1,3 +1,4 @@
+
 const logDB = require("./logDB.js");
 
 
@@ -18,6 +19,10 @@ function createVoteResultJsonStr(leftCount, rightCount) {
     return JSON.stringify(json);
 }
 
+//投票する期間
+const voteSecondInterval = 10;
+
+
 
 exports.DiscussionNameSpace = class {
     constructor(namespace) {
@@ -30,16 +35,15 @@ exports.DiscussionNameSpace = class {
         this._leftCount = 0;
         this._rightCount = 0;
 
-        //ソケットのイベント
-        this.event = (socket) => {
-            socket.on("titleSend", (title) => {
-                if (this._debate_title != "")
-                    return;
-                this._leftCount = 0;
-                this._rightCount = 0;
-                this._debate_title = title;
-                namespace.emit("titleSend", this._debate_title);
-                setTimeout(() => {
+        //秒数カウント
+        this._secondCount = 0;
+
+        this._startVote = () => {
+            this._secondCount = voteSecondInterval;
+            let interval = setInterval(() => {
+                this._secondCount--;
+                if (this._secondCount <= 0) {
+                    clearInterval(interval);
                     namespace.emit("startVote", "");
                     this._voteFlag = true;
                     setTimeout(() => {
@@ -52,7 +56,20 @@ exports.DiscussionNameSpace = class {
                         namespace.emit("msg", msg);
                         logDB.logPush(namespace.name, msg);
                     }, 10 * 1000);
-                }, 10 * 1000);
+                }
+            }, 1000);
+        };
+
+        //ソケットのイベント
+        this.event = (socket) => {
+            socket.on("titleSend", (title) => {
+                if (this._debate_title != "")
+                    return;
+                this._leftCount = 0;
+                this._rightCount = 0;
+                this._debate_title = title;
+                namespace.emit("titleSend", this._debate_title);
+                this._startVote();
             });
             socket.on("firstTitleSend", (data) => {
                 socket.emit("firstTitleSend", this._debate_title);
