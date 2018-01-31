@@ -14,13 +14,16 @@ function addRoom(roomName, roomType, description, mainSocket) {
     let namespace = mainSocket.of("/" + roomName);
     if (roomType = "discussion_free") {
         let connectEvent = new discussion.DiscussionNameSpace(namespace).connectEvent;
+        let connectEvent2 = new chatSocketBase.chatBaseNameSpace(namespace).connectEvent;
         namespace.on('connection', (socket) => {
-            chatSocketBase.chatSocket(namespace)(socket);
             connectEvent(socket);
+            connectEvent2(socket);
         });
     }
-    else
-        namespace.on('connection', chatSocketBase.chatSocket(namespace));
+    else {
+        let connectEvent = new chatSocketBase.chatBaseNameSpace(namespace).connectEvent;
+        namespace.on('connection', connectEvent);
+    }
     namespaceList[roomName] = namespace;
 }
 
