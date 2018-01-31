@@ -79,13 +79,13 @@ $("#title_send").click(() => {
 
 
 
-chatConnection.socket.on('titleSend', (title) => {
-  $("#titlec").text(title).html();
+chatConnection.socket.on('titleSend', (titleData) => {
+  $("#titlec").text(titleData).html();
 });
 
 chatConnection.socket.emit('firstTitleSend', "");
-chatConnection.socket.on('firstTitleSend', (data) => {
-  $("#titlec").text(data).html();
+chatConnection.socket.on('firstTitleSend', (titleData) => {
+  $("#titlec").text(titleData).html();
 });
 
 
@@ -115,9 +115,8 @@ chatConnection.socket.on("endVoteSecond", (second) => {
 });
 
 //投票状況を取得し、投票中ならbuttonを投票用に変更する
-chatConnection.socket.on("initVoteFlag", (data) => {
-
-  if (data) {
+chatConnection.socket.on("initVoteFlag", (VoteFlagData) => {
+  if (VoteFlagData) {
     setVoteMode();
   }
 });
@@ -129,6 +128,5 @@ chatConnection.socket.on("endVote", (data) => {
 
 //投票の開始
 chatConnection.socket.on("startVote", (data) => {
-
   setVoteMode();
 });

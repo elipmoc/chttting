@@ -1,8 +1,9 @@
 const roomCreateSocket = io("/roomCreate");
-roomCreateSocket.on('created', (data) => {
-  if (data == "")
+roomCreateSocket.on('created', (errorMsg) => {
+  if (errorMsg == "")
     document.location.href = "/";
-  else document.write(data + "<br><a href='/'>メインページに戻る</a>");
+  else
+  $("#roomCreateError").prepend("<font color='red' size='3'>"+errorMsg+"</font>");
 });
 
 $('#create_room').click(() => {
