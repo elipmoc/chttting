@@ -1,5 +1,14 @@
 const logDB = require("./logDB.js");
 
+
+function getClientIP(socket) {
+    let ip = socket.handshake.headers['x-forwarded-for'];
+    if (ip == undefined)
+        ip = socket.handshake.address;
+    return ip;
+}
+
+
 function createVoteResultJsonStr(leftCount, rightCount) {
     let json = {
         "msg": "投票結果：肯定=" + leftCount + " 否定=" + rightCount,

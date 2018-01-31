@@ -3,7 +3,6 @@ const logDB = require('./logDB.js');
 exports.chatSocket = (namespace) => {
     return function (socket) {
         console.log("clientIP:" + socket.handshake.headers['x-forwarded-for']);
-
         //ログ管理
         socket.on(
             'msg',
