@@ -16,7 +16,7 @@ exports.logPush = (roomNameSpace, msg) => {
             client.query("select count(*) from msg where room_id=$1;", [id], (err, res) => {
                 if (err) throw err;
                 if (res.rows[0]["count"] > 30) {
-                    client.query("select msg_id from msg order by msg_time offset 0 limit 1;", (err, res) => {
+                    client.query("select msg_id from msg where room_id=$1 order by msg_time offset 0 limit 1;", [Number(id)], (err, res) => {
                         if (err) throw err;
                         client.query("delete from msg where msg_id=$1;", [res.rows[0]["msg_id"]], (err, res) => {
                             if (err) throw err;
@@ -43,7 +43,7 @@ exports.logRead = (roomNameSpace, func) => {
         if (err) throw err;
         if (res.rows.length != 1) throw "room名" + roomName + "が重複しています:" + res.rows.length;
         let id = res.rows[0]["room_id"];
-        client.query("select msg_data from msg where room_id=$1;", [Number(id)], (err, res) => {
+        client.query("select msg_data from msg where room_id=$1 order by msg_time;", [Number(id)], (err, res) => {
             if (err) throw err;
             func(res.rows.map(row => row["msg_data"]));
             client.end();
