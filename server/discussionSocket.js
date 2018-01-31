@@ -33,15 +33,14 @@ exports.DiscussionNameSpace = class {
                     this._voteFlag = true;
                     setTimeout(() => {
                         this._voteFlag = false;
-                        this._debate_title = "";
+                        this._debate_title = "LiMMY-CHAT";
                         namespace.emit("titleSend", this._debate_title);
                         namespace.emit("endVote", "");
                         let msg = createVoteResultJsonStr(this._leftCount, this._rightCount);
                         namespace.emit("msg", msg);
                         logDB.logPush(namespace.name, msg);
-
-                    }, 10 * 1000);
-                }, 10 * 1000);
+                    }, 100 * 1000);
+                }, 100 * 1000);
             });
             socket.on("firstTitleSend", (data) => {
                 socket.emit("firstTitleSend", this._debate_title);
