@@ -39,7 +39,7 @@ class CommentArrow {
 
 let commentArrow = new CommentArrow();
 
-$('#ugo').click(function (e) {
+$('#sendButton').click(function (e) {
   let ms = document.myf.com.value;
   if (ms != "") {
     chatConnection.sendData(ms);
