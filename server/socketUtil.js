@@ -2,6 +2,6 @@
 exports.getClientIP = (socket) => {
     let ip = socket.handshake.headers['x-forwarded-for'];
     if (ip == undefined)
-        ip = socket.handshake.address;
+        ip = "localhost";
     return ip;
 }
