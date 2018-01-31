@@ -40,11 +40,10 @@ class UserList {
 exports.chatBaseNameSpace = class {
     constructor(namespace) {
         this._userList = new UserList();
+        this._userList.onUpdate(() => {
+            namespace.emit("userListUpdate", this._userList.userListStr);
+        });
         this.connectEvent = (socket) => {
-
-            this._userList.onUpdate(() => {
-                socket.emit("userListUpdate", this._userList.userListStr);
-            });
 
             this._userList.resistUser(socketUtil.getClientIP(socket));
 
