@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>ARRAYMA</title>
+    <title class="bind-chatName"></title>
     <link rel="stylesheet" type="text/css" href="Css/style.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0/css/bootstrap.min.css">
     <script src="/socket.io/socket.io.js"></script>
@@ -31,7 +31,7 @@
 
 <body style="background-color:#FDFEFE">
     <center>
-        <div class="titlec" id="titlec">øphi-chat</div>
+        <div class="titlec bind-chatName" id="titlec"></div>
     </center>
     <center>
         <div class="chat_box">
@@ -57,7 +57,7 @@
     </div>
 
     <span id="ruler" style="visibility:hidden;position:absolute;white-space:nowrap;"></span>
-
+    <script src="Js/chatViewTemplate.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="Js/chatConnection.js"></script>
     <script src="Js/commandFilter.js"></script>
