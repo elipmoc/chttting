@@ -1,13 +1,7 @@
 
 const logDB = require("./logDB.js");
 
-//socketからIPaddressを取得する関数
-function getClientIP(socket) {
-    let ip = socket.handshake.headers['x-forwarded-for'];
-    if (ip == undefined)
-        ip = socket.handshake.address;
-    return ip;
-}
+const socketUtil = require("./socketUtil.js");
 
 //投票結果をmsgで使用するjson文字列に加工する関数
 function createVoteResultJsonStr(voteControl) {
@@ -144,7 +138,7 @@ exports.DiscussionNameSpace = class {
                 socket.emit("initVoteFlag", this._voteFlag);
             });
             socket.on("vote", (data) => {
-                this._voteControl.vote(data, getClientIP(socket));
+                this._voteControl.vote(data, socketUtil.getClientIP(socket));
 
             });
             socket.on("disconnect", () => {
