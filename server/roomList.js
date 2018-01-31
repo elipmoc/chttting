@@ -27,7 +27,7 @@ function addRoom(roomName, roomType, description, mainSocket) {
 function initRoomList(mainSocket) {
     const client = getDbClient.get();
     client.connect();
-    client.query("select room_name room_type description from room;", (err, res) => {
+    client.query("select room_name ,room_type ,description from room;", (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
             addRoom(row["room_name"], row["room_type"], row["description"], mainSocket);
