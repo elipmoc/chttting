@@ -13,7 +13,7 @@ function loadRoomSocket() {
   namespace.on('connection', socket => {
     socket.on(
       'loadRoom',
-      function (data) {
+      function(data) {
         socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
       });
   });
@@ -42,16 +42,13 @@ function attractWriteSocket() {
 function testSocket() {
   const nm = io.of("/aaa");
   nm.on("connection", (socket) => {
-    const address = socket.handshake.address.address;
     const adr = socket.handshake.headers['x-forwarded-for'];
-    const adr2 = socket.request.headers['x-forwarded-for'];
     socket.on("hoge", () => {
       nm.emit("hoge", adr);
     });
   });
 }
 
-console.log(getIP);
 /*function attractMainSocket() {
   const attractNamespace = io.of("/attractConnection");
 
