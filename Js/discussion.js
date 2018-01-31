@@ -93,6 +93,7 @@ function unsetVoteMode() {
   voteFlag = false;
   $("#left").text("肯定").html();
   $("#right").text("否定").html();
+  $("#countDown").text("");
 }
 
 function setVoteMode() {
@@ -102,6 +103,11 @@ function setVoteMode() {
 }
 
 chatConnection.socket.emit("initVoteFlag", "");
+
+//投票までの時間をカウントダウンする
+chatConnection.socket.on("voteSecond", (second) => {
+  $("#countDown").text("投票まで残り" + second + "秒");
+});
 
 //投票状況を取得し、投票中ならbuttonを投票用に変更する
 chatConnection.socket.on("initVoteFlag", (data) => {

@@ -42,6 +42,7 @@ exports.DiscussionNameSpace = class {
             this._secondCount = voteSecondInterval;
             let interval = setInterval(() => {
                 this._secondCount--;
+                namespace.emit("voteSecond", this._secondCount);
                 if (this._secondCount <= 0) {
                     clearInterval(interval);
                     namespace.emit("startVote", "");
