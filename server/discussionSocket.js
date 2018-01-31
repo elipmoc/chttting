@@ -43,7 +43,7 @@ exports.DiscussionNameSpace = class {
     constructor(namespace) {
         //投票者のIPを保存するリスト
         this._votersIpList = {};
-        this._debateTitle = new DebateTitle("");
+        this._debateTitle = new DebateTitle("ARRAYMA");
         this._voteFlag = false;
 
         //投票数のカウント
