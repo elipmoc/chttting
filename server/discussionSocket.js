@@ -47,6 +47,7 @@ exports.DiscussionNameSpace = class {
                         this._debate_title = "";
                         namespace.emit("titleSend", this._debate_title);
                         namespace.emit("endVote", "");
+                        this._votersIpList = {};
                         let msg = createVoteResultJsonStr(this._leftCount, this._rightCount);
                         namespace.emit("msg", msg);
                         logDB.logPush(namespace.name, msg);
