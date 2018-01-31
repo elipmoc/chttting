@@ -39,10 +39,25 @@ class DebateTitle {
     isDefaultTitle() { return this._defaultFlag; }
 }
 
+class VotersIpList {
+    constructor() {
+        this._ipList = {};
+    }
+    exsistIp(ip) {
+        return this._ipList[ip] == true;
+    }
+    resistIp(ip) {
+        this._ipList[ip] = true;
+    }
+    clear() {
+        this._ipList = {};
+    }
+}
+
 exports.DiscussionNameSpace = class {
     constructor(namespace) {
         //投票者のIPを保存するリスト
-        this._votersIpList = {};
+        this._votersIpList = new VotersIpList();
         this._debateTitle = new DebateTitle("ARRAYMA");
         this._voteFlag = false;
 
@@ -78,7 +93,7 @@ exports.DiscussionNameSpace = class {
                     this._debateTitle.setDefaultTitle();
                     namespace.emit("titleSend", this._debateTitle.debateTitle);
                     namespace.emit("endVote", "");
-                    this._votersIpList = {};
+                    this._votersIpList.clear();
                     let msg = createVoteResultJsonStr(this._leftCount, this._rightCount);
                     namespace.emit("msg", msg);
                     logDB.logPush(namespace.name, msg);
@@ -105,12 +120,12 @@ exports.DiscussionNameSpace = class {
             })
             socket.on("vote", (data) => {
                 let ip = getClientIP(socket);
-                if (this._votersIpList[ip] != true) {
+                if (this._votersIpList.exsistIp(ip) == false) {
                     if (data == "left")
                         this._leftCount++;
                     else if (data == "right")
                         this._rightCount++;
-                    this._votersIpList[ip] = true;
+                    this._votersIpList.resistIp(ip);
                 }
             })
         };
