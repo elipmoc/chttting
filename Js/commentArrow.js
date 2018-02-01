@@ -6,7 +6,6 @@ function strWidth(str) {
 }
 
 class CommentArrow {
-
   constructor() {
     this._y = 0;
     this._yArray = new Array();

@@ -1,7 +1,7 @@
 const logDB = require("./logDB.js");
 
 
-function getClientIP(socket) {
+function getUserIP(socket) {
   let ip = socket.handshake.headers['x-forwarded-for'];
   if (ip == undefined)
     ip = socket.handshake.address;
@@ -54,14 +54,14 @@ exports.DiscussionNameSpace = class {
           }, 10 * 1000);
         }, 10 * 1000);
       });
-      socket.on("firstTitleSend", (data) => {
+      socket.on("firstTitleSend", (titleData) => {
         socket.emit("firstTitleSend", this._debate_title);
       });
-      socket.on("initVoteFlag", (data) => {
+      socket.on("initVoteFlag", (voteFlag) => {
         socket.emit("initVoteFlag", this._voteFlag);
       })
-      socket.on("vote", (data) => {
-        let ip = getClientIP(socket);
+      socket.on("vote", (voteData) => {
+        let ip = getUserIP(socket);
         if (this._votersIpList[ip] != true) {
           if (data == "left")
             this._leftCount++;
