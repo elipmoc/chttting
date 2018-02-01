@@ -9,28 +9,31 @@ let room_list = new Array();
 let namespaceList = new Array();
 
 //部屋を新しく作成する
-function addRoom(roomName, roomType,description, mainSocket) {
-    room_list.push({ room_name: roomName, room_type: roomType ,description : description});
+function addRoom(roomName, roomType, description, mainSocket) {
+    room_list.push({ room_name: roomName, room_type: roomType, description: description });
     let namespace = mainSocket.of("/" + roomName);
     if (roomType = "discussion_free") {
-        let event = new discussion.DiscussionNameSpace(namespace).event;
+        let connectEvent = new discussion.DiscussionNameSpace(namespace).connectEvent;
+        let connectEvent2 = new chatSocketBase.chatBaseNameSpace(namespace).connectEvent;
         namespace.on('connection', (socket) => {
-            chatSocketBase.chatSocket(namespace)(socket);
-            event(socket);
+            connectEvent(socket);
+            connectEvent2(socket);
         });
     }
-    else
-        namespace.on('connection', chatSocketBase.chatSocket(namespace));
+    else {
+        let connectEvent = new chatSocketBase.chatBaseNameSpace(namespace).connectEvent;
+        namespace.on('connection', connectEvent);
+    }
     namespaceList[roomName] = namespace;
 }
 
 function initRoomList(mainSocket) {
     const client = getDbClient.get();
     client.connect();
-    client.query("select room_name,room_type from room;", (err, res) => {
+    client.query("select room_name ,room_type ,description from room;", (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
-            addRoom(row["room_name"], row["room_type"],row["description"], mainSocket);
+            addRoom(row["room_name"], row["room_type"], row["description"], mainSocket);
         }
         client.end();
     });
@@ -51,9 +54,9 @@ exports.createRoomCreateSocket = (mainSocket) => {
             let roomName = escape(data["roomName"]);
             let roomType = escape(data["roomType"]);
             let description = escape(data["description"]);
-            createRoomDB.createRoom(roomName, roomType,description, (flag) => {
+            createRoomDB.createRoom(roomName, roomType, description, (flag) => {
                 if (flag) {
-                    addRoom(roomName, roomType,description, mainSocket);
+                    addRoom(roomName, roomType, description, mainSocket);
                     socket.emit("created", "");
                 }
                 else {

@@ -25,6 +25,7 @@ $("#com").keydown((e) => {
   let nm = document.myf.name.value;
   if (ms != "" && nm != "") {
     if (e.keyCode == 13) {
+      chatConnection.setUserName(nm);
       chatConnection.sendData(
         JSON.stringify({
           "msg": nm + " > " + ms,
@@ -42,6 +43,7 @@ $('#chat_send').click(() => {
   const nm = document.myf.name.value;
 
   if (ms != "" && nm != "") {
+    chatConnection.setUserName(nm);
     chatConnection.sendData(
       JSON.stringify({
         "msg": nm + " > " + ms,
@@ -62,12 +64,13 @@ function msgDataAdd(data) {
 
   if (data["dipeType"] == "debateLeft") {
     $('#chat_log').prepend(msg);
-    $('#left_name_area').prepend(data["uname"]);
+    // $('#left_name_area').prepend(data["uname"]);
   } else if (data["dipeType"] == "debateRight") {
     $('#chat_log2').prepend(msg);
-    $('#right_name_area').prepend(data["uname"]);
+    // $('#right_name_area').prepend(data["uname"]);
   }
 }
+
 
 let title_list = new Array();
 
@@ -83,6 +86,10 @@ chatConnection.socket.on('titleSend', (titleData) => {
   $("#titlec").text(titleData).html();
 });
 
+chatConnection.socket.on("userListUpdate", (userListStr) => {
+  $('#left_name_area').text(userListStr);
+});
+
 chatConnection.socket.emit('firstTitleSend', "");
 chatConnection.socket.on('firstTitleSend', (titleData) => {
   $("#titlec").text(titleData).html();
@@ -93,6 +100,7 @@ function unsetVoteMode() {
   voteFlag = false;
   $("#left").text("肯定").html();
   $("#right").text("否定").html();
+  $("#countDown").text("");
 }
 
 function setVoteMode() {
@@ -102,6 +110,16 @@ function setVoteMode() {
 }
 
 chatConnection.socket.emit("initVoteFlag", "");
+
+//投票までの時間をカウントダウンする
+chatConnection.socket.on("startVoteSecond", (second) => {
+  $("#countDown").text("投票まで残り" + second + "秒");
+});
+
+//投票終了までの時間をカウントダウンする
+chatConnection.socket.on("endVoteSecond", (second) => {
+  $("#countDown").text("投票終了まで残り" + second + "秒");
+});
 
 //投票状況を取得し、投票中ならbuttonを投票用に変更する
 chatConnection.socket.on("initVoteFlag", (VoteFlagData) => {

@@ -1,8 +1,7 @@
 <html>
 
 <head>
-  <title>
-    ARRAYMA
+  <title class="bind-chatName">
   </title>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -26,26 +25,31 @@
 
 <body style="background-color:#ECF0F1;">
   <center>
-    <div class="titlec" id="titlec">ARRAYMA</div>
+    <div class="titlec bind-chatName" id="titlec"></div>
   </center>
   <div class="container">
     <div class="col-md-10 form_box">
       <div class="form_t form-inline">
         <form id="com_form" name="myf" class="" target="hoge">
 
-          LiMMY [Room Create]<br>
+          LiMMY [Room Create]
+          <br>
 
           <div class="text-secondary">RoomName</div>
-          <input type="text" placeholder="RoomName" id="roomName" name="name" class=""><br>
+          <input type="text" placeholder="RoomName" id="roomName" name="name" class="">
+          <br>
           <div class="text-secondary">RoomType</div>
           <select class="form-control" id="roomType">
-                <option value="normal">Normal</option>
-                <option value="discussion_free">Discussion</option>
-            </select>
-            <input type="text" id="descText" name="descText">
+            <option value="normal">Normal</option>
+            <option value="discussion_free">Discussion</option>
+            <option value="movie">Movie</option>
+          </select>
+          <input type="text" id="descText" name="descText">
           <br>
           <input type="button" id="create_room" class="btn btn-primary" value="CreateRoom">
-          <div style="display:none;"><iframe id="hoge" name="hoge" width="0" height="0"></iframe></div>
+          <div style="display:none;">
+            <iframe id="hoge" name="hoge" width="0" height="0"></iframe>
+          </div>
           <div id="roomCreateError"></div>
         </form>
       </div>
@@ -53,9 +57,10 @@
   </div>
 </body>
 
-  <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
-  <script src="https://maxcdn.bootstrapcp.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-  <script src="Js/roomCreate.js"></script>
+<!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
+<script src="https://maxcdn.bootstrapcp.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="Js/chatViewTemplate.js"></script>
+<script src="Js/roomCreate.js"></script>
 
 </html>
