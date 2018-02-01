@@ -26,21 +26,21 @@ class CommentArrow {
     div.animate({
       'left': -strWidth(msg) + "px"
     }, {
-      'duration': 3000,
-      'complete': function() {
-        $(this).remove();
-        commentArrow.reset();
-      },
-      'easing': "linear"
-    });
+        'duration': 3000,
+        'complete': function () {
+          $(this).remove();
+          commentArrow.reset();
+        },
+        'easing': "linear"
+      });
     this._y = (this._y + 40) % 460;
   }
 }
 
-const ms = document.myf.com.value;
 let commentArrow = new CommentArrow();
 
-$('#ugo').click(function(e) {
+$('#sendButton').click(function (e) {
+  let ms = document.myf.com.value;
   if (ms != "") {
     chatConnection.sendData(ms);
     document.myf.com.value = "";
@@ -49,6 +49,7 @@ $('#ugo').click(function(e) {
 });
 
 $("#com").keydown((e) => {
+  let ms = document.myf.com.value;
   if (ms != "") {
     if (e.keyCode == 13) {
       chatConnection.sendData(ms);
@@ -57,8 +58,8 @@ $("#com").keydown((e) => {
   }
 });
 
-
-const chatConnection = new ChatConnection("syamu", msgDataAdd);
+const urlParam = urlGetParamParse(document.location.href);
+const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
 chatConnection.logSaveFlag = false;
 
 //データをチャットメッセージとして追加する関数

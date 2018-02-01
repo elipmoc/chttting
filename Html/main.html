@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ARRAYMA</title>
+    <title class="bind-chatName"></title>
     <style>
         body {
             margin: 0px;
@@ -19,10 +19,10 @@
 
         .come_box {
 
-          font-size:150%;
-          color:#ffffff;
-          border-radius:5px;
-          border:0px;
+            font-size: 150%;
+            color: #ffffff;
+            border-radius: 5px;
+            border: 0px;
             width: 80%;
             background-color: #F1F1F1;
             height: 200px;
@@ -103,16 +103,18 @@
 <body>
 
     <center>
-        <div class="header">
-            ARRAYMA<span style="right:0px; position:absolute; font-size:70%; color:#ffffff;" class=""><a href="roomCreate.html">新規</a></span>
+        <div class="header bind-prepend-chatName">
+            <span style="right:0px; position:absolute; font-size:70%; color:#ffffff;" class="">
+                <a href="roomCreate.html">新規</a>
+            </span>
         </div>
         <div class="come_box" id="attract_box">
             <!--<center>呼び込みボックス</center>-->
         </div>
 
         <div class="tilebox" style="margin-top:20px;">
-          <div class="card-columns" id="card-list">
-          </div>
+            <div class="card-columns" id="card-list">
+            </div>
 
             <!--<div class="card">
                 <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
@@ -120,7 +122,7 @@
                     <div id="roomList"></div>
                 </div>
               </div>!-->
-                <!--
+            <!--
             <div class="tile" id="tile">
                 <span class="chara">
                     <a class="side_front" href="https://serene-fjord-98327.herokuapp.com/?name=c++">C++</a>
@@ -129,10 +131,11 @@
             </div>
             </center>
             !-->
-          </div>
+        </div>
 </body>
 <script src="https://maxcdn.bootstrapcp.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="Js/chatViewTemplate.js"></script>
 <script src="Js/attractEnt.js"></script>
 <script src="Js/loadRoomList.js"></script>
 

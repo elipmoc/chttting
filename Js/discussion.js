@@ -25,6 +25,7 @@ $("#com").keydown((e) => {
   let nm = document.myf.name.value;
   if (ms != "" && nm != "") {
     if (e.keyCode == 13) {
+      chatConnection.setUserName(nm);
       chatConnection.sendData(
         JSON.stringify({
           "msg": nm + " > " + ms,
@@ -42,6 +43,7 @@ $('#chat_send').click(() => {
   const nm = document.myf.name.value;
 
   if (ms != "" && nm != "") {
+    chatConnection.setUserName(nm);
     chatConnection.sendData(
       JSON.stringify({
         "msg": nm + " > " + ms,
@@ -62,12 +64,13 @@ function msgDataAdd(data) {
 
   if (data["dipeType"] == "debateLeft") {
     $('#chat_log').prepend(msg);
-    $('#left_name_area').prepend(data["uname"]);
+    // $('#left_name_area').prepend(data["uname"]);
   } else if (data["dipeType"] == "debateRight") {
     $('#chat_log2').prepend(msg);
-    $('#right_name_area').prepend(data["uname"]);
+    // $('#right_name_area').prepend(data["uname"]);
   }
 }
+
 
 let title_list = new Array();
 
@@ -81,6 +84,10 @@ $("#title_send").click(() => {
 
 chatConnection.socket.on('titleSend', (titleData) => {
   $("#titlec").text(titleData).html();
+});
+
+chatConnection.socket.on("userListUpdate", (userListStr) => {
+  $('#left_name_area').text(userListStr);
 });
 
 chatConnection.socket.emit('firstTitleSend', "");
