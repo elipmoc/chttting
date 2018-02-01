@@ -8,7 +8,7 @@ class UserList {
         this._callBack;
     }
     deleteUser(ip) {
-        if (this._userList[ip] == true) {
+        if (this._userList.hasOwnProperty(ip)) {
             delete this._userList[ip];
             this._callBack();
         }
