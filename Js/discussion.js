@@ -25,7 +25,7 @@ $("#com").keydown((e) => {
   let nm = document.myf.name.value;
   if (ms != "" && nm != "") {
     if (e.keyCode == 13) {
-      chatConnection.setUserData(nm);
+      chatConnection.setUserData(JSON.stringify({ name: nm, dipeType: urlParam["stance"] }));
       chatConnection.sendData(
         JSON.stringify({
           "msg": nm + " > " + ms,
@@ -43,7 +43,7 @@ $('#chat_send').click(() => {
   const nm = document.myf.name.value;
 
   if (ms != "" && nm != "") {
-    chatConnection.setUserData(nm);
+    chatConnection.setUserData(JSON.stringify({ name: nm, dipeType: urlParam["stance"] }));
     chatConnection.sendData(
       JSON.stringify({
         "msg": nm + " > " + ms,
@@ -88,9 +88,21 @@ chatConnection.socket.on('titleSend', (titleData) => {
 
 chatConnection.socket.on("userListUpdate", (userDataList) => {
   userDataList = JSON.parse(userDataList);
-  let str = "参加者:";
-  userDataList.forEach(name => { str += "[" + name + "]" });
-  $('#left_name_area').text(str);
+  let leftStr = "参加者:";
+  let rightStr = "参加者:";
+  userDataList.forEach(userData => {
+    if (userData == undefined)
+      return;
+    console.log(userData);
+    userData = JSON.parse(userData);
+    let name = userData.name == undefined ? "none" : userData.name;
+    if (userData.dipeType == "debateLeft")
+      leftStr += "[" + name + "]";
+    else if (userData.dipeType == "debateRight")
+      rightStr += "[" + name + "]";
+  });
+  $('#left_name_area').text(leftStr);
+  $('#right_name_area').text(rightStr);
 });
 
 chatConnection.socket.emit('firstTitleSend', "");

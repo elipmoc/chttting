@@ -14,7 +14,7 @@ class UserList {
         }
     }
     resistUser(ip) {
-        this._userList[ip] = "none";
+        this._userList[ip] = undefined;
         this._callBack();
     }
     setUserName(ip, name) {
