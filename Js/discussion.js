@@ -25,7 +25,7 @@ $("#com").keydown((e) => {
   let nm = document.myf.name.value;
   if (ms != "" && nm != "") {
     if (e.keyCode == 13) {
-      chatConnection.setUserName(nm);
+      chatConnection.setUserData(nm);
       chatConnection.sendData(
         JSON.stringify({
           "msg": nm + " > " + ms,
@@ -43,7 +43,7 @@ $('#chat_send').click(() => {
   const nm = document.myf.name.value;
 
   if (ms != "" && nm != "") {
-    chatConnection.setUserName(nm);
+    chatConnection.setUserData(nm);
     chatConnection.sendData(
       JSON.stringify({
         "msg": nm + " > " + ms,
@@ -86,8 +86,11 @@ chatConnection.socket.on('titleSend', (titleData) => {
   $("#titlec").text(titleData).html();
 });
 
-chatConnection.socket.on("userListUpdate", (userListStr) => {
-  $('#left_name_area').text(userListStr);
+chatConnection.socket.on("userListUpdate", (userDataList) => {
+  userDataList = JSON.parse(userDataList);
+  let str = "参加者:";
+  userDataList.forEach(name => { str += "[" + name + "]" });
+  $('#left_name_area').text(str);
 });
 
 chatConnection.socket.emit('firstTitleSend', "");
