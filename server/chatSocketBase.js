@@ -32,7 +32,7 @@ class UserList {
         for (let key in this._userList) {
             str += "[" + this._userList[key] + "]";
         }
-        return str;
+        return "参加者:" + str;
     }
 }
 
