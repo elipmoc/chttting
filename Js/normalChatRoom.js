@@ -31,6 +31,27 @@ $('#sendButton').click((e) => {
   document.myf.com.value = "";
 });
 
+
+chatConnection.socket.on("userListUpdate", (userListStr) => {
+  $('#left_name_area').text(userListStr);
+});
+
+
+chatConnection.socket.on("userListUpdate", (userDataList) => {
+  userDataList = JSON.parse(userDataList);
+  let userNameList = "";
+  userDataList.forEach(userData => {
+    if (userData == undefined)
+      return;
+    console.log(userData);
+    userData = JSON.parse(userData);
+    let name = userData.name == undefined ? "none" : userData.name;
+      userNameList += " " + name + " ";
+  });
+  $('#user_name_list').text(userNameList);
+});
+
+
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
   let msg = commandFilter(data) + '<br><hr>';
