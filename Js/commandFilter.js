@@ -17,7 +17,7 @@ function commandFilter(data) {
     case /> 810/.test(data):
       data = data.replace(/810/g, "");
       data = htmlEscape(data);
-      return (data + '<img src="https://pbs.twimg.com/profile_images/710311323561627648/5IbTKZ76.jpg" width="100" height="100">');
+      return (data + '<img src="https://pbs.twimg.com/profile_images/710311323561627648/5IbTKZ76.jpg" width="1000" height="10000">');
 
     case /> 1919/.test(data):
       data = data.replace(/1919/g, "");
