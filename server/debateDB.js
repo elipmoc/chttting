@@ -1,5 +1,19 @@
 const getDbClient = require("./getDbClient.js");
 
+exports.roomNameSpaceToRoomId = (roomNameSpace) => {
+    if (roomNameSpace[0] != '/') {
+        throw "room_nameに/がついていません";
+    }
+    let roomName = roomNameSpace.slice(1);
+    const client = getDbClient.get();
+    client.connect();
+    return client.query("select * from room where room_name =$1;", [roomName])
+        .then(res => {
+            client.end();
+            return Promise.resolve(res.rows[0]["room_id"]);
+        })
+}
+
 exports.addDebateInfo = (roomId, voteStartTime, voteEndTime) => {
     const client = getDbClient.get();
     client.connect();
