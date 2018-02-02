@@ -150,3 +150,13 @@ chatConnection.socket.on("endVote", (data) => {
 chatConnection.socket.on("startVote", (data) => {
   setVoteMode();
 });
+
+//投票までの時間をカウントダウンする
+chatConnection.socket.on("startVoteSecond", (second) => {
+  $("#countDown").text("投票まで残り" + second + "秒");
+});
+
+//投票終了までの時間をカウントダウンする
+chatConnection.socket.on("endVoteSecond", (second) => {
+  $("#countDown").text("投票終了まで残り" + second + "秒");
+});
