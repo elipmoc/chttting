@@ -9,9 +9,8 @@ hscalc.load();
 
 
 function commandImageView(chatText, command, url) {
-  let reg = new RegExp("> " + command,"g");
-  let regStr = chatText.match(reg);
-  console.log(reg);
+  const regText = new RegExp("> " + command,"g");
+  const matchText = chatText.match(reg);
   if (regStr) {
     chatText = chatText.replace(command, "");
       chatText = htmlEscape(chatText);
