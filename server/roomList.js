@@ -54,16 +54,12 @@ exports.createRoomCreateSocket = (mainSocket) => {
             let roomName = escape(data["roomName"]);
             let roomType = escape(data["roomType"]);
             let description = escape(data["description"]);
-            createRoomDB.createRoom(roomName, roomType, description, { voteStartTime: 114, voteEndTime: 514 }, (flag) => {
-                if (flag) {
+            createRoomDB.createRoom(roomName, roomType, description, { voteStartTime: 114, voteEndTime: 514 })
+                .then(() => {
                     addRoom(roomName, roomType, description, mainSocket);
                     socket.emit("created", "");
-                }
-                else {
-                    socket.emit("created", "部屋の作成に失敗しました。");
-                }
-            });
-
+                })
+                .catch((err) => socket.emit("created", "部屋の作成に失敗しました。"));
         });
     });
     return roomCreateSocket;
