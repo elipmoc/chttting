@@ -54,7 +54,7 @@ exports.createRoomCreateSocket = (mainSocket) => {
             let roomName = escape(data["roomName"]);
             let roomType = escape(data["roomType"]);
             let description = escape(data["description"]);
-            createRoomDB.createRoom(roomName, roomType, description, (flag) => {
+            createRoomDB.createRoom(roomName, roomType, description, { voteStartTime: 114, voteEndTime: 514 }, (flag) => {
                 if (flag) {
                     addRoom(roomName, roomType, description, mainSocket);
                     socket.emit("created", "");
