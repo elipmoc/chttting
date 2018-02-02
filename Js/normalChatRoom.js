@@ -1,5 +1,7 @@
 const loc = document.location.href;
 const paramItem = loc.split('=');
+const urlLocation = document.location.href;
+const urlParam = urlGetParamParse(urlLocation);
 const chatConnection = new ChatConnection(decodeURIComponent(paramItem[1]), msgDataAdd);
 
 $("#com").keydown((e) => {
@@ -7,8 +9,7 @@ $("#com").keydown((e) => {
   let nm = document.myf.name.value;
   if (ms != "" && nm != "") {
     chatConnection.setUserData(JSON.stringify({
-      name: nm,
-      dipeType: urlParam["stance"]
+      name: nm
     }));
     if (e.keyCode == 13) {
       chatConnection.sendData(nm + " > " + ms);
@@ -23,8 +24,7 @@ $('#sendButton').click((e) => {
 
   if (ms != "" && nm != "") {
     chatConnection.setUserData(JSON.stringify({
-      name: nm,
-      dipeType: urlParam["stance"]
+      name: nm
     }));
     chatConnection.sendData(nm + " > " + ms);
   }
@@ -33,7 +33,7 @@ $('#sendButton').click((e) => {
 
 
 chatConnection.socket.on("userListUpdate", (userListStr) => {
-  $('#left_name_area').text(userListStr);
+  $('#user_name_list').text(userListStr);
 });
 
 
