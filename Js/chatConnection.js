@@ -3,7 +3,7 @@ class ChatConnection {
     constructor(namespace, msgReceiveCallBack) {
         this._socket = io("/" + namespace);
         this._logSaveFlag = true;
-        this._userName = "none";
+        this._userData = undefined;
         this._socket.on('msg', msgReceiveCallBack);
         //ログをサーバーに要求
         this._socket.on('initMsg', (dataListJson) => {
@@ -18,13 +18,13 @@ class ChatConnection {
     get logSaveFlag() { return this._logSaveFlag; }
     set logSaveFlag(value) { this._logSaveFlag = value; }
 
-    setUserName(name) { this._userName = name; }
+    setUserData(userData) { this._userData = userData; }
 
     sendData(data) {
         this._socket.emit('msg', JSON.stringify({
             "msg": data,
             "logSaveFlag": this._logSaveFlag,
-            "userName": this._userName
+            "userData": this._userData
         }));
     }
 }

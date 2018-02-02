@@ -14,7 +14,7 @@ class UserList {
         }
     }
     resistUser(ip) {
-        this._userList[ip] = "none";
+        this._userList[ip] = undefined;
         this._callBack();
     }
     setUserName(ip, name) {
@@ -27,12 +27,12 @@ class UserList {
         this._callBack = callBack;
     }
 
-    get userListStr() {
-        let str = "";
+    get userDataListJsonStr() {
+        let userDataList = new Array();
         for (let key in this._userList) {
-            str += "[" + this._userList[key] + "]";
+            userDataList.push(this._userList[key]);
         }
-        return "参加者:" + str;
+        return JSON.stringify(userDataList);
     }
 }
 
@@ -41,7 +41,7 @@ exports.chatBaseNameSpace = class {
     constructor(namespace) {
         this._userList = new UserList();
         this._userList.onUpdate(() => {
-            namespace.emit("userListUpdate", this._userList.userListStr);
+            namespace.emit("userListUpdate", this._userList.userDataListJsonStr);
         });
         this.connectEvent = (socket) => {
 
@@ -54,7 +54,7 @@ exports.chatBaseNameSpace = class {
                     data = JSON.parse(data);
                     if (data["msg"].length > 500)
                         return;
-                    this._userList.setUserName(socketUtil.getClientIP(socket), data["userName"]);
+                    this._userList.setUserName(socketUtil.getClientIP(socket), data["userData"]);
                     namespace.emit('msg', data["msg"]);
                     if (data["logSaveFlag"])
                         logDB.logPush(namespace.name, data["msg"]);
