@@ -123,6 +123,7 @@ function unsetVoteMode() {
   voteFlag = false;
   $("#left").text("肯定").html();
   $("#right").text("否定").html();
+  $("#countDown").text("");
 }
 
 function setVoteMode() {
