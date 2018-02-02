@@ -45,6 +45,7 @@ chatConnection.socket.on("userListUpdate", (userDataList) => {
       return;
     console.log(userData);
     userData = JSON.parse(userData);
+    const urlLocation = document.location.href;
     let name = userData.name == undefined ? "none" : userData.name;
       userNameList += " " + name + " ";
   });
