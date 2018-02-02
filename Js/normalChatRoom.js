@@ -55,6 +55,6 @@ chatConnection.socket.on("userListUpdate", (userDataList) => {
 
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
-  let msg = commandFilter(data) + '<br><hr>';
+  let msg = commandImageView(data,'931','https://uds.gnst.jp/rest/img/sh42hbk60000/s_0029.jpg?t=1388170491') + '<br><hr>';
   $('#chat_log').prepend(msg);
 }
