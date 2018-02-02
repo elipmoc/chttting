@@ -1,7 +1,7 @@
 
 const logDB = require("./logDB.js");
-
 const socketUtil = require("./socketUtil.js");
+const debateDB = require("./debateDB.js");
 
 //投票結果をmsgで使用するjson文字列に加工する関数
 function createVoteResultJsonStr(voteControl) {
@@ -15,8 +15,7 @@ function createVoteResultJsonStr(voteControl) {
     return JSON.stringify(json);
 }
 
-//投票する期間
-const voteSecondInterval = 10;
+
 
 //debateTitleを操作するクラス
 class DebateTitle {
@@ -85,12 +84,24 @@ exports.DiscussionNameSpace = class {
         this._voteControl = new VoteControl();
         this._debateTitle = new DebateTitle("ARRAYMA");
         this._voteFlag = false;
+        //議論する時間
+        this._voteStartTime = 10;
+        //投票時間
+        this._voteEndTime = 10;
+
+        debateDB.roomNameSpaceToRoomId(namespace.name)
+            .then(roomId => { return debateDB.getDebateInfo(roomId) })
+            .then(debateInfo => {
+                this._voteStartTime = debateInfo.vote_start_time;
+                this._voteEndTime = debateInfo.vote_end_time;
+                return Promise.resolve();
+            });
 
         //投票秒数カウント
         this._secondCount = 0;
 
         this._startVote = () => {
-            this._secondCount = voteSecondInterval;
+            this._secondCount = this._voteStartTime;
             let startVoteCount = setInterval(() => {
                 this._secondCount--;
                 namespace.emit("startVoteSecond", this._secondCount);
@@ -104,7 +115,7 @@ exports.DiscussionNameSpace = class {
         };
 
         this._endVote = () => {
-            this._secondCount = voteSecondInterval;
+            this._secondCount = this._voteEndTime;
             let endVoteCount = setInterval(() => {
                 this._secondCount--;
                 namespace.emit("endVoteSecond", this._secondCount);
