@@ -64,13 +64,12 @@ function msgDataAdd(data) {
 
   if (data["dipeType"] == "debateLeft") {
     $('#chat_log').prepend(msg);
-    // $('#left_name_area').prepend(data["uname"]);
+    //$('#left_name_area').prepend(data["uname"]);
   } else if (data["dipeType"] == "debateRight") {
     $('#chat_log2').prepend(msg);
-    // $('#right_name_area').prepend(data["uname"]);
+    //$('#right_name_area').prepend(data["uname"]);
   }
 }
-
 
 let title_list = new Array();
 
@@ -79,17 +78,20 @@ $("#title_send").click(() => {
   chatConnection.socket.emit('titleSend', word);
 });
 
-
+chatConnection.socket.on("userListUpdate", (userListStr) => {
+  $('#left_name_area').text(userListStr);
+});
 
 
 chatConnection.socket.on('titleSend', (titleData) => {
   $("#titlec").text(titleData).html();
 });
 
+
 chatConnection.socket.on("userListUpdate", (userDataList) => {
   userDataList = JSON.parse(userDataList);
-  let leftStr = "参加者:";
-  let rightStr = "参加者:";
+  let leftStr = "";
+  let rightStr = "";
   userDataList.forEach(userData => {
     if (userData == undefined)
       return;
@@ -97,7 +99,7 @@ chatConnection.socket.on("userListUpdate", (userDataList) => {
     userData = JSON.parse(userData);
     let name = userData.name == undefined ? "none" : userData.name;
     if (userData.dipeType == "debateLeft")
-      leftStr += "[" + name + "]";
+      leftStr +=  name + ",";
     else if (userData.dipeType == "debateRight")
       rightStr += "[" + name + "]";
   });
@@ -115,7 +117,6 @@ function unsetVoteMode() {
   voteFlag = false;
   $("#left").text("肯定").html();
   $("#right").text("否定").html();
-  $("#countDown").text("");
 }
 
 function setVoteMode() {
@@ -124,17 +125,8 @@ function setVoteMode() {
   $("#right").text("否定に投票する").html();
 }
 
+//
 chatConnection.socket.emit("initVoteFlag", "");
-
-//投票までの時間をカウントダウンする
-chatConnection.socket.on("startVoteSecond", (second) => {
-  $("#countDown").text("投票まで残り" + second + "秒");
-});
-
-//投票終了までの時間をカウントダウンする
-chatConnection.socket.on("endVoteSecond", (second) => {
-  $("#countDown").text("投票終了まで残り" + second + "秒");
-});
 
 //投票状況を取得し、投票中ならbuttonを投票用に変更する
 chatConnection.socket.on("initVoteFlag", (VoteFlagData) => {
