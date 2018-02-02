@@ -1,4 +1,5 @@
 const getDbClient = require("./getDbClient.js");
+const debateDB = require("./debateDB.js");
 
 exports.createRoom = (roomName, roomType, description, roomInfo) => {
     const client = getDbClient.get();
@@ -34,9 +35,7 @@ function createRoomInfo(roomId, roomType, roomInfo) {
     if (roomType == "discussion_free") {
         const client = getDbClient.get();
         client.connect();
-        return client.query(
-            "insert into debate_info (room_id,vote_start_time,vote_end_time) values($1,$2,$3);",
-            [roomId, roomInfo.voteStartTime, roomInfo.voteEndTime])
+        return debateDB.addDebateInfo(roomId, roomInfo.voteStartTime, roomInfo.voteEndTime)
             .then((res) => {
                 client.end();
                 return Promise.resolve();

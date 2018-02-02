@@ -12,7 +12,7 @@ let namespaceList = new Array();
 function addRoom(roomName, roomType, description, mainSocket) {
     room_list.push({ room_name: roomName, room_type: roomType, description: description });
     let namespace = mainSocket.of("/" + roomName);
-    if (roomType = "discussion_free") {
+    if (roomType == "discussion_free") {
         let connectEvent = new discussion.DiscussionNameSpace(namespace).connectEvent;
         let connectEvent2 = new chatSocketBase.chatBaseNameSpace(namespace).connectEvent;
         namespace.on('connection', (socket) => {
