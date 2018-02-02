@@ -17,7 +17,7 @@ exports.roomNameSpaceToRoomId = (roomNameSpace) => {
 exports.addDebateInfo = (roomId, voteStartTime, voteEndTime) => {
     const client = getDbClient.get();
     client.connect();
-    client.query(
+    return client.query(
         "insert into debate_info (room_id,vote_start_time,vote_end_time) values($1,$2,$3);",
         [roomId, voteStartTime, voteEndTime]
     )
