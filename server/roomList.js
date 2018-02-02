@@ -59,7 +59,7 @@ exports.createRoomCreateSocket = (mainSocket) => {
                     addRoom(roomName, roomType, description, mainSocket);
                     socket.emit("created", "");
                 })
-                .catch((err) => socket.emit("created", "部屋の作成に失敗しました。"));
+                .catch((err) => socket.emit("created", "部屋作成に失敗しました。"));
         });
     });
     return roomCreateSocket;
