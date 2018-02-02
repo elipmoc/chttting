@@ -61,6 +61,17 @@ const urlParam = urlGetParamParse(document.location.href);
 const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
 chatConnection.logSaveFlag = false;
 
+function setMovieURL(url) {
+  //"https://www.youtube.com/embed/Iag55pIKWzI?rel=0&start=0&end=5&modestbranding=0&showinfo=0&fs=0&controls=0&autoplay=1&loop=1&playlist=Iag55pIKWzI"
+  let v = urlGetParamParse(url)["v"];
+  if (v) {
+    url = "https://www.youtube.com/embed/" + v + "?rel=0&start=0&end=5&modestbranding=0&showinfo=0&fs=0&controls=0&autoplay=1&loop=1&playlist=" + v;
+    $("#iframe").attr("src", url);
+  }
+}
+
+setMovieURL("https://www.youtube.com/watch?v=8Rc2aH46Ubg");
+
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(msgData) {
   let msg = commandFilter(msgData);
