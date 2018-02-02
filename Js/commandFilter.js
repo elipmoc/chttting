@@ -29,7 +29,7 @@ function commandFilter(data) {
       data = htmlEscape(data);
       return (data + '<img src="http://image01.seesaawiki.jp/b/i/bbsenpai/e118b95c81b903db.jpg" width="100" height="100">');
 
-    case /hscalc/.test(data):
+    case />.* hscalc/.test(data):
       let userName = htmlEscape(data.replace(/hscalc.*/g, ""));
       let msg = data.replace(/.*hscalc/g, "");
       let lexerRet = hscalc.lexer(msg);
