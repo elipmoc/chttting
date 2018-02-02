@@ -25,7 +25,10 @@ $("#com").keydown((e) => {
   let nm = document.myf.name.value;
   if (ms != "" && nm != "") {
     if (e.keyCode == 13) {
-      chatConnection.setUserData(JSON.stringify({ name: nm, dipeType: urlParam["stance"] }));
+      chatConnection.setUserData(JSON.stringify({
+        name: nm,
+        dipeType: urlParam["stance"]
+      }));
       chatConnection.sendData(
         JSON.stringify({
           "msg": nm + " > " + ms,
@@ -43,7 +46,10 @@ $('#chat_send').click(() => {
   const nm = document.myf.name.value;
 
   if (ms != "" && nm != "") {
-    chatConnection.setUserData(JSON.stringify({ name: nm, dipeType: urlParam["stance"] }));
+    chatConnection.setUserData(JSON.stringify({
+      name: nm,
+      dipeType: urlParam["stance"]
+    }));
     chatConnection.sendData(
       JSON.stringify({
         "msg": nm + " > " + ms,
@@ -99,9 +105,9 @@ chatConnection.socket.on("userListUpdate", (userDataList) => {
     userData = JSON.parse(userData);
     let name = userData.name == undefined ? "none" : userData.name;
     if (userData.dipeType == "debateLeft")
-      leftStr +=  name + ",";
+      leftStr += " " + name + " ";
     else if (userData.dipeType == "debateRight")
-      rightStr += "[" + name + "]";
+      rightStr += " " + name + " ";
   });
   $('#left_name_area').text(leftStr);
   $('#right_name_area').text(rightStr);
