@@ -70,8 +70,7 @@ function setMovieURL(url) {
   }
 }
 
-setMovieURL("https://www.youtube.com/watch?v=8Rc2aH46Ubg");
-
+setMovieURL("https://www.youtube.com/watch?v=AN3YqXbWgOs");
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(msgData) {
   let msg = commandFilter(msgData);
