@@ -43,7 +43,6 @@ $('#sendButton').click(function (e) {
   if (ms != "") {
     chatConnection.sendData(ms);
     document.myf.com.value = "";
-
   }
 });
 
@@ -69,6 +68,10 @@ function setMovieURL(url) {
     $("#iframe").attr("src", url);
   }
 }
+
+$("#sendUrl").click(e => {
+  setMovieURL($("#urlText").val());
+});
 
 setMovieURL("https://www.youtube.com/watch?v=AN3YqXbWgOs");
 //データをチャットメッセージとして追加する関数
