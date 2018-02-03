@@ -54,7 +54,8 @@ exports.createRoomCreateSocket = (mainSocket) => {
             let roomName = escape(data["roomName"]);
             let roomType = escape(data["roomType"]);
             let description = escape(data["description"]);
-            let roomInfo = escape(data["roomInfo"]);
+            let roomInfo = data["roomInfo"];
+            console.log(JSON.stringify(roomInfo));
             createRoomDB.createRoom(roomName, roomType, description, roomInfo)
                 .then(() => {
                     addRoom(roomName, roomType, description, mainSocket);
