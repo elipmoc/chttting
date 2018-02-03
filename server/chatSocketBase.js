@@ -63,13 +63,12 @@ exports.chatBaseNameSpace = class {
             //発言するためのソケット
             socket.on(
                 'initMsg',
-                function (data) {
-                    socket.emit(
-                        'initMsg',
-                        logDB.logRead(namespace.name, msgList =>
+                (data) => {
+                    logDB.logRead(namespace.name)
+                        .then(msgList =>
                             socket.emit('initMsg', JSON.stringify(msgList))
                         )
-                    );
+                        .catch(e => { throw e; });
                 }
             );
             socket.on("disconnect", () => {
