@@ -57,7 +57,7 @@ exports.chatBaseNameSpace = class {
                     this._userList.setUserName(socketUtil.getClientIP(socket), data["userData"]);
                     namespace.emit('msg', data["msg"]);
                     if (data["logSaveFlag"])
-                        logDB.logPush(namespace.name, data["msg"]);
+                        logDB.logPush(namespace.name, data["msg"]).catch(e => { throw e; });
                 }
             );
             //発言するためのソケット
