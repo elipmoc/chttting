@@ -60,6 +60,11 @@ const urlParam = urlGetParamParse(document.location.href);
 const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
 chatConnection.logSaveFlag = false;
 
+chatConnection.socket.on("urlSend", (urlStr) => {
+  setMovieURL(urlStr);
+});
+
+
 function setMovieURL(url) {
   //"https://www.youtube.com/embed/Iag55pIKWzI?rel=0&start=0&end=5&modestbranding=0&showinfo=0&fs=0&controls=0&autoplay=1&loop=1&playlist=Iag55pIKWzI"
   let v = urlGetParamParse(url)["v"];
@@ -70,7 +75,7 @@ function setMovieURL(url) {
 }
 
 $("#sendUrl").click(e => {
-  setMovieURL($("#urlText").val());
+  chatConnection.socket.emit("urlSend", $("#urlText").val());
 });
 
 setMovieURL("https://www.youtube.com/watch?v=AN3YqXbWgOs");
