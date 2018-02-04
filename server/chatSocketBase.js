@@ -57,19 +57,18 @@ exports.chatBaseNameSpace = class {
                     this._userList.setUserName(socketUtil.getClientIP(socket), data["userData"]);
                     namespace.emit('msg', data["msg"]);
                     if (data["logSaveFlag"])
-                        logDB.logPush(namespace.name, data["msg"]);
+                        logDB.logPush(namespace.name, data["msg"]).catch(e => { throw e; });
                 }
             );
             //発言するためのソケット
             socket.on(
                 'initMsg',
-                function (data) {
-                    socket.emit(
-                        'initMsg',
-                        logDB.logRead(namespace.name, msgList =>
+                (data) => {
+                    logDB.logRead(namespace.name)
+                        .then(msgList =>
                             socket.emit('initMsg', JSON.stringify(msgList))
                         )
-                    );
+                        .catch(e => { throw e; });
                 }
             );
             socket.on("disconnect", () => {
