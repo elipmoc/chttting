@@ -6,21 +6,38 @@ function htmlEscape(htmlText) {
 //hscalcライブラリのロード
 hscalc.load();
 
+class commandViewer {
 
+  let commandList = {};
 
-function commandImageView(chatText, command, url) {
-  const regText = new RegExp("> " + command, "g");
-  const matchText = chatText.match(reg);
-  if (regStr) {
-    chatText = chatText.replace(command, "");
-    chatText = htmlEscape(chatText);
-    return (chatText + '<img src="' + url + '" width="100" height="100">');
-  } else {
-    chatText = htmlEscape(chatText);
-    return chatText;
+  setCommandFunction(){
+  }
+  commandFuncView(chatText, command, func_result) {
+    const regText = new RegExp("> " + command, "g");
+    const matchText = chatText.match(regText);
+    if (matchText) {
+      chatText = chatText.replace(command, "");
+      chatText = htmlEscape(chatText);
+      return (chatText + func_result);
+    } else {
+      chatText = htmlEscape(chatText);
+      return chatText;
+    }
+  }
+
+  commandImageView(chatText, command, url) {
+    const regText = new RegExp("> " + command, "g");
+    const matchText = chatText.match(regText);
+    if (matchText) {
+      chatText = chatText.replace(command, "");
+      chatText = htmlEscape(chatText);
+      return (chatText + '<img src="' + url + '" width="100" height="100">');
+    } else {
+      chatText = htmlEscape(chatText);
+      return chatText;
+    }
   }
 }
-
 
 //コマンドを読み取り実行結果を得る
 function commandFilter(data) {

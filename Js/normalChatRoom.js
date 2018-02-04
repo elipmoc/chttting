@@ -53,8 +53,16 @@ chatConnection.socket.on("userListUpdate", (userDataList) => {
 });
 
 
+function al(msg){
+  return msg;
+}
+
+
+
+
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
-  let msg = commandImageView(data,'931','https://uds.gnst.jp/rest/img/sh42hbk60000/s_0029.jpg?t=1388170491') + '<br><hr>';
+  //let msg = commandImageView(data,'931','https://uds.gnst.jp/rest/img/sh42hbk60000/s_0029.jpg?t=1388170491') + '<br><hr>';
+  let msg = commandFuncView(data,'114',al('aifie')) + '<br><hr>';
   $('#chat_log').prepend(msg);
 }
