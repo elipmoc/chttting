@@ -1,4 +1,6 @@
 const roomCreateSocket = io("/roomCreate");
+
+
 roomCreateSocket.on('created', (errorMsg) => {
   if (errorMsg == "")
     document.location.href = "/";
@@ -6,17 +8,32 @@ roomCreateSocket.on('created', (errorMsg) => {
     $("#roomCreateError").prepend("<font color='red' size='3'>" + errorMsg + "</font>");
 });
 
+
+$('#roomType').change(() => {
+  const description = $("#descText").val();
+  console.log(roomType);
+  if (roomType == "discussion_free") {
+    var addVoteTimeSelecter = $("<select class='form-control' id='voteSelect'></select>");
+    addVoteTimeSelecter.append("<option value='1800'>30分</option>");
+    addVoteTimeSelecter.append("<option value='900'>15分</option>");
+    addVoteTimeSelecter.append("<option value='300'>5分</option>");
+    addVoteTimeSelecter.append("<option value='10'>test</option>");
+    $("#voteTimeSelecter").append(addVoteTimeSelecter);
+  }
+});
+
 $('#create_room').click(() => {
-  let roomName = $("#roomName").val();
-  let roomType = $("#roomType").val();
-  let description = $("#descText").val();
+  const roomName = $("#roomName").val();
+  const roomType = $("#roomType").val();
+  const description = $("#descText").val();
+  const voteTime = $("#voteSelect").val();
   let roomInfo;
   if (roomName == "" || roomType == "")
     return;
   console.log(roomName + ":" + roomType);
   if (roomType == "discussion_free") {
     roomInfo = {
-      voteStartTime: 900,
+      voteStartTime: voteTime,
       voteEndTime: 15
     };
   }
