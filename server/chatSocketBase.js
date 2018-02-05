@@ -52,6 +52,9 @@ exports.chatBaseNameSpace = class {
                 'msg',
                 (data) => {
                     data = JSON.parse(data);
+                    if (JSON.parse(data["msg"])["name"] != undefined && JSON.parse(data["msg"])["name"].length > 20)
+                        return;
+
                     if (data["msg"].length > 500)
                         return;
                     this._userList.setUserName(socketUtil.getClientIP(socket), data["userData"]);
