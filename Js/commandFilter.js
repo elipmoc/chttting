@@ -12,8 +12,8 @@ class commandViewer {
 
   setCommandFunction(){
   }
+  let regText = new RegExp(command, "g");
   commandFuncView(chatText, command, func_result) {
-    const regText = new RegExp("> " + command, "g");
     const matchText = chatText.match(regText);
     if (matchText) {
       chatText = chatText.replace(command, "");
@@ -26,7 +26,6 @@ class commandViewer {
   }
 
   commandImageView(chatText, command, url) {
-    const regText = new RegExp("> " + command, "g");
     const matchText = chatText.match(regText);
     if (matchText) {
       chatText = chatText.replace(command, "");
