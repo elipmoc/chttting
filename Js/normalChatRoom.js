@@ -12,7 +12,7 @@ $("#com").keydown((e) => {
       name: nm
     }));
     if (e.keyCode == 13) {
-      chatConnection.sendData(nm + " > " + ms);
+      chatConnection.sendData(JSON.stringify({ name: nm, msg: ms }));
       document.myf.com.value = "";
     }
   }
@@ -26,7 +26,7 @@ $('#sendButton').click((e) => {
     chatConnection.setUserData(JSON.stringify({
       name: nm
     }));
-    chatConnection.sendData(nm + " > " + ms);
+    chatConnection.sendData(JSON.stringify({ name: nm, msg: ms }));
   }
   document.myf.com.value = "";
 });
@@ -47,13 +47,13 @@ chatConnection.socket.on("userListUpdate", (userDataList) => {
     userData = JSON.parse(userData);
     const urlLocation = document.location.href;
     let name = userData.name == undefined ? "none" : userData.name;
-      userNameList += " " + name + " ";
+    userNameList += " " + name + " ";
   });
   $('#user_name_list').text(userNameList);
 });
 
 
-function al(msg){
+function al(msg) {
   return msg;
 }
 
@@ -63,6 +63,7 @@ function al(msg){
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
   //let msg = commandImageView(data,'931','https://uds.gnst.jp/rest/img/sh42hbk60000/s_0029.jpg?t=1388170491') + '<br><hr>';
-  let msg = commandFuncView(data,'114',al('aifie')) + '<br><hr>';
-  $('#chat_log').prepend(msg);
+  data = JSON.parse(data);
+  let msg = commandFuncView(data.msg, '114', al('aifie')) + '<br><hr>';
+  $('#chat_log').prepend(data.name + "<" + msg);
 }
