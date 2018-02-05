@@ -31,7 +31,8 @@ $("#com").keydown((e) => {
       }));
       chatConnection.sendData(
         JSON.stringify({
-          "msg": nm + " > " + ms,
+          "msg": ms,
+          "name":nm,
           "dipeType": urlParam["stance"],
           "uname": nm
         })
@@ -52,7 +53,8 @@ $('#chat_send').click(() => {
     }));
     chatConnection.sendData(
       JSON.stringify({
-        "msg": nm + " > " + ms,
+        "msg": ms,
+        "name":nm,
         "dipeType": urlParam["stance"],
         "uname": nm
       })
@@ -63,10 +65,12 @@ $('#chat_send').click(() => {
 
 //urlParam["stance"] == "debateLeft"
 //データをチャットメッセージとして追加する関数
+const commandFilter = new CommandFilter();
 function msgDataAdd(data) {
   console.log(data);
   data = JSON.parse(data);
-  let msg = '<div style="border-top:1px #D5D8DC solid; margin-top:6px;margin-bottom:-12px;">' + commandFilter(data["msg"]) + '</div><br>';
+
+let msg = "<div>"+data.name+" > "+commandFilter.doCommandFilter(data.msg)+"</div><hr>";
 
   if (data["dipeType"] == "debateLeft") {
     $('#chat_log').prepend(msg);

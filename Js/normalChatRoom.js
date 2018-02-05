@@ -53,17 +53,13 @@ chatConnection.socket.on("userListUpdate", (userDataList) => {
 });
 
 
-function al(msg) {
-  return msg;
-}
-
 
 const commandFilter = new CommandFilter();
 
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
   data = JSON.parse(data);
-  let msg = "<span style='marign:-10px;'>"+commandFilter.doCommandFilter(data.msg)+"</span>";
+  let msg = "<div '>"+data.name+" > "+commandFilter.doCommandFilter(data.msg)+"<hr></div>";
   console.log(msg);
-  $('#chat_log').prepend(data.name + " > " + msg + "<br><hr>");
+  $('#chat_log').prepend(msg);
 }
