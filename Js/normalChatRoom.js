@@ -58,12 +58,13 @@ function al(msg) {
 }
 
 
-
+const commandFilter = new CommandFilter();
 
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
   //let msg = commandImageView(data,'931','https://uds.gnst.jp/rest/img/sh42hbk60000/s_0029.jpg?t=1388170491') + '<br><hr>';
   data = JSON.parse(data);
-  let msg = commandFuncView(data.msg, '114', al('aifie')) + '<br><hr>';
-  $('#chat_log').prepend(data.name + "<" + msg);
+  let msg = commandFilter.doCommandFilter(data.msg);
+  console.log(msg);
+  $('#chat_log').prepend(data.name + " > " + msg + "<br><hr>");
 }
