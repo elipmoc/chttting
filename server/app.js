@@ -13,7 +13,7 @@ function loadRoomSocket() {
   namespace.on('connection', socket => {
     socket.on(
       'loadRoom',
-      function(data) {
+      function (data) {
         socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
       });
   });
@@ -38,27 +38,9 @@ function attractWriteSocket() {
   });
 }
 
-
-function testSocket() {
-  const nm = io.of("/aaa");
-  nm.on("connection", (socket) => {
-    const adr = socket.handshake.headers['x-forwarded-for'];
-    socket.on("hoge", () => {
-      nm.emit("hoge", adr);
-    });
-  });
-}
-
-/*function attractMainSocket() {
-  const attractNamespace = io.of("/attractConnection");
-
-}*/
-
-
 //関数呼び出し
 loadRoomSocket();
 attractWriteSocket();
-testSocket();
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
 //ポート指定
