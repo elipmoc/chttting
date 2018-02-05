@@ -8,7 +8,8 @@ function createVoteResultJsonStr(voteControl) {
     let leftCount = voteControl.leftCount;
     let rightCount = voteControl.rightCount;
     let json = {
-        "msg": "投票結果：肯定=" + leftCount + " 否定=" + rightCount,
+        "name": "投票結果",
+        "msg": "肯定=" + leftCount + " 否定=" + rightCount,
         "dipeType": leftCount > rightCount ? "debateLeft" : "debateRight",
         "uname": ""
     };
