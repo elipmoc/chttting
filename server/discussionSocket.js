@@ -91,12 +91,12 @@ exports.DiscussionNameSpace = class {
         this._voteEndTime = 10;
 
         debateDB.roomNameSpaceToRoomId(namespace.name)
-            .then(roomId => { return debateDB.getDebateInfo(roomId) })
+            .then(roomId => debateDB.getDebateInfo(roomId))
             .then(debateInfo => {
                 this._voteStartTime = debateInfo.vote_start_time;
                 this._voteEndTime = debateInfo.vote_end_time;
                 return Promise.resolve();
-            });
+            }).catch(e => { throw e; });
 
         //投票秒数カウント
         this._secondCount = 0;
