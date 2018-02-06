@@ -41,7 +41,7 @@ let commentArrow = new CommentArrow();
 $('#sendButton').click(function (e) {
   let ms = document.myf.com.value;
   if (ms != "") {
-    chatConnection.sendData(ms);
+    chatConnection.sendData(JSON.stringify(ms));
     document.myf.com.value = "";
   }
 });
@@ -50,7 +50,7 @@ $("#com").keydown((e) => {
   let ms = document.myf.com.value;
   if (ms != "") {
     if (e.keyCode == 13) {
-      chatConnection.sendData(ms);
+      chatConnection.sendData(JSON.stringify(ms));
       document.myf.com.value = "";
     }
   }
@@ -79,8 +79,9 @@ $("#sendUrl").click(e => {
 });
 
 setMovieURL("https://www.youtube.com/watch?v=AN3YqXbWgOs");
+const commandFilter = new CommandFilter();
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(msgData) {
-  let msg = commandFilter(msgData);
+  let msg = commandFilter.doCommandFilter(JSON.parse(msgData));
   commentArrow.create(msg);
 }
