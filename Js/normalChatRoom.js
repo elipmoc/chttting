@@ -59,7 +59,7 @@ const commandFilter = new CommandFilter();
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(data) {
   data = JSON.parse(data);
-  let msg = "<div '>"+data.name+" > "+commandFilter.doCommandFilter(data.msg)+"<hr></div>";
+  let msg = "<div '>" + htmlEscape(data.name) + " > " + commandFilter.doCommandFilter(data.msg) + "<hr></div>";
   console.log(msg);
   $('#chat_log').prepend(msg);
 }
