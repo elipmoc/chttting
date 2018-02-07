@@ -27,8 +27,9 @@ const attractNamespace = io.of("/attractConnection");
 function attractWriteSocket() {
   attractNamespace.on("connection", (socket) => {
     socket.on("attractWrite", (attractWord) => {
-      attractNamespace.emit("attractWrite", attractWord);
-      attractList.push(attractWord);
+      attractNamespace.emit("attractWrite", JSON.parse(attractWord));
+      attractList.push(JSON.parse(attractWord));
+      console.log(JSON.parse(attractWord));
     });
   });
 }
