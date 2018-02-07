@@ -15,7 +15,7 @@ socket.on('loadRoom', data => {
                     url = "syamu.html";
                     break;
             }
-            $('#card-list').prepend('<div class="card text-center"><div class="card-block"><h4 class="card-title">' + room.room_name + '</h4><p class="card-text">' + room.description + '<p class="card-text"><small class="text-muted">Test chat room.</small></p></p><a class="btn btn-primary" href="' + url + '?roomName=' + encodeURIComponent(room.room_name) + '"><font size="3">INTO</font></a></div></div>');
+            $('#card-list').prepend('<div class="card text-center"><div class="card-block"><h4 class="card-title">' + room.room_name + '</h4><p class="card-text">' + room.description + '</p><a class="btn btn-info" href="' + url + '?roomName=' + encodeURIComponent(room.room_name) + '"><font size="3">入室</font></a></div></div>');
         }
     );
 });
