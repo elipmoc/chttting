@@ -39,7 +39,6 @@ function attractWriteSocket() {
 //関数呼び出し
 loadRoomSocket();
 attractWriteSocket();
-testSocket();
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
 //ポート指定
