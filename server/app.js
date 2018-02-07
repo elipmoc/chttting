@@ -6,7 +6,7 @@ const http = require('http').createServer(
   myRouter.createRouter()
 );
 const io = require('socket.io')(http);
-let attractList = new Array();
+
 //ルーム一覧を表示するソケットを定義
 function loadRoomSocket() {
   const namespace = io.of("/loadRoomStream");
@@ -21,25 +21,30 @@ function loadRoomSocket() {
 }
 
 let attract_title = "";
+let attractList = new Array();
+const attractNamespace = io.of("/attractConnection");
 
 function attractWriteSocket() {
-  const attractNamespace = io.of("/attractConnection");
   attractNamespace.on("connection", (socket) => {
     socket.on("attractWrite", (attractWord) => {
-      if (attractWord != "load") {
-        attractNamespace.emit("attractWrite", attractWord);
-        attract_title = attractWord;
-      } else {
-        attractNamespace.emit("attractWrite", attract_title);
-        attract_title = "";
-      }
-    })
+      attractNamespace.emit("attractWrite", attractWord);
+      attractList.push(attractWord);
+    });
+  });
+}
+
+function attractLoadSocket() {
+  attractNamespace.on("connection", (socket) => {
+    socket.on("attractLoad", () => {
+      attractNamespace.emit("attractLoad",JSON.stringify(attractList));
+    });
   });
 }
 
 //関数呼び出し
 loadRoomSocket();
 attractWriteSocket();
+attractLoadSocket();
 const roomCreateSocket = roomCreate.createRoomCreateSocket(io);
 
 //ポート指定

@@ -10,8 +10,10 @@ if (document.getElementById("attract_send")) {
 }
 
 if (document.getElementById("attract_box")) {
-  attract_socket.emit("attractWrite","load");
-  attract_socket.on("attractWrite",(atr_word)=>{
-    $("#attract_box").prepend("<h4>"+atr_word+"</h4><hr>");
+  attract_socket.emit("attractLoad", "");
+  attract_socket.on("attractLoad", (atr_word) => {
+    JSON.parse(atr_word).forEach((atr_log) => {
+      $("#attract_box").prepend("<h4>" + atr_log + "</h4><hr>");
+    });
   });
 }

@@ -1,61 +1,61 @@
 <html>
 
 <head>
-    <title class="bind-chatName">
-    </title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="Css/style.css">
-    <link rel="stylesheet" href="Css/bootstrap.css">
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+  <title class="bind-chatName">
+  </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="Css/style.css">
+  <link rel="stylesheet" href="Css/bootstrap.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 
 <body style="background-color:#FDFEFE">
-    <center>
-        <div class="titlec" id="titlec"></div>
-    </center>
-    <div class="form_t form-inline">
-        <form id="com_form" name="myf" class="form-group">
-            <span class="text-secondary">NAME</span>
-            <input type="text" placeholder="name" id="name" name="name" class="form-control">
-            <span class="text-secondary">CHAT</span>
-            <input type="text" placeholder="comment" id="com" name="com" class="form-control" onkeydown="">
-            <input type="button" value="send" class="btn btn-primary" id="chat_send">
-            <input type="text" id="title_word">
-            <input type="button" id="title_send" class="btn btn-primary" value="titleSend">
-            <input type="text" id="attract_word" name="attract_word">
-            <input type="button" class="btn btn-primary" id="attract_send" value="attract_send">
-        </form>
-    </div>
-    <h1 id="countDown"></h1>
+  <center>
+    <div class="titlec" id="titlec"></div>
+  </center>
+  <div class="form_t form-inline">
+    <form id="com_form" name="myf" class="form-group">
+      <span class="text-secondary">NAME</span>
+      <input type="text" placeholder="name" id="name" name="name" class="form-control">
+      <span class="text-secondary">CHAT</span>
+      <input type="text" placeholder="comment" id="com" name="com" class="form-control" onkeydown="">
+      <input type="button" value="send" class="btn btn-primary" id="chat_send">
+      <input type="text" id="title_word" class="form-control">
+      <input type="button" id="title_send" class="btn btn-primary" value="titleSend">
+      <input type="text" id="attract_word" name="attract_word" class="form-control">
+      <input type="button" class="btn btn-primary" id="attract_send" value="attract_send">
+    </form>
+  </div>
+  <h1 id="countDown"></h1>
 
-    <div style="margin-top:-20px;">
-        <div class="left_box container-fluid col-xs-6">
-            <button class="btn btn-success" style="width:100%; height:30px; font-size:100%;" id="left">肯定</button>
-            参加者:<span id="left_name_area"></span>
-            <hr>
-            <div id="chat_log"></div>
-        </div>
-
-
-        <div class="right_box container-fluid col-xs-6">
-            <button class="btn btn-danger" style="width:100%; height:30px; font-size:100%;" id="right">否定</button>
-            参加者:<span id="right_name_area"></span>
-            <hr>
-            <div id="chat_log2"></div>
-        </div>
+  <div style="margin-top:-20px;">
+    <div class="left_box container-fluid col-xs-6">
+      <button class="btn btn-success" style="width:100%; height:30px; font-size:100%;" id="left">肯定</button> 参加者:
+      <span id="left_name_area"></span>
+      <hr>
+      <div id="chat_log"></div>
     </div>
 
 
-    <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
-    <script src="https://maxcdn.bootstrapcp.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-    <script src="Js/chatViewTemplate.js"></script>
-    <script src="Js/attractEnt.js"></script>
-    <script src="Js/getUrlParam.js"></script>
-    <script src="Js/commandFilterDiv.js"></script>
-    <script src="Js/chatConnection.js"></script>
-    <script src="Js/discussion.js"></script>
+    <div class="right_box container-fluid col-xs-6">
+      <button class="btn btn-danger" style="width:100%; height:30px; font-size:100%;" id="right">否定</button> 参加者:
+      <span id="right_name_area"></span>
+      <hr>
+      <div id="chat_log2"></div>
+    </div>
+  </div>
+
+
+  <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
+  <script src="https://maxcdn.bootstrapcp.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+  <script src="Js/chatViewTemplate.js"></script>
+  <script src="Js/attractEnt.js"></script>
+  <script src="Js/getUrlParam.js"></script>
+  <script src="Js/commandFilterDiv.js"></script>
+  <script src="Js/chatConnection.js"></script>
+  <script src="Js/discussion.js"></script>
 
 
 </body>
