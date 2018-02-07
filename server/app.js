@@ -25,11 +25,9 @@ let attract_title = "";
 function attractWriteSocket() {
   const attractNamespace = io.of("/attractConnection");
   attractNamespace.on("connection", (socket) => {
-    console.log('a user connected');
     socket.on("attractWrite", (attractWord) => {
       if (attractWord != "load") {
         attractNamespace.emit("attractWrite", attractWord);
-        console.log(attractWord);
         attract_title = attractWord;
       } else {
         attractNamespace.emit("attractWrite", attract_title);
@@ -37,23 +35,6 @@ function attractWriteSocket() {
     })
   });
 }
-
-
-function testSocket() {
-  const nm = io.of("/aaa");
-  nm.on("connection", (socket) => {
-    const adr = socket.handshake.headers['x-forwarded-for'];
-    socket.on("hoge", () => {
-      nm.emit("hoge", adr);
-    });
-  });
-}
-
-/*function attractMainSocket() {
-  const attractNamespace = io.of("/attractConnection");
-
-}*/
-
 
 //関数呼び出し
 loadRoomSocket();
