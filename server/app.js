@@ -13,7 +13,7 @@ function loadRoomSocket() {
   namespace.on('connection', socket => {
     socket.on(
       'loadRoom',
-      function(data) {
+      function (data) {
         socket.emit('loadRoom', JSON.stringify(roomCreate.getRoomList()));
       });
   });

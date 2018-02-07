@@ -32,7 +32,7 @@ $("#com").keydown((e) => {
       chatConnection.sendData(
         JSON.stringify({
           "msg": ms,
-          "name":nm,
+          "name": nm,
           "dipeType": urlParam["stance"],
           "uname": nm
         })
@@ -54,7 +54,7 @@ $('#chat_send').click(() => {
     chatConnection.sendData(
       JSON.stringify({
         "msg": ms,
-        "name":nm,
+        "name": nm,
         "dipeType": urlParam["stance"],
         "uname": nm
       })
@@ -70,7 +70,7 @@ function msgDataAdd(data) {
   console.log(data);
   data = JSON.parse(data);
 
-let msg = "<div>"+data.name+" > "+commandFilter.doCommandFilter(data.msg)+"</div><hr>";
+  let msg = "<div>" + htmlEscape(data.name) + " > " + commandFilter.doCommandFilter(data.msg) + "</div><hr>";
 
   if (data["dipeType"] == "debateLeft") {
     $('#chat_log').prepend(msg);
