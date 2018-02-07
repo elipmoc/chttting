@@ -25,36 +25,38 @@
 
 <body style="background-color:#ECF0F1;">
   <center>
-    <div class="titlec bind-chatName" id="titlec"></div>
+    <!-- <div class="titlec bind-chatName" id="titlec"></div> -->
   </center>
-  <div class="container">
-    <div class="col-md-10 form_box">
-      <div class="form_t form-inline">
+  <center>
+  <div class="container text-left" style="margin-top:5%;">
+    <div class="col-md-12 form_box">
+       <!-- <div class="form_t form-inline"> -->
+       <center><h1>RoomCreate</h1></center>
         <form id="com_form" name="myf" class="" target="hoge">
 
-          <br>
-
-          <div class="text-secondary">RoomName</div>
+          <div class="text-secondary">部屋名 -RoomName</div>
           <input type="text" placeholder="RoomName" id="roomName" name="name" class="">
-          <br>
-          <div class="text-secondary">RoomType</div>
+          <br><br>
+          <div class="text-secondary">部屋の種類 -RoomType</div>
           <select class="form-control" id="roomType">
-            <option value="normal">Normal</option>
-            <option value="discussion_free">Discussion</option>
-            <option value="movie">Movie</option>
-          </select>
+            <option value="normal">雑談</option>
+            <option value="discussion_free">議論</option>
+            <option value="movie">動画</option>
+          </select><br>
           <div id="voteTimeSelecter" id="form-control"></div>
-          <input type="text" id="descText" name="descText">
-          <br>
-          <input type="button" id="create_room" class="btn btn-primary" value="CreateRoom">
+          <div class="text-secondary">詳細 -Description</div>
+          <input type="text" id="descText" name="descText" placeholder="詳細情報">
+          <br><br>
+          <input type="button" id="create_room" class="btn btn-primary" value="部屋作成">
           <div style="display:none;">
             <iframe id="hoge" name="hoge" width="0" height="0"></iframe>
           </div>
           <div id="roomCreateError"></div>
         </form>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
+</center>
 </body>
 
 <!-- <script src="logging.js" type="text/javascript" for="window"></script> !-->
