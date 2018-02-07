@@ -10,9 +10,11 @@ roomCreateSocket.on('created', (errorMsg) => {
 
 
 $('#roomType').change(() => {
+  const roomType = $("#roomType").val();
   const description = $("#descText").val();
   console.log(roomType);
   if (roomType == "discussion_free") {
+    console.log(roomType);
     var addVoteTimeSelecter = $("<select class='form-control' id='voteSelect'></select>");
     addVoteTimeSelecter.append("<option value='1800'>30分</option>");
     addVoteTimeSelecter.append("<option value='900'>15分</option>");
@@ -34,7 +36,7 @@ $('#create_room').click(() => {
   if (roomType == "discussion_free") {
     roomInfo = {
       voteStartTime: voteTime,
-      voteEndTime: 15
+      voteEndTime: 30
     };
   }
   roomCreateSocket.emit('create', JSON.stringify({
