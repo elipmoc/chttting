@@ -1,6 +1,6 @@
 const myRouter = require("./myRouter.js");
 const roomCreate = require("./roomList.js");
-const discussion = require("./discussionSocket.js");
+const discussion = require("./debateSocket.js");
 const escape = require('escape-html');
 const http = require('http').createServer(
   myRouter.createRouter()
@@ -37,7 +37,7 @@ function attractWriteSocket() {
 function attractLoadSocket() {
   attractNamespace.on("connection", (socket) => {
     socket.on("attractLoad", () => {
-      attractNamespace.emit("attractLoad",JSON.stringify(attractList));
+      attractNamespace.emit("attractLoad", JSON.stringify(attractList));
     });
   });
 }
