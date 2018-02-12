@@ -2,88 +2,13 @@
 const logDB = require("./logDB.js");
 const socketUtil = require("./socketUtil.js");
 const debateDB = require("./debateDB.js");
-
-//投票結果をmsgで使用するjson文字列に加工する関数
-function createVoteResultJsonStr(voteControl) {
-    let leftCount = voteControl.leftCount;
-    let rightCount = voteControl.rightCount;
-    let json = {
-        "name": "投票結果",
-        "msg": "肯定=" + leftCount + " 否定=" + rightCount,
-        "dipeType": leftCount > rightCount ? "debateLeft" : "debateRight",
-        "uname": ""
-    };
-    return JSON.stringify(json);
-}
-
-
-
-//debateTitleを操作するクラス
-class DebateTitle {
-    constructor(defaultTitle) {
-        this._defaultTitle = defaultTitle;
-        this._defaultFlag = true;
-        this._debateTitle = defaultTitle;
-    }
-
-    get debateTitle() { return this._debateTitle; }
-    set debateTitle(value) { this._debateTitle = value; this._defaultFlag = false; }
-    setDefaultTitle() {
-        this._debateTitle = this._defaultTitle;
-        this._defaultFlag = true;
-    }
-    isDefaultTitle() { return this._defaultFlag; }
-}
-
-//投票者のIpリストを操作するクラス
-class VotersIpList {
-    constructor() {
-        this._ipList = {};
-    }
-    exsistIp(ip) {
-        return this._ipList[ip] == true;
-    }
-    resistIp(ip) {
-        this._ipList[ip] = true;
-    }
-    clear() {
-        this._ipList = {};
-    }
-}
-
-//投票を管理するクラス
-class VoteControl {
-    constructor() {
-        //投票数のカウント
-        this._leftCount = 0;
-        this._rightCount = 0;
-        //投票者のIPを保存するリスト
-        this._votersIpList = new VotersIpList();
-    }
-    vote(voteType, ip) {
-        if (this._votersIpList.exsistIp(ip) == false) {
-            if (voteType == "left")
-                this._leftCount++;
-            else if (voteType == "right")
-                this._rightCount++;
-            this._votersIpList.resistIp(ip);
-        }
-    }
-    reset() {
-        this._leftCount = 0;
-        this._rightCount = 0;
-        this._votersIpList.clear();
-    }
-
-    get leftCount() { return this._leftCount; }
-    get rightCount() { return this._rightCount; }
-}
+const debateUtill = require("./DebateUtill.js");
 
 //ディスカッション名前空間にソケットイベントをバインドするクラス
 exports.DiscussionNameSpace = class {
     constructor(namespace) {
-        this._voteControl = new VoteControl();
-        this._debateTitle = new DebateTitle("ARRAYMA");
+        this._voteControl = new debateUtill.VoteControl();
+        this._debateTitle = new debateUtill.DebateTitle("ARRAYMA");
         this._voteFlag = false;
         //議論する時間
         this._voteStartTime = 10;
@@ -126,13 +51,13 @@ exports.DiscussionNameSpace = class {
                     this._debateTitle.setDefaultTitle();
                     namespace.emit("titleSend", this._debateTitle.debateTitle);
                     namespace.emit("endVote", "");
-                    let msg = createVoteResultJsonStr(this._voteControl);
+                    let msg = debateUtill.createVoteResultJsonStr(this._voteControl);
                     namespace.emit("msg", msg);
                     this._voteControl.reset();
                     logDB.logPush(namespace.name, msg);
                 }
             }, 1000);
-        }
+        };
 
         //ソケットのイベント
         this.connectEvent = (socket) => {
@@ -151,8 +76,7 @@ exports.DiscussionNameSpace = class {
             });
             socket.on("vote", (data) => {
                 this._voteControl.vote(data, socketUtil.getClientIP(socket));
-
             });
         };
     }
-}
+};
