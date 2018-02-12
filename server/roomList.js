@@ -1,7 +1,7 @@
 const createRoomDB = require("./createRoomDB.js");
 const chatSocketBase = require('./chatSocketBase.js');
 const escape = require('escape-html');
-const discussion = require("./discussionSocket.js");
+const debate = require("./debateSocket.js");
 const movie = require("./movieSocket.js");
 const getDbClient = require("./getDbClient.js");
 
@@ -14,7 +14,7 @@ function addRoom(roomName, roomType, description, mainSocket) {
     room_list.push({ room_name: roomName, room_type: roomType, description: description });
     let namespace = mainSocket.of("/" + roomName);
     if (roomType == "discussion_free") {
-        let connectEvent = new discussion.DiscussionNameSpace(namespace).connectEvent;
+        let connectEvent = new debate.DiscussionNameSpace(namespace).connectEvent;
         let connectEvent2 = new chatSocketBase.chatBaseNameSpace(namespace).connectEvent;
         namespace.on('connection', (socket) => {
             connectEvent(socket);
