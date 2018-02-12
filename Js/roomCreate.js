@@ -21,6 +21,8 @@ $('#roomType').change(() => {
     addVoteTimeSelecter.append("<option value='300'>5分</option>");
     addVoteTimeSelecter.append("<option value='10'>test</option>");
     $("#voteTimeSelecter").append(addVoteTimeSelecter);
+  }else{
+    $("#voteTimeSelecter").text("");
   }
 });
 
