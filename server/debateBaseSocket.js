@@ -10,9 +10,9 @@ exports.DebateBaseNameSpace = class {
         this._debateTitle = new debateUtill.DebateTitle("ARRAYMA");
         this._voteFlag = false;
         //議論する時間
-        this._voteStartTime = 10;
+        this._voteStartTime = 3;
         //投票時間
-        this._voteEndTime = 10;
+        this._voteEndTime = 3;
 
         //投票秒数カウント
         this._secondCount = 0;

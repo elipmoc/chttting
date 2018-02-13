@@ -4,6 +4,7 @@ const escape = require('escape-html');
 const debate = require("./debateSocket.js");
 const movie = require("./movieSocket.js");
 const getDbClient = require("./getDbClient.js");
+const officialDebate = require("./officialDebateSocket.js");
 
 let room_list = new Array();
 //名前空間のリスト。いまはまだ使いみちがない
@@ -18,6 +19,14 @@ function addRoom(roomName, roomType, description, mainSocket) {
         let connectEvent2 = new chatSocketBase.chatBaseNameSpace(namespace).connectEvent;
         namespace.on('connection', (socket) => {
             discussionNameSpace.connectEvent(socket);
+            connectEvent2(socket);
+        });
+    }
+    else if (roomType == "official_debate") {
+        let officialDebateNameSpace = new officialDebate.OfficialDiscussionNameSpace(namespace);
+        let connectEvent2 = new chatSocketBase.chatBaseNameSpace(namespace).connectEvent;
+        namespace.on('connection', (socket) => {
+            officialDebateNameSpace.connectEvent(socket);
             connectEvent2(socket);
         });
     }
