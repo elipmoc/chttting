@@ -8,6 +8,9 @@ socket.on('loadRoom', data => {
                 case "discussion_free":
                     url = "discussion.html";
                     break;
+                case "official_debate":
+                    url = "officialDebate.html";
+                    break;
                 case "normal":
                     url = "normalChatRoom.html";
                     break;
