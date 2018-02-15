@@ -1,7 +1,7 @@
 
 const logDB = require("./logDB.js");
 const socketUtil = require("./socketUtil.js");
-const debateUtill = require("./DebateUtill.js");
+const debateUtill = require("./debateUtill.js");
 
 //ディスカッション名前空間にソケットイベントをバインドするクラス
 exports.DebateBaseNameSpace = class {
