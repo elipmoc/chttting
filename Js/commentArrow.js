@@ -101,8 +101,12 @@ class YoutubePlayer {
   }
 
   setSeek(seek) {
-    if (this._readyFlag)
-      this._player.seekTo(seek, true);
+    if (this._readyFlag) {
+      console.log(this._player.getCurrentTime());
+      if (Math.abs(this._player.getCurrentTime() - seek) > 1) {
+        this._player.seekTo(seek, true);
+      }
+    }
   }
 
   changeUrl(videoId) {
