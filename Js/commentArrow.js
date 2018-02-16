@@ -66,6 +66,11 @@ chatConnection.socket.on("videoIdSend", (videoId) => {
   setMovieURL(videoId);
 });
 
+chatConnection.socket.on("fixSeek", (seek) => {
+  youtubePlayer.setSeek(seek);
+});
+
+
 
 function setMovieURL(_videoId) {
   videoId = _videoId;
@@ -92,7 +97,14 @@ class YoutubePlayer {
   constructor() {
     this._player = null;
     this._videoId;
+    this._readyFlag = false;
   }
+
+  setSeek(seek) {
+    if (this._readyFlag)
+      this._player.seekTo(seek, true);
+  }
+
   changeUrl(videoId) {
     this._videoId = videoId;
     this._player.loadVideoById(videoId);
@@ -102,6 +114,7 @@ class YoutubePlayer {
     const onPlayerReady = (event) => {
       event.target.loadVideoById(this._videoId);
       event.target.playVideo();
+      this._readyFlag = true;
     };
     this._player = new YT.Player('iframe', {
       height: '500',
