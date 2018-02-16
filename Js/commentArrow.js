@@ -77,8 +77,7 @@ function setMovieURL(url) {
 $("#sendUrl").click(e => {
   chatConnection.socket.emit("urlSend", $("#urlText").val());
 });
-
-setMovieURL("https://www.youtube.com/watch?v=AN3YqXbWgOs");
+chatConnection.socket.emit("initUrl");
 const commandFilter = new CommandFilter();
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(msgData) {

@@ -7,6 +7,9 @@ exports.movieNameSpace = class {
         this._urlStr = "https://www.youtube.com/watch?v=AN3YqXbWgOs";
         //ソケットのイベント
         this.connectEvent = (socket) => {
+            socket.on("initUrl", () => {
+                socket.emit("urlSend", this._urlStr);
+            });
             socket.on("urlSend", (urlStr) => {
                 this._urlStr = escape(urlStr);
                 namespace.emit("urlSend", this._urlStr);
