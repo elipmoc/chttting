@@ -145,6 +145,7 @@ class YoutubePlayer {
 let youtubePlayer = new YoutubePlayer();
 //youtube apiが準備し終わった時に呼ばれる関数
 function onYouTubeIframeAPIReady() {
+  console.log("createPlayer");
   youtubePlayer.createPlayer(videoId);
 }
 
