@@ -69,7 +69,7 @@ function setMovieURL(url) {
   //"https://www.youtube.com/embed/Iag55pIKWzI?rel=0&start=0&end=5&modestbranding=0&showinfo=0&fs=0&controls=0&autoplay=1&loop=1&playlist=Iag55pIKWzI"
   let v = urlGetParamParse(url)["v"];
   if (v) {
-    url = "https://www.youtube.com/embed/" + v + "?rel=0&start=0&end=5&modestbranding=0&showinfo=0&fs=0&controls=0&autoplay=1&loop=1&playlist=" + v;
+    url = "https://www.youtube.com/embed/" + v + "?rel=0&modestbranding=0&showinfo=0&fs=0&controls=0&autoplay=1";
     $("#iframe").attr("src", url);
   }
 }
