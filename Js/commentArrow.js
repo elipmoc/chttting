@@ -111,7 +111,8 @@ class YoutubePlayer {
 
   changeUrl(videoId) {
     this._videoId = videoId;
-    this._player.loadVideoById(videoId);
+    if (this._readyFlag)
+      this._player.loadVideoById(videoId);
   }
 
   createPlayer(videoId) {
