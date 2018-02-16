@@ -62,23 +62,24 @@ const urlParam = urlGetParamParse(document.location.href);
 const chatConnection = new ChatConnection(urlParam["roomName"], msgDataAdd);
 chatConnection.logSaveFlag = false;
 
-chatConnection.socket.on("urlSend", (urlStr) => {
-  setMovieURL(urlStr);
+chatConnection.socket.on("videoIdSend", (videoId) => {
+  setMovieURL(videoId);
 });
 
 
-function setMovieURL(url) {
-  let v = urlGetParamParse(url).v;
-  if (v) {
-    videoId = v;
-    youtubePlayer.changeUrl(videoId);
-  }
+function setMovieURL(_videoId) {
+  videoId = _videoId;
+  youtubePlayer.changeUrl(videoId);
 }
 
 $("#sendUrl").click(e => {
-  chatConnection.socket.emit("urlSend", $("#urlText").val());
+  const videoId = urlGetParamParse($("#urlText").val()).v;
+  if (videoId) {
+    chatConnection.socket.emit("videoIdSend", videoId);
+  }
 });
-chatConnection.socket.emit("initUrl");
+
+chatConnection.socket.emit("initVideoId");
 const commandFilter = new CommandFilter();
 //データをチャットメッセージとして追加する関数
 function msgDataAdd(msgData) {

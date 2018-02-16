@@ -30,17 +30,17 @@ function getYoutubeTime(videoId) {
 //ディスカッション名前空間にソケットイベントをバインドするクラス
 exports.movieNameSpace = class {
     constructor(namespace) {
-        this._urlStr = "https://www.youtube.com/watch?v=AN3YqXbWgOs";
+        this._videoId = "AN3YqXbWgOs";
         this._currentSeek = 0;
         this._endSeek = 0;
         //ソケットのイベント
         this.connectEvent = (socket) => {
-            socket.on("initUrl", () => {
-                socket.emit("urlSend", this._urlStr);
+            socket.on("initVideoId", () => {
+                socket.emit("videoIdSend", this._videoId);
             });
-            socket.on("urlSend", (urlStr) => {
-                this._urlStr = escape(urlStr);
-                namespace.emit("urlSend", this._urlStr);
+            socket.on("videoIdSend", (videoId) => {
+                this._videoId = escape(videoId);
+                namespace.emit("videoIdSend", this._videoId);
             });
         };
     }
