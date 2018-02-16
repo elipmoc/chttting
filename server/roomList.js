@@ -41,6 +41,7 @@ function addRoom(roomName, roomType, description, mainSocket) {
     else {
         let connectEvent = new chatSocketBase.chatBaseNameSpace(namespace).connectEvent;
         namespace.on('connection', connectEvent);
+        namespace.on('connection', (socket) => console.log("sososfos"));
     }
     namespaceList[roomName] = namespace;
 }
