@@ -38,6 +38,8 @@ class CommentArrow {
 
 let commentArrow = new CommentArrow();
 
+let videoId = "";
+
 $('#sendButton').click(function (e) {
   let ms = document.myf.com.value;
   if (ms != "") {
@@ -66,11 +68,10 @@ chatConnection.socket.on("urlSend", (urlStr) => {
 
 
 function setMovieURL(url) {
-  //"https://www.youtube.com/embed/Iag55pIKWzI?rel=0&start=0&end=5&modestbranding=0&showinfo=0&fs=0&controls=0&autoplay=1&loop=1&playlist=Iag55pIKWzI"
-  let v = urlGetParamParse(url)["v"];
+  let v = urlGetParamParse(url).v;
   if (v) {
-    url = "https://www.youtube.com/embed/" + v + "?rel=0&modestbranding=0&showinfo=0&fs=0&controls=0&autoplay=1";
-    $("#iframe").attr("src", url);
+    videoId = v;
+    youtubePlayer.changeUrl(videoId);
   }
 }
 
@@ -84,3 +85,47 @@ function msgDataAdd(msgData) {
   let msg = commandFilter.doCommandFilter(JSON.parse(msgData));
   commentArrow.create(msg);
 }
+
+class YoutubePlayer {
+
+  constructor() {
+    this._player = null;
+    this._videoId;
+  }
+  changeUrl(videoId) {
+    this._videoId = videoId;
+    this._player.loadVideoById(videoId);
+  }
+
+  createPlayer(videoId) {
+    const onPlayerReady = (event) => {
+      event.target.loadVideoById(this._videoId);
+      event.target.playVideo();
+    };
+    this._player = new YT.Player('iframe', {
+      height: '500',
+      width: '100%',
+      videoId: videoId,
+      playerVars: {
+        controls: 0, // コントロールバーを表示しない
+        showinfo: 0, // 動画情報を表示しない
+        modestbranding: 1,
+        fs: 0,
+        showinfo: 0,
+        rel: 0
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': this.onPlayerStateChange
+      }
+    });
+  }
+  onPlayerStateChange(event) { }
+}
+
+let youtubePlayer = new YoutubePlayer();
+//youtube apiが準備し終わった時に呼ばれる関数
+function onYouTubeIframeAPIReady() {
+  youtubePlayer.createPlayer(videoId);
+}
+
